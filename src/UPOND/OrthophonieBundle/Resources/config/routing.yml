@@ -1,0 +1,23 @@
+upond_orthophonie_home:
+    path:     /
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:index }
+
+upond_orthophonie_phases:
+    path:     /phases
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:phases }
+
+upond_orthophonie_exercice:
+    path:     /exercice
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:exercice }
+
+upond_orthophonie_apprentissage:
+    path:      /apprentissage
+    defaults:  { _controller: UPONDOrthophonieBundle:Phases:apprentissage }
+
+upond_orthophonie_entrainement:
+    path:      /entrainement
+    defaults:  { _controller: UPONDOrthophonieBundle:Phases:entrainement }
+
+upond_orthophonie_transfert:
+    path:      /transfert
+    defaults:  { _controller: UPONDOrthophonieBundle:Phases:transfert }

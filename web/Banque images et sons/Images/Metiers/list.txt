@@ -1,0 +1,49 @@
+ Le volume dans le lecteur L s'appelle brderbec
+ Le num‚ro de s‚rie du volume est 6D59-D73E
+
+ R‚pertoire de L:\Documents\M2\Projet Orthophonie\Banque images et sons\Banque images et sons\Images\Metiers
+
+05/01/2016  14:53    <DIR>          .
+05/01/2016  14:53    <DIR>          ..
+03/12/2015  09:19            77ÿ082 plombier.jpg
+03/12/2015  09:19            97ÿ798 mecanicien.jpg
+03/12/2015  09:21            44ÿ573 cameraman.jpg
+03/12/2015  09:19            30ÿ781 guitariste.jpg
+03/12/2015  09:21            41ÿ991 taxi.jpg
+03/12/2015  09:21            22ÿ441 clown.jpg
+03/12/2015  09:21            70ÿ948 caissiere.jpg
+03/12/2015  09:21             8ÿ983 arbitre.jpg
+03/12/2015  09:21            10ÿ390 cuisinier.png
+05/01/2016  15:13               208 list.txt
+03/12/2015  09:21            11ÿ512 avocat.jpg
+03/12/2015  09:19            13ÿ378 bucheron.jpg
+03/12/2015  09:21             7ÿ564 Militaire.jpg
+03/12/2015  09:19           125ÿ375 boulanger.jpg
+03/12/2015  09:21            62ÿ795 dentiste.jpg
+03/12/2015  09:19           154ÿ084 pianiste.jpg
+03/12/2015  09:21            68ÿ958 apiculteur.jpg
+03/12/2015  09:19            65ÿ433 professeur.jpg
+03/12/2015  09:19           179ÿ069 footballeur.jpg
+03/12/2015  09:19            70ÿ588 pompier.jpg
+03/12/2015  09:21            56ÿ823 pecheur.jpg
+03/12/2015  09:19            40ÿ093 eboueur.jpg
+03/12/2015  09:21            14ÿ872 jardinier.jpg
+03/12/2015  09:19           151ÿ297 electricien.jpg
+03/12/2015  09:19            12ÿ732 pharmarcien.jpg
+03/12/2015  09:21            26ÿ090 detective.jpg
+03/12/2015  09:21            33ÿ228 poissonnier.jpg
+03/12/2015  09:19            82ÿ246 veterinaire.jpg
+03/12/2015  09:21            16ÿ271 forgeron.jpg
+03/12/2015  09:21            14ÿ054 facteur.jpg
+03/12/2015  09:19           153ÿ737 nageur.JPG
+03/12/2015  09:19           132ÿ899 polices.jpg
+03/12/2015  09:21           278ÿ297 boucher.jpg
+03/12/2015  09:21           270ÿ382 magicien.jpg
+03/12/2015  09:19            25ÿ712 macon.jpg
+03/12/2015  09:21             6ÿ194 journaliste.jpg
+03/12/2015  09:19           392ÿ093 peintre.png
+03/12/2015  09:19           775ÿ093 eboueurs.jpg
+03/12/2015  09:21             6ÿ019 juge.jpg
+03/12/2015  09:19            59ÿ682 medecin.jpg
+              40 fichier(s)        3ÿ711ÿ765 octets
+               2 R‚p(s)     844ÿ156ÿ928 octets libres

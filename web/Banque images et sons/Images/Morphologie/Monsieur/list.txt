@@ -1,0 +1,30 @@
+ Le volume dans le lecteur L s'appelle brderbec
+ Le num‚ro de s‚rie du volume est 6D59-D73E
+
+ R‚pertoire de L:\Documents\M2\Projet Orthophonie\Multimedia\Morphologie\Monsieur
+
+08/04/2016  11:54    <DIR>          .
+08/04/2016  11:54    <DIR>          ..
+05/01/2016  15:50            56ÿ269 lebarbu.jpg
+05/01/2016  15:50            62ÿ404 maquille.jpg
+05/01/2016  15:50            86ÿ347 lag‚.jpg
+05/01/2016  15:50            71ÿ425 carreau.jpg
+05/01/2016  15:50            77ÿ775 lenoeud.jpg
+05/01/2016  15:50            87ÿ394 ryo.jpg
+05/01/2016  15:50            47ÿ814 leblanc.jpg
+05/01/2016  15:50            44ÿ110 lerose.jpg
+08/04/2016  11:56               181 list.txt
+05/01/2016  15:50            73ÿ891 frisette.jpg
+05/01/2016  15:50            43ÿ487 lemagicien.jpg
+05/01/2016  15:50            48ÿ739 lerond.jpg
+05/01/2016  15:50            68ÿ585 lecasque.jpg
+05/01/2016  15:50            59ÿ094 pc.jpg
+05/01/2016  15:50            70ÿ013 joyeux.jpg
+05/01/2016  15:50            61ÿ746 echarpe.jpg
+05/01/2016  15:50            63ÿ098 lanu.jpg
+05/01/2016  15:50            73ÿ867 amoureux.jpg
+05/01/2016  15:50            66ÿ373 lamontre.jpg
+05/01/2016  15:50            78ÿ152 serieux.jpg
+05/01/2016  15:50            60ÿ083 lacreme.jpg
+              21 fichier(s)        1ÿ300ÿ847 octets
+               2 R‚p(s)     721ÿ027ÿ072 octets libres
