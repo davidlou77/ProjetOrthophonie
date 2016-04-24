@@ -10,6 +10,10 @@ upond_orthophonie_exercice:
     path:     /exercice
     defaults: { _controller: UPONDOrthophonieBundle:Phases:exercice }
 
+upond_orthophonie_start:
+    path:     /start
+    defaults: { _controller: UPONDOrthophonieBundle:Partie:start }
+
 upond_orthophonie_apprentissage:
     path:      /apprentissage
     defaults:  { _controller: UPONDOrthophonieBundle:Phases:apprentissage }

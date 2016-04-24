@@ -27,14 +27,11 @@ class Patient
     private $prenom;
 
     /**
-     * @var \Utilisateur
+     * @var integer
      *
+     * @ORM\Column(name="id_patient", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_patient", referencedColumnName="id")
-     * })
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idPatient;
 
@@ -97,29 +94,6 @@ class Patient
     }
 
     /**
-     * Set idPatient
-     *
-     * @param \UPOND\OrthophonieBundle\Entity\Utilisateur $idPatient
-     * @return Patient
-     */
-    public function setIdPatient(\UPOND\OrthophonieBundle\Entity\Utilisateur $idPatient)
-    {
-        $this->idPatient = $idPatient;
-
-        return $this;
-    }
-
-    /**
-     * Get idPatient
-     *
-     * @return \UPOND\OrthophonieBundle\Entity\Utilisateur 
-     */
-    public function getIdPatient()
-    {
-        return $this->idPatient;
-    }
-
-    /**
      * Set idMedecin
      *
      * @param \UPOND\OrthophonieBundle\Entity\Medecin $idMedecin
@@ -140,5 +114,27 @@ class Patient
     public function getIdMedecin()
     {
         return $this->idMedecin;
+    }
+
+    /**
+     * Get idPatient
+     *
+     * @return integer
+     */
+    public function getIdPatient()
+    {
+        return $this->idPatient;
+    }
+
+    /**
+     * Set idPatient
+     *
+     * @param string $idPatient
+     * @return integer
+     */
+    public function setIdPatient($idPatient)
+    {
+        $this->idPatient = $idPatient;
+        return $this;
     }
 }

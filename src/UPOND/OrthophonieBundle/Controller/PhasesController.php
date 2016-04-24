@@ -9,6 +9,8 @@
 namespace UPOND\OrthophonieBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use UPOND\OrthophonieBundle\Entity\Multimedia;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -68,7 +70,7 @@ class PhasesController extends Controller
         $multimedia = $question->getMultimedia();
 
         // On crée le FormBuilder grâce au service form factory
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $question);
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
 
         // On ajoute les champs que l'on veut à notre formulaire
         $formBuilder

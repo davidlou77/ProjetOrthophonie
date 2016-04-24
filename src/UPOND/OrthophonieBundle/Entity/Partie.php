@@ -24,13 +24,6 @@ class Partie
     private $idPartie;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="temps_total", type="integer", nullable=false)
-     */
-    private $tempsTotal;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="partie_fini", type="boolean", nullable=false)
