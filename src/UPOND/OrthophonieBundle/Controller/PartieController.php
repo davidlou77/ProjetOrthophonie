@@ -217,9 +217,7 @@ class PartieController extends Controller
 
         $questions = $queryQuestions->getResult();
 
-        $repositoryQuestion = $em
-            ->getRepository('UPONDOrthophonieBundle:Question')
-        ;
+       
         // on prend un id aléatoire parmi les résultats
         $idQuestion = array_rand($questions, 7);
         $arrayQuestion = array();
