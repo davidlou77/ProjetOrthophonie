@@ -8,10 +8,12 @@
 
 namespace UPOND\UserBundle\Form\Type;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Symfony\Component\Form\AbstractType;
 
-class RegistrationFormType extends BaseType
+class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,8 +24,23 @@ class RegistrationFormType extends BaseType
         $builder->add('Prenom', TextType::class);
     }
 
-    public function getName()
+
+    public function getBlockPrefix()
     {
         return 'upond_user_registration';
+    }
+
+    // For Symfony 2.x
+    public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    public function getParent()
+    {
+        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+
+        // Or for Symfony < 2.8
+        // return 'fos_user_registration';
     }
 }
