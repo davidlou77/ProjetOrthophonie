@@ -73,22 +73,16 @@ class PartieController extends Controller
             // on récupere l'id de l'user
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $idUser = $user->getId();
-            // on récupere tous les ID de la table Question
+
+            // on récupère l'entité du patient selon l'id utilisateur
             $em = $this
                 ->getDoctrine()
                 ->getManager();
 
-            $queryPatient = $em->createQuery(
-                'SELECT p
-            FROM UPONDOrthophonieBundle:Patient p
-            WHERE p.idPatient= :idUser'
-            );
-            $queryPatient->setParameter('idUser', $idUser);
-            $idPatient = $queryPatient->getSingleResult();
             $repositoryPatient = $em
                 ->getRepository('UPONDOrthophonieBundle:Patient');
             // on récupere l'entité de l'ID
-            $patient = $repositoryPatient->findOneByIdPatient($idPatient);
+            $patient = $repositoryPatient->findOneByIdUtilisateur($idUser);
 
             // on créé une nouvelle partie
             $partie = new Partie();

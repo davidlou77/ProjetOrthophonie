@@ -81,3 +81,6 @@ fos_user:
     registration:
         form:
             type: UPOND\UserBundle\Form\Type\RegistrationFormType
+    profile:
+        form:
+            type: UPOND\UserBundle\Form\Type\ProfileFormType

@@ -33,6 +33,9 @@ class MenuBuilder implements ContainerAwareInterface
             $menu['User']->addChild('Modifier votre profil', array('route' => 'fos_user_profile_edit'))
                 ->setAttribute('icon', 'icon-edit');
 
+            $menu['User']->addChild('Modifier votre mot de passe', array('route' => 'fos_user_change_password'))
+                ->setAttribute('icon', 'icon-edit');
+
             $menu['User']->addChild('Se déconnecter', array('route' => 'fos_user_security_logout'))
                 ->setAttribute('icon', 'icon-remove');
 
