@@ -53,6 +53,15 @@ class MenuBuilder implements ContainerAwareInterface
             $menu->addChild('Statistiques', array('route' => 'upond_orthophonie_stats'))
                 ->setAttribute('icon', 'glyphicon glyphicon-stats');
 
+            if($this->container->get('security.authorization_checker')->isGranted(array('ROLE_ADMIN', 'ROLE_USER'))) { // Check if the visitor has any authent
+                $menu->addChild('Administration', array('route' => 'upond_orthophonie_stats'))
+                    ->setAttribute('dropdown', true)
+                    ->setAttribute('icon', 'glyphicon glyphicon-floppy-saved');
+
+                $menu['Administration']->addChild('Gestion des medecins', array('route' => 'upond_orthophonie_administration_medecin'));
+                $menu['Administration']->addChild('Gestion des patients', array('route' => 'upond_orthophonie_administration_patient'));
+                $menu['Administration']->addChild('Gestion des exercices', array('route' => 'upond_orthophonie_administration_exercice'));
+            }
         }
         else
         {
