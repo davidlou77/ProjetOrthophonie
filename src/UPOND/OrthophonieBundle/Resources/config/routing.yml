@@ -28,4 +28,4 @@ upond_orthophonie_transfert:
 
 upond_orthophonie_stats:
     path:      /statistiques
-    defaults:  { _controller: UPONDOrthophonieBundle:Statistique:index }
+    defaults:  { _controller: UPONDOrthophonieBundle:Statistique:statistique }
