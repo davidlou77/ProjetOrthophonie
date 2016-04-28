@@ -67,6 +67,11 @@ class FormExtensionBootstrap3HorizontalLayoutTest extends AbstractBootstrap3Hori
         return (string) $this->extension->renderer->renderBlock($view, 'form', $vars);
     }
 
+    protected function renderEnctype(FormView $view)
+    {
+        return (string) $this->extension->renderer->searchAndRenderBlock($view, 'enctype');
+    }
+
     protected function renderLabel(FormView $view, $label = null, array $vars = array())
     {
         if ($label !== null) {

@@ -25,6 +25,16 @@ class MoneyTypeTest extends TestCase
         parent::setUp();
     }
 
+    /**
+     * @group legacy
+     */
+    public function testLegacyName()
+    {
+        $form = $this->factory->create('money');
+
+        $this->assertSame('money', $form->getConfig()->getType()->getName());
+    }
+
     public function testPassMoneyPatternToView()
     {
         \Locale::setDefault('de_DE');

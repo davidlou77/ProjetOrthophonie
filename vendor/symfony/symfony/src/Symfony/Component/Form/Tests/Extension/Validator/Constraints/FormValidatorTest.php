@@ -23,6 +23,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTest;
+use Symfony\Component\Validator\Validation;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
@@ -54,6 +55,11 @@ class FormValidatorTest extends AbstractConstraintValidatorTest
         );
 
         parent::setUp();
+    }
+
+    protected function getApiVersion()
+    {
+        return Validation::API_VERSION_2_5;
     }
 
     protected function createValidator()
@@ -624,6 +630,11 @@ class FormValidatorTest extends AbstractConstraintValidatorTest
 
         $context->expects($this->never())
             ->method('addViolation');
+
+        if ($context instanceof ExecutionContextInterface) {
+            $context->expects($this->never())
+                ->method('addViolationAt');
+        }
 
         $this->validator->initialize($context);
         $this->validator->validate($form, new Form());

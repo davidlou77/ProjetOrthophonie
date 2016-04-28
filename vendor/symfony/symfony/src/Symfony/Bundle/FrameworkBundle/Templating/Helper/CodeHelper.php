@@ -154,7 +154,11 @@ class CodeHelper extends Helper
      */
     public function formatFile($file, $line, $text = null)
     {
-        $flags = ENT_QUOTES | ENT_SUBSTITUTE;
+        if (PHP_VERSION_ID >= 50400) {
+            $flags = ENT_QUOTES | ENT_SUBSTITUTE;
+        } else {
+            $flags = ENT_QUOTES;
+        }
 
         if (null === $text) {
             $file = trim($file);
@@ -194,8 +198,10 @@ class CodeHelper extends Helper
 
     public function formatFileFromText($text)
     {
-        return preg_replace_callback('/in ("|&quot;)?(.+?)\1(?: +(?:on|at))? +line (\d+)/s', function ($match) {
-            return 'in '.$this->formatFile($match[2], $match[3]);
+        $that = $this;
+
+        return preg_replace_callback('/in ("|&quot;)?(.+?)\1(?: +(?:on|at))? +line (\d+)/s', function ($match) use ($that) {
+            return 'in '.$that->formatFile($match[2], $match[3]);
         }, $text);
     }
 

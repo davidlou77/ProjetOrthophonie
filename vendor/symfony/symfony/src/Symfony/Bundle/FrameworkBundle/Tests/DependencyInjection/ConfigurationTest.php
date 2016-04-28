@@ -100,21 +100,24 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         ));
     }
 
-    public function testAssetsCanBeEnabled()
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage You cannot use assets settings under "framework.templating" and "assets" configurations in the same project.
+     * @group legacy
+     */
+    public function testLegacyInvalidValueAssets()
     {
         $processor = new Processor();
         $configuration = new Configuration(true);
-        $config = $processor->processConfiguration($configuration, array(array('assets' => null)));
-
-        $defaultConfig = array(
-            'version' => null,
-            'version_format' => '%%s?%%s',
-            'base_path' => '',
-            'base_urls' => array(),
-            'packages' => array(),
-        );
-
-        $this->assertEquals($defaultConfig, $config['assets']);
+        $processor->processConfiguration($configuration, array(
+            array(
+                'templating' => array(
+                    'engines' => null,
+                    'assets_base_urls' => '//example.com',
+                ),
+                'assets' => null,
+            ),
+        ));
     }
 
     protected static function getBundleDefaultConfig()
@@ -124,15 +127,16 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'trusted_proxies' => array(),
             'ide' => null,
             'default_locale' => 'en',
-            'csrf_protection' => array(
-                'enabled' => false,
-            ),
             'form' => array(
                 'enabled' => false,
                 'csrf_protection' => array(
                     'enabled' => null, // defaults to csrf_protection.enabled
-                    'field_name' => '_token',
+                    'field_name' => null,
                 ),
+            ),
+            'csrf_protection' => array(
+                'enabled' => false,
+                'field_name' => '_token',
             ),
             'esi' => array('enabled' => false),
             'ssi' => array('enabled' => false),
@@ -145,6 +149,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'only_exceptions' => false,
                 'only_master_requests' => false,
                 'dsn' => 'file:%kernel.cache_dir%/profiler',
+                'username' => '',
+                'password' => '',
+                'lifetime' => 86400,
                 'collect' => true,
             ),
             'translator' => array(
@@ -175,6 +182,13 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             ),
             'property_info' => array(
                 'enabled' => false,
+            ),
+            'assets' => array(
+                'version' => null,
+                'version_format' => '%%s?%%s',
+                'base_path' => '',
+                'base_urls' => array(),
+                'packages' => array(),
             ),
         );
     }

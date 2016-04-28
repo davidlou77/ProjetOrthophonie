@@ -28,6 +28,11 @@ class UriSafeTokenGeneratorTest extends \PHPUnit_Framework_TestCase
     private static $bytes;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $random;
+
+    /**
      * @var UriSafeTokenGenerator
      */
     private $generator;
@@ -44,6 +49,7 @@ class UriSafeTokenGeneratorTest extends \PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
+        $this->random = null;
         $this->generator = null;
     }
 

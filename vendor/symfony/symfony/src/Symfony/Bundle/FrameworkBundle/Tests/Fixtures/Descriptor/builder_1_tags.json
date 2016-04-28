@@ -2,10 +2,12 @@
     "tag1": [
         {
             "class": "Full\\Qualified\\Class2",
+            "scope": "container",
             "public": false,
             "synthetic": true,
             "lazy": false,
             "shared": true,
+            "synchronized": false,
             "abstract": false,
             "file": "\/path\/to\/file",
             "factory_service": "factory.service",
@@ -17,10 +19,12 @@
     "tag2": [
         {
             "class": "Full\\Qualified\\Class2",
+            "scope": "container",
             "public": false,
             "synthetic": true,
             "lazy": false,
             "shared": true,
+            "synchronized": false,
             "abstract": false,
             "file": "\/path\/to\/file",
             "factory_service": "factory.service",

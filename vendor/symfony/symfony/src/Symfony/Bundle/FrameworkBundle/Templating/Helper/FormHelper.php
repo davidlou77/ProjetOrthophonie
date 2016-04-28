@@ -121,6 +121,27 @@ class FormHelper extends Helper
     }
 
     /**
+     * Renders the HTML enctype in the form tag, if necessary.
+     *
+     * Example usage templates:
+     *
+     *     <form action="..." method="post" <?php echo $view['form']->enctype($form) ?>>
+     *
+     * @param FormView $view The view for which to render the encoding type
+     *
+     * @return string The HTML markup
+     *
+     * @deprecated since version 2.3, to be removed in 3.0.
+     *             Use {@link start} instead.
+     */
+    public function enctype(FormView $view)
+    {
+        @trigger_error('The form helper $view[\'form\']->enctype() is deprecated since version 2.3 and will be removed in 3.0. Use $view[\'form\']->start() instead.', E_USER_DEPRECATED);
+
+        return $this->renderer->searchAndRenderBlock($view, 'enctype');
+    }
+
+    /**
      * Renders the HTML for a given view.
      *
      * Example usage:
@@ -223,7 +244,7 @@ class FormHelper extends Helper
      * echo $view['form']->csrfToken('rm_user_'.$user->getId());
      * </code>
      *
-     * Check the token in your action using the same CSRF token id.
+     * Check the token in your action using the same intention.
      *
      * <code>
      * $csrfProvider = $this->get('security.csrf.token_generator');
@@ -232,15 +253,15 @@ class FormHelper extends Helper
      * }
      * </code>
      *
-     * @param string $tokenId The CSRF token id of the protected action
+     * @param string $intention The intention of the protected action
      *
      * @return string A CSRF token
      *
      * @throws \BadMethodCallException When no CSRF provider was injected in the constructor.
      */
-    public function csrfToken($tokenId)
+    public function csrfToken($intention)
     {
-        return $this->renderer->renderCsrfToken($tokenId);
+        return $this->renderer->renderCsrfToken($intention);
     }
 
     public function humanize($text)

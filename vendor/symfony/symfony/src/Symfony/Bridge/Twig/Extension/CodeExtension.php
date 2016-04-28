@@ -174,7 +174,11 @@ class CodeExtension extends \Twig_Extension
         $text = "$text at line $line";
 
         if (false !== $link = $this->getFileLink($file, $line)) {
-            $flags = ENT_QUOTES | ENT_SUBSTITUTE;
+            if (PHP_VERSION_ID >= 50400) {
+                $flags = ENT_QUOTES | ENT_SUBSTITUTE;
+            } else {
+                $flags = ENT_QUOTES;
+            }
 
             return sprintf('<a href="%s" title="Click to open this file" class="file_link">%s</a>', htmlspecialchars($link, $flags, $this->charset), $text);
         }
@@ -201,8 +205,10 @@ class CodeExtension extends \Twig_Extension
 
     public function formatFileFromText($text)
     {
-        return preg_replace_callback('/in ("|&quot;)?(.+?)\1(?: +(?:on|at))? +line (\d+)/s', function ($match) {
-            return 'in '.$this->formatFile($match[2], $match[3]);
+        $that = $this;
+
+        return preg_replace_callback('/in ("|&quot;)?(.+?)\1(?: +(?:on|at))? +line (\d+)/s', function ($match) use ($that) {
+            return 'in '.$that->formatFile($match[2], $match[3]);
         }, $text);
     }
 

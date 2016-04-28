@@ -114,6 +114,7 @@ class DateTimeType extends AbstractType
                 'years',
                 'months',
                 'days',
+                'empty_value',
                 'placeholder',
                 'choice_translation_domain',
                 'required',
@@ -129,6 +130,7 @@ class DateTimeType extends AbstractType
                 'seconds',
                 'with_minutes',
                 'with_seconds',
+                'empty_value',
                 'placeholder',
                 'choice_translation_domain',
                 'required',
@@ -203,7 +205,7 @@ class DateTimeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $compound = function (Options $options) {
-            return 'single_text' !== $options['widget'];
+            return $options['widget'] !== 'single_text';
         };
 
         // Defaults to the value of "widget"
@@ -243,6 +245,7 @@ class DateTimeType extends AbstractType
         // Don't add some defaults in order to preserve the defaults
         // set in DateType and TimeType
         $resolver->setDefined(array(
+            'empty_value', // deprecated
             'placeholder',
             'choice_translation_domain',
             'years',
@@ -278,6 +281,14 @@ class DateTimeType extends AbstractType
             'text',
             'choice',
         ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->getBlockPrefix();
     }
 
     /**

@@ -11,17 +11,14 @@
 
 namespace Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\FormLoginBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoginController implements ContainerAwareInterface
+class LoginController extends ContainerAware
 {
-    use ContainerAwareTrait;
-
     public function loginAction(Request $request)
     {
         // get the login error if there is one

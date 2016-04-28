@@ -1,12 +1,6 @@
 CHANGELOG
 =========
 
-3.0.0
------
-
- * removed `validator.api` parameter
- * removed `alias` option of the `form.type` tag
-
 2.8.0
 -----
 

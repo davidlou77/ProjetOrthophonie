@@ -1,14 +1,6 @@
 CHANGELOG
 =========
 
-3.0.0
------
-
- * removed `EntityChoiceList`
- * removed `$manager` (2nd) and `$class` (3th) arguments of `ORMQueryBuilderLoader`
- * removed passing a query builder closure to `ORMQueryBuilderLoader`
- * removed `loader` and `property` options of the `DoctrineType`
-
 2.7.0
 -----
 

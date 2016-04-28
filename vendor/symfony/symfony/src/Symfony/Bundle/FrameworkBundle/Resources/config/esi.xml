@@ -4,10 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <services>
-        <service id="esi" class="Symfony\Component\HttpKernel\HttpCache\Esi" />
+    <parameters>
+        <parameter key="esi.class">Symfony\Component\HttpKernel\HttpCache\Esi</parameter>
+        <parameter key="esi_listener.class">Symfony\Component\HttpKernel\EventListener\SurrogateListener</parameter>
+    </parameters>
 
-        <service id="esi_listener" class="Symfony\Component\HttpKernel\EventListener\SurrogateListener">
+    <services>
+        <service id="esi" class="%esi.class%" />
+
+        <service id="esi_listener" class="%esi_listener.class%">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="esi" on-invalid="ignore" />
         </service>

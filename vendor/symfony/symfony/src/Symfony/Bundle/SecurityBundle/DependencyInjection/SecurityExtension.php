@@ -14,12 +14,14 @@ namespace Symfony\Bundle\SecurityBundle\DependencyInjection;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\UserProvider\UserProviderFactoryInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Security\Core\Authorization\ExpressionLanguage;
 
@@ -114,10 +116,6 @@ class SecurityExtension extends Extension
 
     private function aclLoad($config, ContainerBuilder $container)
     {
-        if (!interface_exists('Symfony\Component\Security\Acl\Model\AclInterface')) {
-            throw new \LogicException('You must install symfony/security-acl in order to use the ACL functionality.');
-        }
-
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('security_acl.xml');
 
@@ -463,7 +461,7 @@ class SecurityExtension extends Extension
             $arguments = array($config['ignore_case']);
 
             return array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
+                'class' => new Parameter('security.encoder.plain.class'),
                 'arguments' => $arguments,
             );
         }
@@ -471,7 +469,7 @@ class SecurityExtension extends Extension
         // pbkdf2 encoder
         if ('pbkdf2' === $config['algorithm']) {
             return array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\Pbkdf2PasswordEncoder',
+                'class' => new Parameter('security.encoder.pbkdf2.class'),
                 'arguments' => array(
                     $config['hash_algorithm'],
                     $config['encode_as_base64'],
@@ -484,14 +482,14 @@ class SecurityExtension extends Extension
         // bcrypt encoder
         if ('bcrypt' === $config['algorithm']) {
             return array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder',
+                'class' => new Parameter('security.encoder.bcrypt.class'),
                 'arguments' => array($config['cost']),
             );
         }
 
         // message digest encoder
         return array(
-            'class' => 'Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder',
+            'class' => new Parameter('security.encoder.digest.class'),
             'arguments' => array(
                 $config['algorithm'],
                 $config['encode_as_base64'],
@@ -626,7 +624,7 @@ class SecurityExtension extends Extension
         }
 
         $container
-            ->register($id, 'Symfony\Component\HttpFoundation\RequestMatcher')
+            ->register($id, '%security.matcher.class%')
             ->setPublic(false)
             ->setArguments($arguments)
         ;

@@ -1,11 +1,6 @@
 CHANGELOG
 =========
 
-3.0.0
------
-
- * removed all deprecated code
-
 2.8.0
 -----
 

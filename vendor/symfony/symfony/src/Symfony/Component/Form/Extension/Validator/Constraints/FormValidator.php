@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
@@ -37,8 +38,11 @@ class FormValidator extends ConstraintValidator
 
         /* @var FormInterface $form */
         $config = $form->getConfig();
+        $validator = null;
 
-        $validator = $this->context->getValidator()->inContext($this->context);
+        if ($this->context instanceof ExecutionContextInterface) {
+            $validator = $this->context->getValidator()->inContext($this->context);
+        }
 
         if ($form->isSynchronized()) {
             // Validate the form data only if transformation succeeded
@@ -47,7 +51,12 @@ class FormValidator extends ConstraintValidator
             // Validate the data against its own constraints
             if (self::allowDataWalking($form)) {
                 foreach ($groups as $group) {
-                    $validator->atPath('data')->validate($form->getData(), null, $group);
+                    if ($validator) {
+                        $validator->atPath('data')->validate($form->getData(), null, $group);
+                    } else {
+                        // 2.4 API
+                        $this->context->validate($form->getData(), 'data', $group, true);
+                    }
                 }
             }
 
@@ -57,7 +66,12 @@ class FormValidator extends ConstraintValidator
             foreach ($constraints as $constraint) {
                 // For the "Valid" constraint, validate the data in all groups
                 if ($constraint instanceof Valid) {
-                    $validator->atPath('data')->validate($form->getData(), $constraint, $groups);
+                    if ($validator) {
+                        $validator->atPath('data')->validate($form->getData(), $constraint, $groups);
+                    } else {
+                        // 2.4 API
+                        $this->context->validateValue($form->getData(), $constraint, 'data', $groups);
+                    }
 
                     continue;
                 }
@@ -66,7 +80,12 @@ class FormValidator extends ConstraintValidator
                 // matching group
                 foreach ($groups as $group) {
                     if (in_array($group, $constraint->groups)) {
-                        $validator->atPath('data')->validate($form->getData(), $constraint, $group);
+                        if ($validator) {
+                            $validator->atPath('data')->validate($form->getData(), $constraint, $group);
+                        } else {
+                            // 2.4 API
+                            $this->context->validateValue($form->getData(), $constraint, 'data', $group);
+                        }
 
                         // Prevent duplicate validation
                         continue 2;
@@ -95,22 +114,39 @@ class FormValidator extends ConstraintValidator
                     ? (string) $form->getViewData()
                     : gettype($form->getViewData());
 
-                $this->context->buildViolation($config->getOption('invalid_message'))
-                    ->setParameters(array_replace(array('{{ value }}' => $clientDataAsString), $config->getOption('invalid_message_parameters')))
-                    ->setInvalidValue($form->getViewData())
-                    ->setCode(Form::NOT_SYNCHRONIZED_ERROR)
-                    ->setCause($form->getTransformationFailure())
-                    ->addViolation();
+                if ($this->context instanceof ExecutionContextInterface) {
+                    $this->context->buildViolation($config->getOption('invalid_message'))
+                        ->setParameters(array_replace(array('{{ value }}' => $clientDataAsString), $config->getOption('invalid_message_parameters')))
+                        ->setInvalidValue($form->getViewData())
+                        ->setCode(Form::NOT_SYNCHRONIZED_ERROR)
+                        ->setCause($form->getTransformationFailure())
+                        ->addViolation();
+                } else {
+                    $this->buildViolation($config->getOption('invalid_message'))
+                        ->setParameters(array_replace(array('{{ value }}' => $clientDataAsString), $config->getOption('invalid_message_parameters')))
+                        ->setInvalidValue($form->getViewData())
+                        ->setCode(Form::NOT_SYNCHRONIZED_ERROR)
+                        ->setCause($form->getTransformationFailure())
+                        ->addViolation();
+                }
             }
         }
 
         // Mark the form with an error if it contains extra fields
         if (!$config->getOption('allow_extra_fields') && count($form->getExtraData()) > 0) {
-            $this->context->buildViolation($config->getOption('extra_fields_message'))
-                ->setParameter('{{ extra_fields }}', implode('", "', array_keys($form->getExtraData())))
-                ->setInvalidValue($form->getExtraData())
-                ->setCode(Form::NO_SUCH_FIELD_ERROR)
-                ->addViolation();
+            if ($this->context instanceof ExecutionContextInterface) {
+                $this->context->buildViolation($config->getOption('extra_fields_message'))
+                    ->setParameter('{{ extra_fields }}', implode('", "', array_keys($form->getExtraData())))
+                    ->setInvalidValue($form->getExtraData())
+                    ->setCode(Form::NO_SUCH_FIELD_ERROR)
+                    ->addViolation();
+            } else {
+                $this->buildViolation($config->getOption('extra_fields_message'))
+                    ->setParameter('{{ extra_fields }}', implode('", "', array_keys($form->getExtraData())))
+                    ->setInvalidValue($form->getExtraData())
+                    ->setCode(Form::NO_SUCH_FIELD_ERROR)
+                    ->addViolation();
+            }
         }
     }
 

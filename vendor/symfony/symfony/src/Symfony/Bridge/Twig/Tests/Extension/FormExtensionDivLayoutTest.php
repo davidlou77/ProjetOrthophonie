@@ -28,6 +28,10 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
      */
     protected $extension;
 
+    protected $testableFeatures = array(
+        'choice_attr',
+    );
+
     protected function setUp()
     {
         parent::setUp();
@@ -106,10 +110,17 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
 
     public function isSelectedChoiceProvider()
     {
+        // The commented cases should not be necessary anymore, because the
+        // choice lists should assure that both values passed here are always
+        // strings
         return array(
+//             array(true, 0, 0),
             array(true, '0', '0'),
             array(true, '1', '1'),
+//             array(true, false, 0),
+//             array(true, true, 1),
             array(true, '', ''),
+//             array(true, null, ''),
             array(true, '1.23', '1.23'),
             array(true, 'foo', 'foo'),
             array(true, 'foo10', 'foo10'),
@@ -157,6 +168,11 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
     protected function renderForm(FormView $view, array $vars = array())
     {
         return (string) $this->extension->renderer->renderBlock($view, 'form', $vars);
+    }
+
+    protected function renderEnctype(FormView $view)
+    {
+        return (string) $this->extension->renderer->searchAndRenderBlock($view, 'enctype');
     }
 
     protected function renderLabel(FormView $view, $label = null, array $vars = array())

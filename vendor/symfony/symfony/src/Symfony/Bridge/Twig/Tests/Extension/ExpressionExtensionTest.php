@@ -12,6 +12,7 @@
 namespace Symfony\Bridge\Twig\Tests\Extension;
 
 use Symfony\Bridge\Twig\Extension\ExpressionExtension;
+use Symfony\Component\ExpressionLanguage\Expression;
 
 class ExpressionExtensionTest extends \PHPUnit_Framework_TestCase
 {

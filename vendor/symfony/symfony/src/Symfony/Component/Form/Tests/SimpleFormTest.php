@@ -654,11 +654,12 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testEmptyDataFromClosure()
     {
+        $test = $this;
         $form = $this->getBuilder()
-            ->setEmptyData(function ($form) {
+            ->setEmptyData(function ($form) use ($test) {
             // the form instance is passed to the closure to allow use
             // of form data when creating the empty value
-            $this->assertInstanceOf('Symfony\Component\Form\FormInterface', $form);
+            $test->assertInstanceOf('Symfony\Component\Form\FormInterface', $form);
 
             return 'foo';
         })
@@ -730,6 +731,16 @@ class SimpleFormTest extends AbstractFormTest
             ->will($this->returnValue($view));
 
         $this->assertSame($view, $form->createView($parentView));
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testGetErrorsAsString()
+    {
+        $this->form->addError(new FormError('Error!'));
+
+        $this->assertEquals("ERROR: Error!\n", $this->form->getErrorsAsString());
     }
 
     public function testFormCanHaveEmptyName()
@@ -891,10 +902,12 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testSubmittingWrongDataIsIgnored()
     {
+        $test = $this;
+
         $child = $this->getBuilder('child', $this->dispatcher);
-        $child->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $child->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($test) {
             // child form doesn't receive the wrong data that is submitted on parent
-            $this->assertNull($event->getData());
+            $test->assertNull($event->getData());
         });
 
         $parent = $this->getBuilder('parent', new EventDispatcher())
@@ -994,9 +1007,10 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testPostSubmitDataIsNullIfInheritData()
     {
+        $test = $this;
         $form = $this->getBuilder()
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-                $this->assertNull($event->getData());
+            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($test) {
+                $test->assertNull($event->getData());
             })
             ->setInheritData(true)
             ->getForm();
@@ -1006,9 +1020,10 @@ class SimpleFormTest extends AbstractFormTest
 
     public function testSubmitIsNeverFiredIfInheritData()
     {
+        $test = $this;
         $form = $this->getBuilder()
-            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-                $this->fail('The SUBMIT event should not be fired');
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($test) {
+                $test->fail('The SUBMIT event should not be fired');
             })
             ->setInheritData(true)
             ->getForm();
@@ -1040,6 +1055,17 @@ class SimpleFormTest extends AbstractFormTest
         $child->setParent($parent);
 
         $child->initialize();
+    }
+
+    /**
+     * @expectedException        \InvalidArgumentException
+     * @expectedExceptionMessage Custom resolver "Symfony\Component\Form\Tests\Fixtures\CustomOptionsResolver" must extend "Symfony\Component\OptionsResolver\OptionsResolver".
+     */
+    public function testCustomOptionsResolver()
+    {
+        $fooType = new Fixtures\LegacyFooType();
+        $resolver = new Fixtures\CustomOptionsResolver();
+        $fooType->setDefaultOptions($resolver);
     }
 
     protected function createForm()

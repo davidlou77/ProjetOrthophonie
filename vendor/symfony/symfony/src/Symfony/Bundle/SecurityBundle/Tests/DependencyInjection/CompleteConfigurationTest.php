@@ -12,6 +12,7 @@
 namespace Symfony\Bundle\SecurityBundle\Tests\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -142,7 +143,8 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
         }
 
         $matcherIds = array();
-        foreach ($rules as list($matcherId, $attributes, $channel)) {
+        foreach ($rules as $rule) {
+            list($matcherId, $attributes, $channel) = $rule;
             $requestMatcher = $container->getDefinition($matcherId);
 
             $this->assertFalse(isset($matcherIds[$matcherId]));
@@ -187,24 +189,24 @@ abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(array(
             'JMS\FooBundle\Entity\User1' => array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder',
+                'class' => new Parameter('security.encoder.plain.class'),
                 'arguments' => array(false),
             ),
             'JMS\FooBundle\Entity\User2' => array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder',
+                'class' => new Parameter('security.encoder.digest.class'),
                 'arguments' => array('sha1', false, 5),
             ),
             'JMS\FooBundle\Entity\User3' => array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder',
+                'class' => new Parameter('security.encoder.digest.class'),
                 'arguments' => array('md5', true, 5000),
             ),
             'JMS\FooBundle\Entity\User4' => new Reference('security.encoder.foo'),
             'JMS\FooBundle\Entity\User5' => array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\Pbkdf2PasswordEncoder',
+                'class' => new Parameter('security.encoder.pbkdf2.class'),
                 'arguments' => array('sha1', false, 5, 30),
             ),
             'JMS\FooBundle\Entity\User6' => array(
-                'class' => 'Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder',
+                'class' => new Parameter('security.encoder.bcrypt.class'),
                 'arguments' => array(15),
             ),
         )), $container->getDefinition('security.encoder_factory.generic')->getArguments());

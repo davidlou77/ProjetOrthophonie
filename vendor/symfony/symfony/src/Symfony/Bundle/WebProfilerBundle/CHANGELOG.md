@@ -1,11 +1,6 @@
 CHANGELOG
 =========
 
-3.0.0
------
-
- * removed profiler:import and profiler:export commands
-
 2.8.0
 -----
 

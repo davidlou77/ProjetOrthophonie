@@ -159,7 +159,8 @@ class RegisterEventListenersAndSubscribersPassTest extends \PHPUnit_Framework_Te
     private function getServiceOrder(ContainerBuilder $container, $method)
     {
         $order = array();
-        foreach ($container->getDefinition('doctrine.dbal.default_connection.event_manager')->getMethodCalls() as list($name, $arguments)) {
+        foreach ($container->getDefinition('doctrine.dbal.default_connection.event_manager')->getMethodCalls() as $call) {
+            list($name, $arguments) = $call;
             if ($method !== $name) {
                 continue;
             }

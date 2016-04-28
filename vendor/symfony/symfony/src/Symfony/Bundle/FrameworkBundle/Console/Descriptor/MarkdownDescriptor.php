@@ -49,6 +49,9 @@ class MarkdownDescriptor extends Descriptor
      */
     protected function describeRoute(Route $route, array $options = array())
     {
+        $requirements = $route->getRequirements();
+        unset($requirements['_scheme'], $requirements['_method']);
+
         $output = '- Path: '.$route->getPath()
             ."\n".'- Path Regex: '.$route->compile()->getRegex()
             ."\n".'- Host: '.('' !== $route->getHost() ? $route->getHost() : 'ANY')
@@ -57,7 +60,7 @@ class MarkdownDescriptor extends Descriptor
             ."\n".'- Method: '.($route->getMethods() ? implode('|', $route->getMethods()) : 'ANY')
             ."\n".'- Class: '.get_class($route)
             ."\n".'- Defaults: '.$this->formatRouterConfig($route->getDefaults())
-            ."\n".'- Requirements: '.($route->getRequirements() ? $this->formatRouterConfig($route->getRequirements()) : 'NO CUSTOM')
+            ."\n".'- Requirements: '.($requirements ? $this->formatRouterConfig($requirements) : 'NO CUSTOM')
             ."\n".'- Options: '.$this->formatRouterConfig($route->getOptions());
 
         $this->write(isset($options['name'])
@@ -176,6 +179,7 @@ class MarkdownDescriptor extends Descriptor
     protected function describeContainerDefinition(Definition $definition, array $options = array())
     {
         $output = '- Class: `'.$definition->getClass().'`'
+            ."\n".'- Scope: `'.$definition->getScope(false).'`'
             ."\n".'- Public: '.($definition->isPublic() ? 'yes' : 'no')
             ."\n".'- Synthetic: '.($definition->isSynthetic() ? 'yes' : 'no')
             ."\n".'- Lazy: '.($definition->isLazy() ? 'yes' : 'no')
@@ -183,6 +187,10 @@ class MarkdownDescriptor extends Descriptor
 
         if (method_exists($definition, 'isShared')) {
             $output .= "\n".'- Shared: '.($definition->isShared() ? 'yes' : 'no');
+        }
+
+        if (method_exists($definition, 'isSynchronized')) {
+            $output .= "\n".'- Synchronized: '.($definition->isSynchronized(false) ? 'yes' : 'no');
         }
 
         $output .= "\n".'- Abstract: '.($definition->isAbstract() ? 'yes' : 'no');
@@ -197,6 +205,18 @@ class MarkdownDescriptor extends Descriptor
 
         if ($definition->getFile()) {
             $output .= "\n".'- File: `'.$definition->getFile().'`';
+        }
+
+        if ($definition->getFactoryClass(false)) {
+            $output .= "\n".'- Factory Class: `'.$definition->getFactoryClass(false).'`';
+        }
+
+        if ($definition->getFactoryService(false)) {
+            $output .= "\n".'- Factory Service: `'.$definition->getFactoryService(false).'`';
+        }
+
+        if ($definition->getFactoryMethod(false)) {
+            $output .= "\n".'- Factory Method: `'.$definition->getFactoryMethod(false).'`';
         }
 
         if ($factory = $definition->getFactory()) {

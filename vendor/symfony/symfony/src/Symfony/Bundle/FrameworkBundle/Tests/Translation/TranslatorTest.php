@@ -94,14 +94,13 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foobarbax (sr@latin)', $translator->trans('foobarbax'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testTransWithCachingWithInvalidLocale()
     {
         $loader = $this->getMock('Symfony\Component\Translation\Loader\LoaderInterface');
         $translator = $this->getTranslator($loader, array('cache_dir' => $this->tmpDir), 'loader', '\Symfony\Bundle\FrameworkBundle\Tests\Translation\TranslatorWithInvalidLocale');
+        $translator->setLocale('invalid locale');
 
+        $this->setExpectedException('\InvalidArgumentException');
         $translator->trans('foo');
     }
 
@@ -276,8 +275,8 @@ class TranslatorWithInvalidLocale extends Translator
     /**
      * {@inheritdoc}
      */
-    public function getLocale()
+    public function setLocale($locale)
     {
-        return 'invalid locale';
+        $this->locale = $locale;
     }
 }

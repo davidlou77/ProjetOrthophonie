@@ -12,7 +12,7 @@
 namespace Symfony\Bridge\Doctrine;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\AbstractManagerRegistry;
 
 /**
@@ -22,7 +22,10 @@ use Doctrine\Common\Persistence\AbstractManagerRegistry;
  */
 abstract class ManagerRegistry extends AbstractManagerRegistry implements ContainerAwareInterface
 {
-    use ContainerAwareTrait;
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
 
     /**
      * {@inheritdoc}
@@ -38,5 +41,13 @@ abstract class ManagerRegistry extends AbstractManagerRegistry implements Contai
     protected function resetService($name)
     {
         $this->container->set($name, null);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
     }
 }

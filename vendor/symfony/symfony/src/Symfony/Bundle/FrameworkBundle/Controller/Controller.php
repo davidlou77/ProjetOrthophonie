@@ -11,19 +11,20 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 /**
@@ -33,10 +34,8 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Controller implements ContainerAwareInterface
+class Controller extends ContainerAware
 {
-    use ContainerAwareTrait;
-
     /**
      * Generates a URL from the given parameters.
      *
@@ -48,7 +47,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @see UrlGeneratorInterface
      */
-    protected function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
     {
         return $this->container->get('router')->generate($route, $parameters, $referenceType);
     }
@@ -62,7 +61,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return Response A Response instance
      */
-    protected function forward($controller, array $path = array(), array $query = array())
+    public function forward($controller, array $path = array(), array $query = array())
     {
         $path['_controller'] = $controller;
         $subRequest = $this->container->get('request_stack')->getCurrentRequest()->duplicate($query, null, $path);
@@ -78,7 +77,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return RedirectResponse
      */
-    protected function redirect($url, $status = 302)
+    public function redirect($url, $status = 302)
     {
         return new RedirectResponse($url, $status);
     }
@@ -158,7 +157,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return string The rendered view
      */
-    protected function renderView($view, array $parameters = array())
+    public function renderView($view, array $parameters = array())
     {
         if ($this->container->has('templating')) {
             return $this->container->get('templating')->render($view, $parameters);
@@ -180,7 +179,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return Response A Response instance
      */
-    protected function render($view, array $parameters = array(), Response $response = null)
+    public function render($view, array $parameters = array(), Response $response = null)
     {
         if ($this->container->has('templating')) {
             return $this->container->get('templating')->renderResponse($view, $parameters, $response);
@@ -208,7 +207,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return StreamedResponse A StreamedResponse instance
      */
-    protected function stream($view, array $parameters = array(), StreamedResponse $response = null)
+    public function stream($view, array $parameters = array(), StreamedResponse $response = null)
     {
         if ($this->container->has('templating')) {
             $templating = $this->container->get('templating');
@@ -247,7 +246,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return NotFoundHttpException
      */
-    protected function createNotFoundException($message = 'Not Found', \Exception $previous = null)
+    public function createNotFoundException($message = 'Not Found', \Exception $previous = null)
     {
         return new NotFoundHttpException($message, $previous);
     }
@@ -264,7 +263,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return AccessDeniedException
      */
-    protected function createAccessDeniedException($message = 'Access Denied.', \Exception $previous = null)
+    public function createAccessDeniedException($message = 'Access Denied.', \Exception $previous = null)
     {
         return new AccessDeniedException($message, $previous);
     }
@@ -272,13 +271,13 @@ abstract class Controller implements ContainerAwareInterface
     /**
      * Creates and returns a Form instance from the type of the form.
      *
-     * @param string $type    The fully qualified class name of the form type
-     * @param mixed  $data    The initial data for the form
-     * @param array  $options Options for the form
+     * @param string|FormTypeInterface $type    The built type of the form
+     * @param mixed                    $data    The initial data for the form
+     * @param array                    $options Options for the form
      *
      * @return Form
      */
-    protected function createForm($type, $data = null, array $options = array())
+    public function createForm($type, $data = null, array $options = array())
     {
         return $this->container->get('form.factory')->create($type, $data, $options);
     }
@@ -291,9 +290,34 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return FormBuilder
      */
-    protected function createFormBuilder($data = null, array $options = array())
+    public function createFormBuilder($data = null, array $options = array())
     {
-        return $this->container->get('form.factory')->createBuilder(FormType::class, $data, $options);
+        if (method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
+            $type = 'Symfony\Component\Form\Extension\Core\Type\FormType';
+        } else {
+            // not using the class name is deprecated since Symfony 2.8 and
+            // is only used for backwards compatibility with older versions
+            // of the Form component
+            $type = 'form';
+        }
+
+        return $this->container->get('form.factory')->createBuilder($type, $data, $options);
+    }
+
+    /**
+     * Shortcut to return the request service.
+     *
+     * @return Request
+     *
+     * @deprecated since version 2.4, to be removed in 3.0.
+     *             Ask Symfony to inject the Request object into your controller
+     *             method instead by type hinting it in the method's signature.
+     */
+    public function getRequest()
+    {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.4 and will be removed in 3.0. The only reliable way to get the "Request" object is to inject it in the action method.', E_USER_DEPRECATED);
+
+        return $this->container->get('request_stack')->getCurrentRequest();
     }
 
     /**
@@ -303,7 +327,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @throws \LogicException If DoctrineBundle is not available
      */
-    protected function getDoctrine()
+    public function getDoctrine()
     {
         if (!$this->container->has('doctrine')) {
             throw new \LogicException('The DoctrineBundle is not registered in your application.');
@@ -321,7 +345,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @see TokenInterface::getUser()
      */
-    protected function getUser()
+    public function getUser()
     {
         if (!$this->container->has('security.token_storage')) {
             throw new \LogicException('The SecurityBundle is not registered in your application.');
@@ -346,7 +370,7 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return bool true if the service id is defined, false otherwise
      */
-    protected function has($id)
+    public function has($id)
     {
         return $this->container->has($id);
     }
@@ -358,8 +382,12 @@ abstract class Controller implements ContainerAwareInterface
      *
      * @return object The service
      */
-    protected function get($id)
+    public function get($id)
     {
+        if ('request' === $id) {
+            @trigger_error('The "request" service is deprecated and will be removed in 3.0. Add a typehint for Symfony\\Component\\HttpFoundation\\Request to your controller parameters to retrieve the request instead.', E_USER_DEPRECATED);
+        }
+
         return $this->container->get($id);
     }
 

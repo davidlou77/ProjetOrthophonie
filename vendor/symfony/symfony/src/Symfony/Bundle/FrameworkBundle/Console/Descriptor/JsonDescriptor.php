@@ -171,7 +171,12 @@ class JsonDescriptor extends Descriptor
     private function writeData(array $data, array $options)
     {
         $flags = isset($options['json_encoding']) ? $options['json_encoding'] : 0;
-        $this->write(json_encode($data, $flags | JSON_PRETTY_PRINT)."\n");
+
+        if (defined('JSON_PRETTY_PRINT')) {
+            $flags |= JSON_PRETTY_PRINT;
+        }
+
+        $this->write(json_encode($data, $flags)."\n");
     }
 
     /**
@@ -181,6 +186,9 @@ class JsonDescriptor extends Descriptor
      */
     protected function getRouteData(Route $route)
     {
+        $requirements = $route->getRequirements();
+        unset($requirements['_scheme'], $requirements['_method']);
+
         return array(
             'path' => $route->getPath(),
             'pathRegex' => $route->compile()->getRegex(),
@@ -190,7 +198,7 @@ class JsonDescriptor extends Descriptor
             'method' => $route->getMethods() ? implode('|', $route->getMethods()) : 'ANY',
             'class' => get_class($route),
             'defaults' => $route->getDefaults(),
-            'requirements' => $route->getRequirements() ?: 'NO CUSTOM',
+            'requirements' => $requirements ?: 'NO CUSTOM',
             'options' => $route->getOptions(),
         );
     }
@@ -205,6 +213,7 @@ class JsonDescriptor extends Descriptor
     {
         $data = array(
             'class' => (string) $definition->getClass(),
+            'scope' => $definition->getScope(false),
             'public' => $definition->isPublic(),
             'synthetic' => $definition->isSynthetic(),
             'lazy' => $definition->isLazy(),
@@ -212,6 +221,10 @@ class JsonDescriptor extends Descriptor
 
         if (method_exists($definition, 'isShared')) {
             $data['shared'] = $definition->isShared();
+        }
+
+        if (method_exists($definition, 'isSynchronized')) {
+            $data['synchronized'] = $definition->isSynchronized(false);
         }
 
         $data['abstract'] = $definition->isAbstract();
@@ -226,6 +239,18 @@ class JsonDescriptor extends Descriptor
         }
 
         $data['file'] = $definition->getFile();
+
+        if ($definition->getFactoryClass(false)) {
+            $data['factory_class'] = $definition->getFactoryClass(false);
+        }
+
+        if ($definition->getFactoryService(false)) {
+            $data['factory_service'] = $definition->getFactoryService(false);
+        }
+
+        if ($definition->getFactoryMethod(false)) {
+            $data['factory_method'] = $definition->getFactoryMethod(false);
+        }
 
         if ($factory = $definition->getFactory()) {
             if (is_array($factory)) {

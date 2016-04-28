@@ -113,25 +113,21 @@ class ControllerResolverTest extends BaseControllerResolverTest
      */
     public function testGetControllerOnNonUndefinedFunction($controller, $exceptionName = null, $exceptionMessage = null)
     {
-        // All this logic needs to be duplicated, since calling parent::testGetControllerOnNonUndefinedFunction will override the expected excetion and not use the regex
-        $resolver = $this->createControllerResolver();
-        $this->setExpectedExceptionRegExp($exceptionName, $exceptionMessage);
+        $this->setExpectedException($exceptionName, $exceptionMessage);
 
-        $request = Request::create('/');
-        $request->attributes->set('_controller', $controller);
-        $resolver->getController($request);
+        parent::testGetControllerOnNonUndefinedFunction($controller);
     }
 
     public function getUndefinedControllers()
     {
         return array(
-            array('foo', '\LogicException', '/Unable to parse the controller name "foo"\./'),
-            array('foo::bar', '\InvalidArgumentException', '/Class "foo" does not exist\./'),
-            array('stdClass', '\LogicException', '/Unable to parse the controller name "stdClass"\./'),
+            array('foo', '\LogicException', 'Unable to parse the controller name "foo".'),
+            array('foo::bar', '\InvalidArgumentException', 'Class "foo" does not exist.'),
+            array('stdClass', '\LogicException', 'Unable to parse the controller name "stdClass".'),
             array(
                 'Symfony\Component\HttpKernel\Tests\Controller\ControllerResolverTest::bar',
                 '\InvalidArgumentException',
-                '/.?[cC]ontroller(.*?) for URI "\/" is not callable\.( Expected method(.*) Available methods)?/',
+                'Controller "Symfony\Component\HttpKernel\Tests\Controller\ControllerResolverTest::bar" for URI "/" is not callable.',
             ),
         );
     }

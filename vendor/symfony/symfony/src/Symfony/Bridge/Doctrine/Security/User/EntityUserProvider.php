@@ -51,7 +51,11 @@ class EntityUserProvider implements UserProviderInterface
             $user = $repository->findOneBy(array($this->property => $username));
         } else {
             if (!$repository instanceof UserLoaderInterface) {
-                throw new \InvalidArgumentException(sprintf('The Doctrine repository "%s" must implement Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface.', get_class($repository)));
+                if (!$repository instanceof UserProviderInterface) {
+                    throw new \InvalidArgumentException(sprintf('The Doctrine repository "%s" must implement Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface.', get_class($repository)));
+                }
+
+                @trigger_error('Implementing loadUserByUsername from Symfony\Component\Security\Core\User\UserProviderInterface is deprecated since version 2.8 and will be removed in 3.0. Implement the Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface instead.', E_USER_DEPRECATED);
             }
 
             $user = $repository->loadUserByUsername($username);

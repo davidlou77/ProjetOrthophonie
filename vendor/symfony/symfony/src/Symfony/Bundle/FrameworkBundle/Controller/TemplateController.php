@@ -11,8 +11,7 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -20,10 +19,8 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TemplateController implements ContainerAwareInterface
+class TemplateController extends ContainerAware
 {
-    use ContainerAwareTrait;
-
     /**
      * Renders a template.
      *
