@@ -7,24 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Patient
  *
- * @ORM\Table(name="patient", indexes={@ORM\Index(name="id_medecin", columns={"id_medecin"})})
+ * @ORM\Table(name="patient", indexes={@ORM\Index(name="id_medecin", columns={"id_medecin"}), @ORM\Index(name="id_utilisateur", columns={"id_utilisateur"})})
  * @ORM\Entity
  */
 class Patient
 {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=20, nullable=true)
-     */
-    private $nom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=20, nullable=true)
-     */
-    private $prenom;
 
     /**
      * @var integer
@@ -45,7 +32,15 @@ class Patient
      */
     private $idMedecin;
 
-
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id")
+     * })
+     */
+    private $idUtilisateur;
 
     /**
      * Set nom
@@ -136,5 +131,29 @@ class Patient
     {
         $this->idPatient = $idPatient;
         return $this;
+    }
+
+    /**
+     * Set idUtilisateur
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Utilisateur $idUtilisateur
+     *
+     * @return Patient
+     */
+    public function setIdUtilisateur(\UPOND\OrthophonieBundle\Entity\Utilisateur $idUtilisateur = null)
+    {
+        $this->idUtilisateur = $idUtilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get idUtilisateur
+     *
+     * @return \UPOND\OrthophonieBundle\Entity\Utilisateur
+     */
+    public function getIdUtilisateur()
+    {
+        return $this->idUtilisateur;
     }
 }

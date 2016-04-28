@@ -4,7 +4,7 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-
+    app.form.registration:
+        class: UPOND\UserBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: upond_user_registration }
