@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 
 class PhasesController extends Controller
@@ -46,6 +47,9 @@ class PhasesController extends Controller
         return $this->render('UPONDOrthophonieBundle:Phases:transfert.html.twig');
     }
 
+    /**
+     * @Route("/exercice", name="upond_orthophonie_exercice")
+     */
     public function exerciceAction(Request $request)
     {
         // on récupere tous les ID de la table Question
