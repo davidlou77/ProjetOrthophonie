@@ -25,3 +25,7 @@ upond_orthophonie_entrainement:
 upond_orthophonie_transfert:
     path:      /transfert
     defaults:  { _controller: UPONDOrthophonieBundle:Phases:transfert }
+
+upond_orthophonie_stats:
+    path:      /statistiques
+    defaults:  { _controller: UPONDOrthophonieBundle:Statistique:index }

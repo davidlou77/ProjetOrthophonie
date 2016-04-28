@@ -43,6 +43,7 @@ class MenuBuilder implements ContainerAwareInterface
             $menu->addChild('Phases', array('route' => 'upond_orthophonie_phases'))
                 ->setAttribute('icon', 'icon-group');
 
+
             $menu->addChild('Exercice (test)', array('route' => 'upond_orthophonie_exercice'))
                 ->setAttribute('icon', 'icon-group');
 
