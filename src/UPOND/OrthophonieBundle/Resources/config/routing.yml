@@ -37,3 +37,19 @@ upond_orthophonie_entrainement:
 upond_orthophonie_transfert:
     path:      /transfert
     defaults:  { _controller: UPONDOrthophonieBundle:Phases:transfert }
+
+upond_orthophonie_stats:
+    path:      /statistiques
+    defaults:  { _controller: UPONDOrthophonieBundle:Statistique:statistique }
+
+upond_orthophonie_administration_patient:
+    path:      /patients
+    defaults:  { _controller: UPONDOrthophonieBundle:Administration:patients }
+
+upond_orthophonie_administration_medecin:
+    path:      /medecins
+    defaults:  { _controller: UPONDOrthophonieBundle:Administration:medecins }
+
+upond_orthophonie_administration_exercice:
+    path:      /exercices
+    defaults:  { _controller: UPONDOrthophonieBundle:Administration:exercices }
