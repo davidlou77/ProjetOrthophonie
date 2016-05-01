@@ -54,7 +54,7 @@ class RegistrationController extends BaseController
 
             // ajout de l'utilisateur dans la table patient
             $patient = new Patient();
-            $patient->setIdUtilisateur($user);
+            $patient->setUtilisateur($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($patient);
             $em->flush();

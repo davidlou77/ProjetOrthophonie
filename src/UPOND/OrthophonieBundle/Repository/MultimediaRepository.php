@@ -10,4 +10,39 @@ namespace UPOND\OrthophonieBundle\Repository;
  */
 class MultimediaRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function get7MultmediaAleatoire($strategie)
+    {
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+        $queryMultimedia = $em->createQuery(
+            'SELECT m
+            FROM UPONDOrthophonieBundle:Multimedia m
+            JOIN m.strategie s
+            WHERE s.nom = :strategie'
+        );
+        $queryMultimedia->setParameter('strategie', $strategie);
+
+        $multimedias = $queryMultimedia->getResult();
+
+
+        // on prend un id aléatoire parmi les résultats
+        $tabIdMultimedia = array_rand($multimedias, 7);
+        $arrayMultimedia = array();
+        foreach($tabIdMultimedia as $element)
+        {
+            $arrayMultimedia[] = $multimedias[$element];
+        }
+
+        // on récupere l'entité de l'ID
+        $queryMultimedia = $em->createQuery(
+            'SELECT m
+            FROM UPONDOrthophonieBundle:Multimedia m
+            WHERE m.idMultimedia IN (:$arrayMultimedia)'
+        );
+        $queryMultimedia->setParameter('arrayIdQuestions', $arrayMultimedia);
+        $listRandomMultimedia = $queryMultimedia->getResult();
+
+        return $listRandomMultimedia;
+    }
 }

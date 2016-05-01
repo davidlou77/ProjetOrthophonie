@@ -18,10 +18,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use UPOND\OrthophonieBundle\Entity\Partie;
 
 
-class PartieController extends Controller
+class ExerciceController extends Controller
 {
 
     public function indexAction()
@@ -195,43 +194,6 @@ class PartieController extends Controller
 
     }
 
-
-    public function get7RandomQuestions($strategie)
-    {
-        $em = $this
-            ->getDoctrine()
-            ->getManager();
-        $queryQuestions = $em->createQuery(
-            'SELECT q.idQuestion
-            FROM UPONDOrthophonieBundle:Question q
-            JOIN UPONDOrthophonieBundle:Multimedia m
-            WHERE q.idQuestion = m.id AND m.type = :strategie'
-        );
-        $queryQuestions->setParameter('strategie', $strategie);
-
-        $questions = $queryQuestions->getResult();
-
-       
-        // on prend un id aléatoire parmi les résultats
-        $idQuestion = array_rand($questions, 7);
-        $arrayQuestion = array();
-        foreach($idQuestion as $element)
-        {
-            $arrayQuestion[] = $questions[$element];
-        }
-
-        // on récupere l'entité de l'ID
-        $queryQuestions = $em->createQuery(
-            'SELECT q
-            FROM UPONDOrthophonieBundle:Question q
-            WHERE q.idQuestion IN (:arrayIdQuestions)'
-        );
-        $queryQuestions->setParameter('arrayIdQuestions', $arrayQuestion);
-        $listQuestions = $queryQuestions->getResult();
-
-        //$listQuestions = $repositoryQuestion->findByIdQuestion($arrayQuestion);
-        return $listQuestions;
-    }
 
     public function getExerciceByStrategieAndPartie($strategie, $idPartie)
     {

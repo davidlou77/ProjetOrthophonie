@@ -5,11 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{% block title %}Orthophonie{% endblock %}</title>
+    {% block javascripts %}
+        {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+
+    {% endblock %}
     {% block stylesheets %}
         {# On charge le CSS de bootstrap depuis le site directement #}
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css">
+
     {% endblock %}
 
     <style>
@@ -42,12 +50,22 @@
             <div class="pull-right" style="display: inline-block; ;border: 1px solid gray; background-color: #f3f3f3; padding: 5px 19px; border-radius: 5px;">
                 <span> Bonjour, {{ app.user.prenom }} {{ app.user.nom }} </span> &nbsp;
                 <a href="{{ path('upond_orthophonie_home')}}"><span class="glyphicon glyphicon-home" ></span></a> &nbsp;
-                <a href="{{ path('fos_user_profile_edit')}}"><span class="glyphicon glyphicon-user" ></span></a> &nbsp;
-                <a href="{{ path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-off" ></span></a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('fos_user_profile_edit')}}">Modifier le compte<span class="glyphicon glyphicon-user pull-right" ></span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path('fos_user_change_password')}}">Modifier le mdp<span class="glyphicon glyphicon-cog pull-right" ></span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path('upond_orthophonie_stats')}}">Statistiques<span class="glyphicon glyphicon-stats pull-right"></span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path('fos_user_security_logout')}}">Déconnexion <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                    </ul>
+                </li>
             </div>
+
         </div>
     {% endif %}
-
 
 <body>
 
@@ -68,11 +86,7 @@
 
 </div>
 
-{% block javascripts %}
-    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-{% endblock %}
+
 
 </body>
 </html>
