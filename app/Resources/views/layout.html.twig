@@ -45,25 +45,6 @@
 </head>
 {% block menu %}
     {% if app.user %}
-        <!--<div style="margin-top: 50px">
-            <div class="pull-right" style="display: inline-block; ;border: 1px solid gray; background-color: #f3f3f3; padding: 5px 19px; border-radius: 5px;">
-                <span> Bonjour, {{ app.user.prenom }} {{ app.user.nom }} </span> &nbsp;
-                <a href="{{ path('upond_orthophonie_home')}}"><span class="glyphicon glyphicon-home" ></span></a> &nbsp;
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ path('fos_user_profile_edit')}}">Modifier le compte<span class="glyphicon glyphicon-user pull-right" ></span></a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{ path('fos_user_change_password')}}">Modifier le mdp<span class="glyphicon glyphicon-cog pull-right" ></span></a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{ path('upond_orthophonie_stats')}}">Statistiques<span class="glyphicon glyphicon-stats pull-right"></span></a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{ path('fos_user_security_logout')}}">Déconnexion <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
-                    </ul>
-                </li>
-            </div>
-
-        </div>-->
         <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header"><a class="navbar-brand" href="#">Orthophonie</a>
