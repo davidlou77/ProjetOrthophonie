@@ -2,28 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="4adbd8b2-e961-4556-8cfa-b8b5012fcc59" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Invite/accueil.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Stats/stats.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/strategie.html.twig" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Historique.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Partie.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Question.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Resultat.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle" afterPath="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/layout.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/layout.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/ConnexionController.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/ConnexionController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PhasesController.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PhasesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/MenuBuilder.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/MenuBuilder.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/index.html.twig" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/layout.html.twig" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/layout.html.twig" />
     </list>
     <ignored path="Symfony.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -651,7 +630,7 @@
       <workItem from="1461440406844" duration="24163000" />
       <workItem from="1461844737365" duration="3920000" />
       <workItem from="1461853184862" duration="2611000" />
-      <workItem from="1461874163554" duration="14277000" />
+      <workItem from="1461874163554" duration="14355000" />
     </task>
     <task id="LOCAL-00001" summary="Base du site - David">
       <created>1461440241044</created>
@@ -713,7 +692,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113441000" />
+    <option name="totallyTimeSpent" value="113519000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
