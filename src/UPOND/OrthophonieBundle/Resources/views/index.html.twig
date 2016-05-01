@@ -1,10 +1,73 @@
 {% extends "UPONDOrthophonieBundle::layout.html.twig" %}
 
 {% block title %}
-    Accueil - {{ parent() }}
+    Orthophonie {{ parent() }}
 {% endblock %}
 
 {% block orthophonie_body %}
 
-<h2>index</h2>
+<html>
+
+    <body>
+
+        <div class="container">
+
+
+
+            <hr style="margin: 50px 0;">
+
+            <div class="row" style="display: flex">
+                <div class="col-sm-4 text-center">
+                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:70%;">
+                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
+                        <h4>Apprentissage</h4>
+                        <ul>
+                            <li><a href="{{ path('upond_orthophonie_strategie') }}" class="btn btn-default">Niveau 1</a></li>
+                            <li><a href="{{ path('upond_orthophonie_strategie') }}" class="btn btn-default">Niveau 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:70%;">
+                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
+                        <h4>Entrainement</h4>
+                        <ul>
+                            <li><a href="{{ path('upond_orthophonie_strategie') }}" class="btn btn-default">Niveau 1</a></li>
+                            <li><a href="#" class="btn btn-default">Niveau 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:70%;">
+                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
+                        <h4>Transfert</h4>
+                        <ul>
+                            <li><button type="button" class="btn btn-success">Demarrer</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <hr style="margin: 60px 0 15px 0">
+
+            <div class="text-right">
+                <img src="http://rrpb2.u-bordeaux4.fr/wp-content/uploads/2012/10/logo-Parisouest.jpg" width="100px">
+            </div>
+
+        </div>
+
+
+
+
+        {% block javascripts %}
+            {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        {% endblock %}
+
+    </body>
+</html>
+
 {% endblock %}

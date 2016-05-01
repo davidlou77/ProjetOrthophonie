@@ -3,23 +3,24 @@
 namespace UPOND\OrthophonieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Multimedia
  *
  * @ORM\Table(name="multimedia")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UPOND\OrthophonieBundle\Repository\MultimediaRepository")
  */
 class Multimedia
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_multimedia", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idMultimedia;
 
     /**
      * @var string
@@ -43,28 +44,37 @@ class Multimedia
     private $son;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=50, nullable=true)
+     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Strategie", inversedBy="multimedias")
+     * @ORM\JoinColumn(name="id_strategie", referencedColumnName="id_strategie")
      */
-    private $type;
+    private $strategie;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Etape", mappedBy="multimedia")
+     */
+    private $etapes;
+
+    public function __construct()
+    {
+        $this->etapes = new ArrayCollection();
+    }
 
 
     /**
-     * Get id
+     * Get idMultimedia
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId()
+    public function getIdMultimedia()
     {
-        return $this->id;
+        return $this->idMultimedia;
     }
 
     /**
      * Set nom
      *
      * @param string $nom
+     *
      * @return Multimedia
      */
     public function setNom($nom)
@@ -77,7 +87,7 @@ class Multimedia
     /**
      * Get nom
      *
-     * @return string 
+     * @return string
      */
     public function getNom()
     {
@@ -88,6 +98,7 @@ class Multimedia
      * Set image
      *
      * @param string $image
+     *
      * @return Multimedia
      */
     public function setImage($image)
@@ -100,7 +111,7 @@ class Multimedia
     /**
      * Get image
      *
-     * @return string 
+     * @return string
      */
     public function getImage()
     {
@@ -111,6 +122,7 @@ class Multimedia
      * Set son
      *
      * @param string $son
+     *
      * @return Multimedia
      */
     public function setSon($son)
@@ -123,7 +135,7 @@ class Multimedia
     /**
      * Get son
      *
-     * @return string 
+     * @return string
      */
     public function getSon()
     {
@@ -131,35 +143,60 @@ class Multimedia
     }
 
     /**
-     * Set type
+     * Set strategie
      *
-     * @param string $type
+     * @param \UPOND\OrthophonieBundle\Entity\Strategie $strategie
+     *
      * @return Multimedia
      */
-    public function setType($type)
+    public function setStrategie(\UPOND\OrthophonieBundle\Entity\Strategie $strategie = null)
     {
-        $this->type = $type;
+        $this->strategie = $strategie;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get strategie
      *
-     * @return string 
+     * @return \UPOND\OrthophonieBundle\Entity\Strategie
      */
-    public function getType()
+    public function getStrategie()
     {
-        return $this->type;
+        return $this->strategie;
     }
 
-    public function getImagePath()
+    /**
+     * Add etape
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Etape $etape
+     *
+     * @return Multimedia
+     */
+    public function addEtape(\UPOND\OrthophonieBundle\Entity\Etape $etape)
     {
-        return $this->getImage();
+        $this->etapes[] = $etape;
+
+        return $this;
     }
 
-    public function getSonPath()
+    /**
+     * Remove etape
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Etape $etape
+     */
+    public function removeEtape(\UPOND\OrthophonieBundle\Entity\Etape $etape)
     {
-        return $this->getSon();
+        $this->etapes->removeElement($etape);
+    }
+
+    /**
+     * Get etapes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEtapes()
+    {
+        return $this->etapes;
     }
 }

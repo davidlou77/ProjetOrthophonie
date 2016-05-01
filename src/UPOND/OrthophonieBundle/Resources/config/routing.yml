@@ -2,6 +2,18 @@ upond_orthophonie_home:
     path:     /
     defaults: { _controller: UPONDOrthophonieBundle:Phases:index }
 
+upond_orthophonie_invite:
+    path:     /
+    defaults: { _controller: UPONDOrthophonieBundle:Invite:accueil }
+
+upond_orthophonie_strategie:
+    path:     /st
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:st }
+
+upond_orthophonie_stats:
+    path:     /stats
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:stats }
+
 upond_orthophonie_phases:
     path:     /phases
     defaults: { _controller: UPONDOrthophonieBundle:Phases:phases }

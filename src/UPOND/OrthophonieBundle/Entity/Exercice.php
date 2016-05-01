@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Exercice
  *
  * @ORM\Table(name="exercice")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UPOND\OrthophonieBundle\Repository\ExerciceRepository")
  */
 class Exercice
 {
@@ -26,23 +26,16 @@ class Exercice
     /**
      * @var integer
      *
-     * @ORM\Column(name="temps", type="integer", nullable=true)
+     * @ORM\Column(name="temps_exercice", type="integer", nullable=true)
      */
-    private $temps;
+    private $temps_exercice;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="exercice_fini", type="boolean", nullable=true)
+     * @ORM\Column(name="temps_ecoule", type="integer", nullable=true)
      */
-    private $exerciceFini;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="strategie", type="string", nullable=true)
-     */
-    private $strategie;
+    private $temps_ecoule;
 
     /**
      * @var integer
@@ -52,11 +45,11 @@ class Exercice
     private $nbBonneReponse;
 
     /**
-     * @var float
+     * @var integer
      *
-     * @ORM\Column(name="taux_reussite", type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="nb_mauvaise_reponse", type="integer", nullable=true)
      */
-    private $tauxReussite;
+    private $nbMauvaiseReponse;
 
     /**
      * @var string
@@ -66,30 +59,46 @@ class Exercice
     private $phase;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Question")
-     * @ORM\JoinTable(name="Exercice_Questions",
-     *      joinColumns={@JoinColumn(name="id_exercice", referencedColumnName="id_exercice")},
-     *      inverseJoinColumns={@JoinColumn(name="id_question", referencedColumnName="id_question")}
-     *      )
+     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Patient", inversedBy="exercices")
+     * @ORM\JoinColumn(name="id_patient", referencedColumnName="id_patient")
      */
-    private $questions;
+    private $patient;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Partie", inversedBy="exercices")
-     * @ORM\JoinColumn(name="id_partie", referencedColumnName="id_partie")
+     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Strategie", inversedBy="exercices")
+     * @ORM\JoinColumn(name="id_strategie", referencedColumnName="id_strategie")
      */
-    private $partie;
+    private $strategie;
 
+    /**
+     * @var Date
+     *
+     * @ORM\Column(name="dateCreation", type="date", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\OneToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Etape")
+     * @ORM\JoinColumn(name="id_etape", referencedColumnName="id_etape")
+     */
+    private $etapeCourante;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Etape", mappedBy="exercice")
+     */
+    private $etapes;
 
     public function __construct()
     {
-        $this->questions = new ArrayCollection();
+        $this->etapes = new ArrayCollection();
     }
+
+    
 
     /**
      * Get idExercice
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdExercice()
     {
@@ -97,55 +106,58 @@ class Exercice
     }
 
     /**
-     * Set temps
+     * Set tempsExercice
      *
-     * @param integer $temps
+     * @param integer $tempsExercice
+     *
      * @return Exercice
      */
-    public function setTemps($temps)
+    public function setTempsExercice($tempsExercice)
     {
-        $this->temps = $temps;
+        $this->temps_exercice = $tempsExercice;
 
         return $this;
     }
 
     /**
-     * Get temps
+     * Get tempsExercice
      *
-     * @return integer 
+     * @return integer
      */
-    public function getTemps()
+    public function getTempsExercice()
     {
-        return $this->temps;
+        return $this->temps_exercice;
     }
 
     /**
-     * Set exerciceFini
+     * Set tempsEcoule
      *
-     * @param boolean $exerciceFini
+     * @param integer $tempsEcoule
+     *
      * @return Exercice
      */
-    public function setExerciceFini($exerciceFini)
+    public function setTempsEcoule($tempsEcoule)
     {
-        $this->exerciceFini = $exerciceFini;
+        $this->temps_ecoule = $tempsEcoule;
 
         return $this;
     }
 
     /**
-     * Get exerciceFini
+     * Get tempsEcoule
      *
-     * @return boolean 
+     * @return integer
      */
-    public function getExerciceFini()
+    public function getTempsEcoule()
     {
-        return $this->exerciceFini;
+        return $this->temps_ecoule;
     }
 
     /**
      * Set nbBonneReponse
      *
      * @param integer $nbBonneReponse
+     *
      * @return Exercice
      */
     public function setNbBonneReponse($nbBonneReponse)
@@ -158,7 +170,7 @@ class Exercice
     /**
      * Get nbBonneReponse
      *
-     * @return integer 
+     * @return integer
      */
     public function getNbBonneReponse()
     {
@@ -166,55 +178,34 @@ class Exercice
     }
 
     /**
-     * Set tauxReussite
+     * Set nbMauvaiseReponse
      *
-     * @param float $tauxReussite
+     * @param integer $nbMauvaiseReponse
+     *
      * @return Exercice
      */
-    public function setTauxReussite($tauxReussite)
+    public function setNbMauvaiseReponse($nbMauvaiseReponse)
     {
-        $this->tauxReussite = $tauxReussite;
+        $this->nbMauvaiseReponse = $nbMauvaiseReponse;
 
         return $this;
     }
 
     /**
-     * Get tauxReussite
+     * Get nbMauvaiseReponse
      *
-     * @return float 
+     * @return integer
      */
-    public function getTauxReussite()
+    public function getNbMauvaiseReponse()
     {
-        return $this->tauxReussite;
-    }
-
-    /**
-     * Set idQuestion
-     *
-     * @param integer $idQuestion
-     * @return Exercice
-     */
-    public function setIdQuestion($idQuestion)
-    {
-        $this->idQuestion = $idQuestion;
-
-        return $this;
-    }
-
-    /**
-     * Get idQuestion
-     *
-     * @return integer 
-     */
-    public function getIdQuestion()
-    {
-        return $this->idQuestion;
+        return $this->nbMauvaiseReponse;
     }
 
     /**
      * Set phase
      *
      * @param string $phase
+     *
      * @return Exercice
      */
     public function setPhase($phase)
@@ -227,7 +218,7 @@ class Exercice
     /**
      * Get phase
      *
-     * @return string 
+     * @return string
      */
     public function getPhase()
     {
@@ -235,13 +226,61 @@ class Exercice
     }
 
     /**
-     * Set strategie
+     * Set dateCreation
      *
-     * @param string $strategie
+     * @param \DateTime $dateCreation
      *
      * @return Exercice
      */
-    public function setStrategie($strategie)
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set patient
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Patient $patient
+     *
+     * @return Exercice
+     */
+    public function setPatient(\UPOND\OrthophonieBundle\Entity\Patient $patient = null)
+    {
+        $this->patient = $patient;
+
+        return $this;
+    }
+
+    /**
+     * Get patient
+     *
+     * @return \UPOND\OrthophonieBundle\Entity\Patient
+     */
+    public function getPatient()
+    {
+        return $this->patient;
+    }
+
+    /**
+     * Set strategie
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Strategie $strategie
+     *
+     * @return Exercice
+     */
+    public function setStrategie(\UPOND\OrthophonieBundle\Entity\Strategie $strategie = null)
     {
         $this->strategie = $strategie;
 
@@ -251,7 +290,7 @@ class Exercice
     /**
      * Get strategie
      *
-     * @return string
+     * @return \UPOND\OrthophonieBundle\Entity\Strategie
      */
     public function getStrategie()
     {
@@ -259,60 +298,60 @@ class Exercice
     }
 
     /**
-     * Add question
+     * Set etapeCourante
      *
-     * @param \UPOND\OrthophonieBundle\Entity\Question $question
+     * @param \UPOND\OrthophonieBundle\Entity\Etape $etapeCourante
      *
      * @return Exercice
      */
-    public function addQuestion(\UPOND\OrthophonieBundle\Entity\Question $question)
+    public function setEtapeCourante(\UPOND\OrthophonieBundle\Entity\Etape $etapeCourante = null)
     {
-        $this->questions[] = $question;
+        $this->etapeCourante = $etapeCourante;
 
         return $this;
     }
 
     /**
-     * Remove question
+     * Get etapeCourante
      *
-     * @param \UPOND\OrthophonieBundle\Entity\Question $question
+     * @return \UPOND\OrthophonieBundle\Entity\Etape
      */
-    public function removeQuestion(\UPOND\OrthophonieBundle\Entity\Question $question)
+    public function getEtapeCourante()
     {
-        $this->questions->removeElement($question);
+        return $this->etapeCourante;
     }
 
     /**
-     * Get questions
+     * Add etape
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Etape $etape
+     *
+     * @return Exercice
+     */
+    public function addEtape(\UPOND\OrthophonieBundle\Entity\Etape $etape)
+    {
+        $this->etapes[] = $etape;
+
+        return $this;
+    }
+
+    /**
+     * Remove etape
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Etape $etape
+     */
+    public function removeEtape(\UPOND\OrthophonieBundle\Entity\Etape $etape)
+    {
+        $this->etapes->removeElement($etape);
+    }
+
+    /**
+     * Get etapes
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getQuestions()
+    public function getEtapes()
     {
-        return $this->questions;
-    }
-
-    /**
-     * Set partie
-     *
-     * @param \UPOND\OrthophonieBundle\Entity\Partie $partie
-     *
-     * @return Exercice
-     */
-    public function setPartie(\UPOND\OrthophonieBundle\Entity\Partie $partie = null)
-    {
-        $this->partie = $partie;
-
-        return $this;
-    }
-
-    /**
-     * Get partie
-     *
-     * @return \UPOND\OrthophonieBundle\Entity\Partie
-     */
-    public function getPartie()
-    {
-        return $this->partie;
+        return $this->etapes;
     }
 }

@@ -2,10 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="4adbd8b2-e961-4556-8cfa-b8b5012fcc59" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Invite/accueil.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Stats/stats.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/strategie.html.twig" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Historique.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Partie.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Question.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Resultat.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle" afterPath="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/layout.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/layout.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/ConnexionController.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/ConnexionController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PhasesController.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PhasesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/exercice.html.twig" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/exercice.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/MenuBuilder.php" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/MenuBuilder.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/index.html.twig" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/index.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/layout.html.twig" afterPath="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/layout.html.twig" />
     </list>
     <ignored path="Symfony.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,65 +45,126 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PartieController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PartieController.php">
+      <file leaf-file-name="Exercice.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-615">
-              <caret line="76" column="69" selection-start-line="76" selection-start-column="69" selection-end-line="76" selection-end-column="69" />
+            <state relative-caret-position="4365">
+              <caret line="341" column="7" selection-start-line="341" selection-start-column="7" selection-end-line="341" selection-end-column="7" />
+              <folding>
+                <element signature="e#50#82#0#PHP" expanded="true" />
+                <marker date="1462100674000" expanded="true" signature="326:7002" placeholder="{...}" />
+                <marker date="1462100674000" expanded="true" signature="336:503" placeholder=" @var integer ..." />
+                <marker date="1462100674000" expanded="true" signature="539:645" placeholder=" @var integer ..." />
+                <marker date="1462100674000" expanded="true" signature="685:789" placeholder=" @var integer ..." />
+                <marker date="1462100674000" expanded="true" signature="827:935" placeholder=" @var integer ..." />
+                <marker date="1462100674000" expanded="true" signature="975:1086" placeholder=" @var integer ..." />
+                <marker date="1462100674000" expanded="true" signature="1266:1450" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Patient&quot;, inversedBy=&quot;exercices&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="1483:1673" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Strategie&quot;, inversedBy=&quot;exercices&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="1708:1806" placeholder=" @var Date ..." />
+                <marker date="1462100674000" expanded="true" signature="1844:1997" placeholder=" @ORM\OneToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Etape&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="2036:2138" placeholder=" @ORM\OneToMany(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Etape&quot;, mappedBy=&quot;exercice&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="2196:2255" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Medecin.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="657">
+              <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Etape.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Etape.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1908">
+              <caret line="144" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="42" selection-end-column="22" />
               <folding>
                 <element signature="e#6#90#0#PHP" expanded="true" />
-                <element signature="e#139#196#0#PHP" expanded="true" />
-                <marker date="1461851022000" expanded="true" signature="7380:7565" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
-                <marker date="1461851022000" expanded="true" signature="8054:8167" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
-                <marker date="1461851022000" expanded="true" signature="8644:8782" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
-                <marker date="1461851022000" expanded="true" signature="10632:10827" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
-                <marker date="1461851022000" expanded="true" signature="12416:12529" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
-                <marker date="1461851022000" expanded="true" signature="13472:13589" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
-                <marker date="1461851022000" expanded="true" signature="14100:14213" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
+                <marker date="1462100674000" expanded="true" signature="313:3126" placeholder="{...}" />
+                <marker date="1462100674000" expanded="true" signature="324:488" placeholder=" @var integer ..." />
+                <marker date="1462100674000" expanded="true" signature="522:623" placeholder=" @var integer ..." />
+                <marker date="1462100674000" expanded="true" signature="657:841" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Exercice&quot;, inversedBy=&quot;etapes&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="875:1065" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Multimedia&quot;, inversedBy=&quot;etapes&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="1101:1207" placeholder=" @var boolean ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PhasesController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PhasesController.php">
+      <file leaf-file-name="Multimedia.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="79" column="20" selection-start-line="79" selection-start-column="20" selection-end-line="79" selection-end-column="20" />
+            <state relative-caret-position="2265">
+              <caret line="151" column="77" selection-start-line="151" selection-start-column="77" selection-end-line="151" selection-end-column="77" />
               <folding>
-                <element signature="e#139#196#0#PHP" expanded="true" />
-                <marker date="1461854696000" expanded="true" signature="1652:1722" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
+                <element signature="e#50#82#0#PHP" expanded="true" />
+                <marker date="1462100674000" expanded="true" signature="297:3694" placeholder="{...}" />
+                <marker date="1462100674000" expanded="true" signature="307:476" placeholder=" @var integer ..." />
+                <marker date="1462100674000" expanded="true" signature="514:619" placeholder=" @var string ..." />
+                <marker date="1462100674000" expanded="true" signature="648:755" placeholder=" @var string ..." />
+                <marker date="1462100674000" expanded="true" signature="786:891" placeholder=" @var string ..." />
+                <marker date="1462100674000" expanded="true" signature="920:1112" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Strategie&quot;, inversedBy=&quot;multimedias&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="1147:1251" placeholder=" @ORM\OneToMany(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Etape&quot;, mappedBy=&quot;multimedia&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="1309:1368" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="exercice.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/exercice.html.twig">
+      <file leaf-file-name="Patient.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-              <folding />
+            <state relative-caret-position="1620">
+              <caret line="126" column="19" selection-start-line="126" selection-start-column="19" selection-end-line="126" selection-end-column="19" />
+              <folding>
+                <element signature="e#50#82#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="phases.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/phases.html.twig">
+      <file leaf-file-name="Strategie.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Strategie.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1770">
+              <caret line="118" column="7" selection-start-line="118" selection-start-column="7" selection-end-line="118" selection-end-column="7" />
+              <folding>
+                <element signature="e#6#90#0#PHP" expanded="true" />
+                <element signature="e#135#167#0#PHP" expanded="true" />
+                <marker date="1462100674000" expanded="true" signature="378:3146" placeholder="{...}" />
+                <marker date="1462100674000" expanded="true" signature="595:688" placeholder=" @var string ..." />
+                <marker date="1462100674000" expanded="true" signature="717:823" placeholder=" @ORM\OneToMany(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Exercice&quot;, mappedBy=&quot;strategie&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="858:966" placeholder=" @ORM\OneToMany(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Multimedia&quot;, mappedBy=&quot;strategie&quot;) ..." />
+                <marker date="1462100674000" expanded="true" signature="1029:1143" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utilisateur.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="10" column="48" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="48" />
+              <caret line="11" column="78" selection-start-line="11" selection-start-column="78" selection-end-line="11" selection-end-column="78" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routing.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml">
+      <file leaf-file-name="PauseVideo.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/PauseVideo.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="24" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="24" />
-              <folding />
+            <state relative-caret-position="1068">
+              <caret line="73" column="21" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
+              <folding>
+                <element signature="e#6#90#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,39 +180,26 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="symfonyV2.8" />
       </map>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/UPOND/UserBundle/DataFixtures/ORM/LoadUser.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/UserBundle/UPONDUserBundle.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Entity/User.php" />
-        <option value="$PROJECT_DIR$/src/OC/PlatformBundle/Resources/views/layout.html.twig" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/RequestVoter.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Menu/knp_menu.html.twig" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php" />
-        <option value="$PROJECT_DIR$/src/OC/PlatformBundle/Resources/views/Advert/index.html.twig" />
         <option value="$PROJECT_DIR$/src/OC/PlatformBundle/Resources/views/Advert/view.html.twig" />
         <option value="$PROJECT_DIR$/src/OC/PlatformBundle/Controller/AdvertController.php" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/apprentissage.html.twig" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/entrainement.html.twig" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/transfert.html.twig" />
-        <option value="$PROJECT_DIR$/app/Resources/views/layout.html.twig" />
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Resources/views/layout.html.twig" />
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Resources/views/Security/login.html.twig" />
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Controller/SecurityController.php" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
         <option value="$PROJECT_DIR$/app/config/routing.yml" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/layout.html.twig" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/index.html.twig" />
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/phases.html.twig" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Historique.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Question.php" />
         <option value="$PROJECT_DIR$/app/config/parameters.yml" />
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Form/RegistrationFormType.php" />
@@ -141,24 +207,37 @@
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/DependencyInjection/UPONDUserExtension.php" />
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Resources/config/services.yml" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/StartController.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Partie.php" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Partie/partie.html.twig" />
         <option value="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Controller/RegistrationController.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Form/Type/RegistrationFormType.php" />
         <option value="$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Form/Type/RegistrationFormType.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php" />
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Controller/RegistrationController.php" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PartieController.php" />
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/app/config/services.yml" />
         <option value="$PROJECT_DIR$/src/UPOND/UserBundle/Form/Type/ProfileFormType.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/MenuBuilder.php" />
-        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PhasesController.php" />
         <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/exercice.html.twig" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/MenuBuilder.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Stats/stats.html.twig" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/layout.html.twig" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Invite/accueil.html.twig" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/ConnexionController.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PhasesController.php" />
+        <option value="$PROJECT_DIR$/app/Resources/views/layout.html.twig" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/strategie.html.twig" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/PauseVideo.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Etape.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Strategie.php" />
+        <option value="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php" />
       </list>
     </option>
   </component>
@@ -222,8 +301,21 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="ProjetOrthophonie">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -378,7 +470,33 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Menu" />
+              <option name="myItemId" value="Repository" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjetOrthophonie" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjetOrthophonie" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="UPOND" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OrthophonieBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Entity" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -422,25 +540,64 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjetOrthophonie" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjetOrthophonie" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="FullScreen" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="85" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="110" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="114" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="899" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="96" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="106" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="110" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="896" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Invite" />
       <recent name="$PROJECT_DIR$/web" />
       <recent name="$PROJECT_DIR$/src/UPOND/UserBundle/DataFixtures/ORM" />
       <recent name="$PROJECT_DIR$/src/OC/PlatformBundle/Entity" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunManager">
@@ -493,7 +650,8 @@
       <workItem from="1461439957506" duration="434000" />
       <workItem from="1461440406844" duration="24163000" />
       <workItem from="1461844737365" duration="3920000" />
-      <workItem from="1461853184862" duration="1982000" />
+      <workItem from="1461853184862" duration="2611000" />
+      <workItem from="1461874163554" duration="14277000" />
     </task>
     <task id="LOCAL-00001" summary="Base du site - David">
       <created>1461440241044</created>
@@ -544,11 +702,18 @@
       <option name="project" value="LOCAL" />
       <updated>1461853559090</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Modification mdp + modification nom et prénom">
+      <created>1461872978189</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1461872978190</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98535000" />
+    <option name="totallyTimeSpent" value="113441000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -563,13 +728,11 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2552504" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25928918" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.49030694" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.509693" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739726" sideWeight="0.509693" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.49353796" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32599118" sideWeight="0.49030694" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -577,10 +740,12 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.49030694" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997344" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -618,11 +783,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PartieController.php</url>
-          <line>10</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Controller/RegistrationController.php</url>
           <line>13</line>
           <option name="timeStamp" value="5" />
@@ -633,142 +793,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Event/FormEvent.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-124">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/security.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="40" selection-start-line="30" selection-start-column="40" selection-end-line="30" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Controller/SecurityController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="21" column="65" selection-start-line="21" selection-start-column="65" selection-end-line="21" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Form/RegistrationFormType.php" />
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Form/NewUtilisateurForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/services.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/DependencyInjection/Configuration.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/DependencyInjection/UPONDUserExtension.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Resources/config/services.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="9" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/.htaccess">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml.dist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="12" column="70" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Partie/partie.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="35" column="68" selection-start-line="35" selection-start-column="68" selection-end-line="35" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Partie.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1920">
-          <caret line="153" column="5" selection-start-line="153" selection-start-column="5" selection-end-line="153" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Question.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
-          <caret line="124" column="33" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Resultat.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Form/Factory/FactoryInterface.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -791,21 +815,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="60" column="4" selection-start-line="60" selection-start-column="4" selection-end-line="64" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="80" column="5" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Resources/config/routing.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -817,13 +826,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="28" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -852,6 +854,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="71" column="37" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -865,39 +868,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/ConnexionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Controller/RegistrationController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Form/Type/ChangePasswordFormType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-372">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Form/Type/RegistrationFormType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="45" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -922,33 +896,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PartieController.php">
+    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Controller/ProfileController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-615">
-          <caret line="76" column="69" selection-start-line="76" selection-start-column="69" selection-end-line="76" selection-end-column="69" />
-          <folding>
-            <element signature="e#6#90#0#PHP" expanded="true" />
-            <element signature="e#139#196#0#PHP" expanded="true" />
-            <marker date="1461851022000" expanded="true" signature="7380:7565" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
-            <marker date="1461851022000" expanded="true" signature="8054:8167" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
-            <marker date="1461851022000" expanded="true" signature="8644:8782" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
-            <marker date="1461851022000" expanded="true" signature="10632:10827" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
-            <marker date="1461851022000" expanded="true" signature="12416:12529" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
-            <marker date="1461851022000" expanded="true" signature="13472:13589" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
-            <marker date="1461851022000" expanded="true" signature="14100:14213" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/MenuBuilder.php">
+    <entry file="file://$PROJECT_DIR$/app/config/services.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="35" column="109" selection-start-line="35" selection-start-column="109" selection-end-line="35" selection-end-column="109" />
+        <state relative-caret-position="195">
+          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="85" column="52" selection-start-line="85" selection-start-column="52" selection-end-line="85" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/phases.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="48" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/friendsofsymfony/user-bundle/Controller/ProfileController.php">
+    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Form/Type/RegistrationFormType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="e#131#187#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/stats.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Connexion/connexion.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="9" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="12" column="70" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Menu/knp_menu.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Controller/SecurityController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="5" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <folding>
+            <element signature="e#132#189#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -958,43 +987,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Form/Type/ProfileFormType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Stats/stats.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="591" column="23" selection-start-line="591" selection-start-column="23" selection-end-line="591" selection-end-column="23" />
           <folding>
-            <element signature="e#6#90#0#PHP" expanded="false" />
-            <element signature="e#131#187#0#PHP" expanded="false" />
+            <element signature="e#1261#1287#0#HTML" expanded="false" />
+            <element signature="e#1299#1320#0#HTML" expanded="false" />
+            <element signature="e#14394#14423#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/services.yml">
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Menu/MenuBuilder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
+        <state relative-caret-position="420">
+          <caret line="57" column="82" selection-start-line="57" selection-start-column="59" selection-end-line="57" selection-end-column="82" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
+    <entry file="file://$PROJECT_DIR$/src/UPOND/UserBundle/Controller/RegistrationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="85" column="52" selection-start-line="85" selection-start-column="52" selection-end-line="85" selection-end-column="52" />
+        <state relative-caret-position="45">
+          <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml">
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/apprentissage.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="24" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Phases/phases.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="48" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="48" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1007,13 +1037,241 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/config/routing.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/layout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PhasesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="79" column="20" selection-start-line="79" selection-start-column="20" selection-end-line="79" selection-end-column="20" />
+        <state relative-caret-position="420">
+          <caret line="56" column="63" selection-start-line="56" selection-start-column="63" selection-end-line="56" selection-end-column="63" />
           <folding>
-            <element signature="e#139#196#0#PHP" expanded="true" />
-            <marker date="1461854696000" expanded="true" signature="1652:1722" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
+            <marker date="1461934047000" expanded="true" signature="1898:1968" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/ConnexionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="40" column="120" selection-start-line="40" selection-start-column="120" selection-end-line="40" selection-end-column="120" />
+          <folding>
+            <element signature="e#224#247#0#HTML" expanded="false" />
+            <element signature="e#391#474#0#HTML" expanded="false" />
+            <element signature="e#505#531#0#HTML" expanded="false" />
+            <element signature="e#1134#1217#0#HTML" expanded="false" />
+            <element signature="e#1248#1274#0#HTML" expanded="false" />
+            <element signature="e#1836#1919#0#HTML" expanded="false" />
+            <element signature="e#2373#2402#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/Invite/accueil.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Resources/views/strategie.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="45" column="109" selection-start-line="45" selection-start-column="109" selection-end-line="45" selection-end-column="109" />
+          <folding>
+            <element signature="e#201#227#0#HTML" expanded="false" />
+            <element signature="e#258#280#0#HTML" expanded="false" />
+            <element signature="e#354#375#0#HTML" expanded="false" />
+            <element signature="e#450#533#0#HTML" expanded="false" />
+            <element signature="e#556#582#0#HTML" expanded="false" />
+            <element signature="e#842#925#0#HTML" expanded="false" />
+            <element signature="e#948#974#0#HTML" expanded="false" />
+            <element signature="e#1242#1325#0#HTML" expanded="false" />
+            <element signature="e#1348#1374#0#HTML" expanded="false" />
+            <element signature="e#1629#1712#0#HTML" expanded="false" />
+            <element signature="e#1735#1761#0#HTML" expanded="false" />
+            <element signature="e#2135#2161#0#HTML" expanded="false" />
+            <element signature="e#2499#2528#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/layout.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#h2#0;n#div#0;n#body#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Controller/PartieController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+          <folding>
+            <element signature="e#6#90#0#PHP" expanded="true" />
+            <marker date="1461851022000" expanded="true" signature="7380:7565" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
+            <marker date="1461851022000" expanded="true" signature="8054:8167" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
+            <marker date="1461851022000" expanded="true" signature="8644:8782" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
+            <marker date="1461851022000" expanded="true" signature="10632:10827" placeholder="SELECT q.idQ... UPONDOrthophonieBundle" />
+            <marker date="1461851022000" expanded="true" signature="12416:12529" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
+            <marker date="1461851022000" expanded="true" signature="13472:13589" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
+            <marker date="1461851022000" expanded="true" signature="14100:14213" placeholder="SELECT q FRO... UPONDOrthophonieBundle" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Question.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="28" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Partie.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="30" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Medecin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="657">
+          <caret line="44" column="22" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/PauseVideo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1068">
+          <caret line="73" column="21" selection-start-line="73" selection-start-column="21" selection-end-line="73" selection-end-column="21" />
+          <folding>
+            <element signature="e#6#90#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Utilisateur.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="11" column="78" selection-start-line="11" selection-start-column="78" selection-end-line="11" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Multimedia.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2265">
+          <caret line="151" column="77" selection-start-line="151" selection-start-column="77" selection-end-line="151" selection-end-column="77" />
+          <folding>
+            <element signature="e#50#82#0#PHP" expanded="true" />
+            <marker date="1462100674000" expanded="true" signature="297:3694" placeholder="{...}" />
+            <marker date="1462100674000" expanded="true" signature="307:476" placeholder=" @var integer ..." />
+            <marker date="1462100674000" expanded="true" signature="514:619" placeholder=" @var string ..." />
+            <marker date="1462100674000" expanded="true" signature="648:755" placeholder=" @var string ..." />
+            <marker date="1462100674000" expanded="true" signature="786:891" placeholder=" @var string ..." />
+            <marker date="1462100674000" expanded="true" signature="920:1112" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Strategie&quot;, inversedBy=&quot;multimedias&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="1147:1251" placeholder=" @ORM\OneToMany(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Etape&quot;, mappedBy=&quot;multimedia&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="1309:1368" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Etape.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1908">
+          <caret line="144" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="42" selection-end-column="22" />
+          <folding>
+            <element signature="e#6#90#0#PHP" expanded="true" />
+            <marker date="1462100674000" expanded="true" signature="313:3126" placeholder="{...}" />
+            <marker date="1462100674000" expanded="true" signature="324:488" placeholder=" @var integer ..." />
+            <marker date="1462100674000" expanded="true" signature="522:623" placeholder=" @var integer ..." />
+            <marker date="1462100674000" expanded="true" signature="657:841" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Exercice&quot;, inversedBy=&quot;etapes&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="875:1065" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Multimedia&quot;, inversedBy=&quot;etapes&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="1101:1207" placeholder=" @var boolean ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Exercice.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4365">
+          <caret line="341" column="7" selection-start-line="341" selection-start-column="7" selection-end-line="341" selection-end-column="7" />
+          <folding>
+            <element signature="e#50#82#0#PHP" expanded="true" />
+            <marker date="1462100674000" expanded="true" signature="326:7002" placeholder="{...}" />
+            <marker date="1462100674000" expanded="true" signature="336:503" placeholder=" @var integer ..." />
+            <marker date="1462100674000" expanded="true" signature="539:645" placeholder=" @var integer ..." />
+            <marker date="1462100674000" expanded="true" signature="685:789" placeholder=" @var integer ..." />
+            <marker date="1462100674000" expanded="true" signature="827:935" placeholder=" @var integer ..." />
+            <marker date="1462100674000" expanded="true" signature="975:1086" placeholder=" @var integer ..." />
+            <marker date="1462100674000" expanded="true" signature="1266:1450" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Patient&quot;, inversedBy=&quot;exercices&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="1483:1673" placeholder=" @ORM\ManyToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Strategie&quot;, inversedBy=&quot;exercices&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="1708:1806" placeholder=" @var Date ..." />
+            <marker date="1462100674000" expanded="true" signature="1844:1997" placeholder=" @ORM\OneToOne(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Etape&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="2036:2138" placeholder=" @ORM\OneToMany(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Etape&quot;, mappedBy=&quot;exercice&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="2196:2255" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Strategie.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1770">
+          <caret line="118" column="7" selection-start-line="118" selection-start-column="7" selection-end-line="118" selection-end-column="7" />
+          <folding>
+            <element signature="e#6#90#0#PHP" expanded="true" />
+            <element signature="e#135#167#0#PHP" expanded="true" />
+            <marker date="1462100674000" expanded="true" signature="378:3146" placeholder="{...}" />
+            <marker date="1462100674000" expanded="true" signature="595:688" placeholder=" @var string ..." />
+            <marker date="1462100674000" expanded="true" signature="717:823" placeholder=" @ORM\OneToMany(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Exercice&quot;, mappedBy=&quot;strategie&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="858:966" placeholder=" @ORM\OneToMany(targetEntity=&quot;UPOND\OrthophonieBundle\Entity\Multimedia&quot;, mappedBy=&quot;strategie&quot;) ..." />
+            <marker date="1462100674000" expanded="true" signature="1029:1143" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UPOND/OrthophonieBundle/Entity/Patient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="126" column="19" selection-start-line="126" selection-start-column="19" selection-end-line="126" selection-end-column="19" />
+          <folding>
+            <element signature="e#50#82#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

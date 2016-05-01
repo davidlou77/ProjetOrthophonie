@@ -36,4 +36,9 @@ class ConnexionController extends Controller
                 'message' => $message ));
     }
 
+    public function accueilAction()
+    {
+        //renvoie les boutons d'inscription et de connexion
+        return $this->render('UPONDOrthophonieBundle:Invite:accueil.html.twig');
+    }
 }

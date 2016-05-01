@@ -3,12 +3,14 @@
 namespace UPOND\OrthophonieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Patient
  *
- * @ORM\Table(name="patient", indexes={@ORM\Index(name="id_medecin", columns={"id_medecin"}), @ORM\Index(name="id_utilisateur", columns={"id_utilisateur"})})
- * @ORM\Entity
+ * @ORM\Table(name="patient")
+ * @ORM\Entity(repositoryClass="UPOND\OrthophonieBundle\Repository\PatientRepository")
  */
 class Patient
 {
@@ -22,94 +24,32 @@ class Patient
      */
     private $idPatient;
 
-    /**
-     * @var \Medecin
-     *
-     * @ORM\ManyToOne(targetEntity="Medecin")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_medecin", referencedColumnName="id_medecin")
-     * })
-     */
-    private $idMedecin;
 
     /**
-     * @var \Utilisateur
-     *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id")
-     * })
+     * @ORM\OneToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Utilisateur")
      */
-    private $idUtilisateur;
+    private $utilisateur;
 
     /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Patient
+     * @ORM\ManyToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Medecin")
+     * @ORM\JoinTable(name="patient_medecin",
+     *      joinColumns={@JoinColumn(name="id_patient", referencedColumnName="id_patient")},
+     *      inverseJoinColumns={@JoinColumn(name="id_medecin", referencedColumnName="id_medecin")}
+     *      )
      */
-    public function setNom($nom)
+    private $medecins;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Exercice", mappedBy="patient")
+     */
+    private $exercices;
+
+    public function __construct()
     {
-        $this->nom = $nom;
-
-        return $this;
+        $this->medecins = new ArrayCollection();
+        $this->exercices = new ArrayCollection();
     }
 
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     * @return Patient
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    /**
-     * Get prenom
-     *
-     * @return string 
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * Set idMedecin
-     *
-     * @param \UPOND\OrthophonieBundle\Entity\Medecin $idMedecin
-     * @return Patient
-     */
-    public function setIdMedecin(\UPOND\OrthophonieBundle\Entity\Medecin $idMedecin = null)
-    {
-        $this->idMedecin = $idMedecin;
-
-        return $this;
-    }
-
-    /**
-     * Get idMedecin
-     *
-     * @return \UPOND\OrthophonieBundle\Entity\Medecin 
-     */
-    public function getIdMedecin()
-    {
-        return $this->idMedecin;
-    }
 
     /**
      * Get idPatient
@@ -133,27 +73,97 @@ class Patient
         return $this;
     }
 
+
+
     /**
-     * Set idUtilisateur
+     * Set utilisateur
      *
-     * @param \UPOND\OrthophonieBundle\Entity\Utilisateur $idUtilisateur
+     * @param \UPOND\OrthophonieBundle\Entity\Utilisateur $utilisateur
      *
      * @return Patient
      */
-    public function setIdUtilisateur(\UPOND\OrthophonieBundle\Entity\Utilisateur $idUtilisateur = null)
+    public function setUtilisateur(\UPOND\OrthophonieBundle\Entity\Utilisateur $utilisateur = null)
     {
-        $this->idUtilisateur = $idUtilisateur;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
     /**
-     * Get idUtilisateur
+     * Get utilisateur
      *
      * @return \UPOND\OrthophonieBundle\Entity\Utilisateur
      */
-    public function getIdUtilisateur()
+    public function getUtilisateur()
     {
-        return $this->idUtilisateur;
+        return $this->utilisateur;
+    }
+
+    /**
+     * Add medecin
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Medecin $medecin
+     *
+     * @return Patient
+     */
+    public function addMedecin(\UPOND\OrthophonieBundle\Entity\Medecin $medecin)
+    {
+        $this->medecins[] = $medecin;
+
+        return $this;
+    }
+
+    /**
+     * Remove medecin
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Medecin $medecin
+     */
+    public function removeMedecin(\UPOND\OrthophonieBundle\Entity\Medecin $medecin)
+    {
+        $this->medecins->removeElement($medecin);
+    }
+
+    /**
+     * Get medecins
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMedecins()
+    {
+        return $this->medecins;
+    }
+
+    /**
+     * Add exercice
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Exercice $exercice
+     *
+     * @return Patient
+     */
+    public function addExercice(\UPOND\OrthophonieBundle\Entity\Exercice $exercice)
+    {
+        $this->exercices[] = $exercice;
+
+        return $this;
+    }
+
+    /**
+     * Remove exercice
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Exercice $exercice
+     */
+    public function removeExercice(\UPOND\OrthophonieBundle\Entity\Exercice $exercice)
+    {
+        $this->exercices->removeElement($exercice);
+    }
+
+    /**
+     * Get exercices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getExercices()
+    {
+        return $this->exercices;
     }
 }

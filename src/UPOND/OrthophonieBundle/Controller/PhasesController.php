@@ -47,6 +47,16 @@ class PhasesController extends Controller
         return $this->render('UPONDOrthophonieBundle:Phases:transfert.html.twig');
     }
 
+    public function statsAction()
+    {
+        return $this->render('UPONDOrthophonieBundle:Stats:stats.html.twig');
+    }
+
+    public function stAction()
+    {
+        return $this->render('UPONDOrthophonieBundle::strategie.html.twig');
+    }
+
     /**
      * @Route("/exercice", name="upond_orthophonie_exercice")
      */
