@@ -1,0 +1,391 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: davidlou
+ * Date: 24/04/2016
+ * Time: 14:55
+ */
+
+namespace UPOND\OrthophonieBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use UPOND\OrthophonieBundle\Entity\Etape;
+use UPOND\OrthophonieBundle\Entity\Exercice;
+use UPOND\OrthophonieBundle\Entity\Multimedia;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use UPOND\OrthophonieBundle\Repository\EtapeRepository;
+use UPOND\OrthophonieBundle\Repository\ExerciceRepository;
+use UPOND\OrthophonieBundle\Repository\MultimediaRepository;
+use UPOND\OrthophonieBundle\Entity\Partie;
+
+class PartieController extends Controller
+{
+
+    public function indexAction()
+    {
+        return $this->render('UPONDOrthophonieBundle::index.html.twig');
+    }
+
+
+    public function startAction(Request $request)
+    {
+
+
+        // On crée le FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
+
+        // On ajoute les champs que l'on veut à notre formulaire
+        $formBuilder
+            ->add('TempsEntrainement', TimeType::class, array(
+                'input' => 'datetime',
+                'widget' => 'choice',
+                'with_minutes' => 'true',
+                'with_seconds' => 'true'))
+            ->add('TempsTransfert', TimeType::class, array(
+                'input' => 'datetime',
+                'widget' => 'choice',
+                'with_minutes' => 'true',
+                'with_seconds' => 'true'))
+            ->add('Créer une partie', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-success')));
+
+        // À partir du formBuilder, on génère le formulaire
+        $form = $formBuilder->getForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+
+
+            //transformer la saisie heure/min/secondes en secondes uniquement
+            $donneesForm = $form->getData();
+            sscanf($donneesForm['TempsEntrainement']->format('H:i:s'), "%d:%d:%d", $hours, $minutes, $seconds);
+
+            $time_seconds_entrainement = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
+
+            sscanf($donneesForm['TempsTransfert']->format('H:i:s'), "%d:%d:%d", $hours, $minutes, $seconds);
+
+            $time_seconds_transfert = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
+
+
+
+            // on récupere l'id de l'user
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            $idUser = $user->getId();
+
+            // on récupère l'entité du patient selon l'id utilisateur
+            $em = $this
+                ->getDoctrine()
+                ->getManager();
+
+            $repositoryPatient = $em
+                ->getRepository('UPONDOrthophonieBundle:Patient');
+            $repositoryPhase = $em
+                ->getRepository('UPONDOrthophonieBundle:Phase');
+            $repositoryStrategie = $em
+                ->getRepository('UPONDOrthophonieBundle:Strategie');
+
+
+
+            // on récupere l'entité de l'ID
+            $patient = $repositoryPatient->findOneByUtilisateur($idUser);
+
+            // on créé une nouvelle partie
+            $partie = new Partie();
+            $partie->setPatient($patient);
+
+            // on ajoute la partie dans la bdd
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($partie);
+            $em->flush();
+
+            // on va créer des exercices et les lier à la partie
+
+            //phase d'apprentissage
+            $phase = $repositoryPhase->findOneByNom("Apprentissage");
+            //strategie: Metiers
+            $strategie = $repositoryStrategie->findOneByNom("Métier");
+
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, 1);
+
+            $em->persist($exerciceApprentissage);
+
+            $em->flush();
+
+            //strategie: Morphologie
+            $strategie = $repositoryStrategie->findOneByNom("Morphologie");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, 1);
+
+            $em->persist($exerciceApprentissage);
+            $em->flush();
+            //strategie: Morphologie inverse
+            $strategie = $repositoryStrategie->findOneByNom("Morphologie inverse");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, 1);
+
+            $em->persist($exerciceApprentissage);
+            $em->flush();
+
+            // autres stratégies ...
+
+            //phase d'entrainement, on recupere les questions de la phase d'apprentissage
+            $phase = $repositoryPhase->findOneByNom("Entrainement");
+            //strategie: Metiers
+            $strategie = $repositoryStrategie->findOneByNom("Métier");
+
+            $exerciceEntrainement = new Exercice();
+            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, 1);
+
+            $em->persist($exerciceEntrainement);
+            $em->flush();
+
+            //strategie: Morphologie
+            $strategie = $repositoryStrategie->findOneByNom("Morphologie");
+
+            $exerciceEntrainement = new Exercice();
+            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, 1);
+
+            $em->persist($exerciceEntrainement);
+            $em->flush();
+
+            //strategie: Morphologie_inverse
+            $strategie = $repositoryStrategie->findOneByNom("Morphologie inverse");
+
+            $exerciceEntrainement = new Exercice();
+            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, 1);
+
+            $em->persist($exerciceEntrainement);
+            $em->flush();
+
+            // autres stratégies ...
+            
+            
+            // faire une phase d'entrainement en mélangeant les stratégies
+
+            $strategie = $repositoryStrategie->findOneByNom("Aléatoire");
+
+            $exerciceEntrainement = new Exercice();
+            $exerciceEntrainement = $this->initializeExerciceEntrainementAleatoire($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, 2);
+
+            $em->persist($exerciceEntrainement);
+            $em->flush();
+
+
+            // phase de transfert
+            $phase = $repositoryPhase->findOneByNom("Transfert");
+            // strategie random
+            $strategie = $repositoryStrategie->findOneByNom("Aléatoire");
+
+            $exerciceTransfert = new Exercice();
+            $exerciceTransfert = $this->initializeExerciceTransfert($exerciceTransfert, $phase, $strategie, $partie, $time_seconds_transfert);
+
+            $em->persist($exerciceTransfert);
+            $em->flush();
+
+
+            return $this->redirect($this->generateUrl('upond_orthophonie_phases'));
+        }
+
+        // À ce stade :
+        // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
+        // - Soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
+        return $this->render('UPONDOrthophonieBundle:Partie:partie.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
+    }
+
+
+
+    public function initializeExerciceApprentissage($exercice, $phase, $strategie, $partie, $niveau)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+
+        $exercice->setNbBonneReponse(0);
+        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setPartie($partie);
+        $exercice->setStrategie($strategie);
+        $exercice->setNiveau($niveau);
+        $exercice->setPhase($phase);
+        $exercice->setDateCreation(new \DateTime());
+        $i = 1;
+
+        $listMultimedia = $MultimediaRepository->get7MultimediaAleatoire($strategie);
+        foreach($listMultimedia as $multimedia)
+        {
+            $etape = new Etape();
+            $etape->setExercice($exercice);
+            $etape->setMultimedia($multimedia);
+            $etape->setBonneReponse(false);
+            $etape->setNumEtape($i);
+
+            $em->persist($etape);
+
+            if ($i == 1 )
+            {
+                $exercice->setEtapeCourante($etape);
+            }
+
+            $exercice->addEtape($etape);
+            $i++;
+        }
+        return $exercice;
+    }
+
+    public function initializeExerciceEntrainement($exercice, $phase, $strategie, $partie, $temps, $niveau)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
+
+        $exercice->setNbBonneReponse(0);
+        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setPartie($partie);
+        $exercice->setStrategie($strategie);
+        $exercice->setNiveau($niveau);
+        $exercice->setPhase($phase);
+        $exercice->setTempsExercice($temps);
+        $exercice->setTempsEcoule(0);
+        $exercice->setDateCreation(new \DateTime());
+        $i = 1;
+        $exerciceTemporaire = $ExerciceRepository->getExerciceByStrategieAndPartie($strategie, $partie->getIdPartie());
+
+        foreach($exerciceTemporaire->getEtapes() as $etapeTemporaire)
+        {
+            $multimedia = $etapeTemporaire->getMultimedia();
+
+            $etape = new Etape();
+            $etape->setExercice($exercice);
+            $etape->setMultimedia($multimedia);
+            $etape->setBonneReponse(false);
+            $etape->setNumEtape($i);
+
+            $em->persist($etape);
+
+            if ($i == 1 )
+            {
+                $exercice->setEtapeCourante($etape);
+            }
+
+            $exercice->addEtape($etape);
+            $i++;
+        }
+        return $exercice;
+    }
+
+    public function initializeExerciceEntrainementAleatoire($exercice, $phase, $strategie, $partie, $temps, $niveau)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+
+        $exercice->setNbBonneReponse(0);
+        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setPartie($partie);
+        $exercice->setStrategie($strategie);
+        $exercice->setNiveau($niveau);
+        $exercice->setPhase($phase);
+        $exercice->setTempsExercice($temps);
+        $exercice->setTempsEcoule(0);
+        $exercice->setDateCreation(new \DateTime());
+        $i=1;
+
+        $phaseApprentissage = $em->getRepository('UPONDOrthophonieBundle:Phase')->findByNom("Apprentissage");
+        $multimedias = $MultimediaRepository->getIdMultimediaFromPartieAndPhase($partie->getIdPartie(), $phaseApprentissage);
+
+        // on prend un id aléatoire parmi les résultats
+        $idMultimedia = array_rand($multimedias, 7);
+        $arrayMultimedia = array();
+        foreach($idMultimedia as $element)
+        {
+            $arrayMultimedia[] = $multimedias[$element];
+        }
+
+        $listMultimedias = $MultimediaRepository->getMultimediaInArrayOfIdMultimedia($arrayMultimedia);
+
+        foreach($listMultimedias as $multimedia)
+        {
+            $etape = new Etape();
+            $etape->setExercice($exercice);
+            $etape->setMultimedia($multimedia);
+            $etape->setBonneReponse(false);
+            $etape->setNumEtape($i);
+
+            $em->persist($etape);
+
+            if ($i == 1 )
+            {
+                $exercice->setEtapeCourante($etape);
+            }
+
+            $exercice->addEtape($etape);
+            $i++;
+        }
+
+        return $exercice;
+    }
+
+    public function initializeExerciceTransfert($exercice, $phase, $strategie, $partie, $temps)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+
+        $exercice->setNbBonneReponse(0);
+        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setPartie($partie);
+        $exercice->setStrategie($strategie);
+        $exercice->setPhase($phase);
+        $exercice->setTempsExercice($temps);
+        $exercice->setTempsEcoule(0);
+        $exercice->setDateCreation(new \DateTime());
+        $i=1;
+
+        $phaseApprentissage = $em->getRepository('UPONDOrthophonieBundle:Phase')->findByNom("Apprentissage");
+        $multimedias = $MultimediaRepository->getIdMultimediaFromPartieAndPhase($partie->getIdPartie(), $phaseApprentissage);
+
+        // on récupere l'entité de l'ID
+        $listMultimedias= $MultimediaRepository->getMultimediaNotInArrayOfIdMultimedia($multimedias);
+
+        // on prend un id aléatoire parmi les résultats
+        $idMultimediaRandom = array_rand($listMultimedias, 7);
+        $arrayMultimedia = array();
+        foreach($idMultimediaRandom as $element)
+        {
+            $arrayMultimedia[] = $listMultimedias[$element];
+        }
+
+        // on récupere l'entité de l'ID
+        $listMultimediasRandom = $MultimediaRepository->getMultimediaInArrayOfIdMultimedia($arrayMultimedia);
+
+        foreach($listMultimediasRandom as $multimedia)
+        {
+            $etape = new Etape();
+            $etape->setExercice($exercice);
+            $etape->setMultimedia($multimedia);
+            $etape->setBonneReponse(false);
+            $etape->setNumEtape($i);
+
+            $em->persist($etape);
+
+            if ($i == 1 )
+            {
+                $exercice->setEtapeCourante($etape);
+            }
+
+            $exercice->addEtape($etape);
+            $i++;
+        }
+
+        return $exercice;
+    }
+}

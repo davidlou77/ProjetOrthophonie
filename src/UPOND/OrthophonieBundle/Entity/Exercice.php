@@ -50,19 +50,23 @@ class Exercice
      * @ORM\Column(name="nb_mauvaise_reponse", type="integer", nullable=true)
      */
     private $nbMauvaiseReponse;
-
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="phase", type="string", length=20, nullable=true)
+     * @ORM\Column(name="niveau", type="integer", nullable=true)
+     */
+    private $niveau;
+    /**
+     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Phase", inversedBy="exercices")
+     * @ORM\JoinColumn(name="id_phase", referencedColumnName="id_phase")
      */
     private $phase;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Patient", inversedBy="exercices")
-     * @ORM\JoinColumn(name="id_patient", referencedColumnName="id_patient")
+     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Partie", inversedBy="exercices")
+     * @ORM\JoinColumn(name="id_partie", referencedColumnName="id_partie")
      */
-    private $patient;
+    private $partie;
 
     /**
      * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Strategie", inversedBy="exercices")
@@ -353,5 +357,53 @@ class Exercice
     public function getEtapes()
     {
         return $this->etapes;
+    }
+
+    /**
+     * Set partie
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Partie $partie
+     *
+     * @return Exercice
+     */
+    public function setPartie(\UPOND\OrthophonieBundle\Entity\Partie $partie = null)
+    {
+        $this->partie = $partie;
+
+        return $this;
+    }
+
+    /**
+     * Get partie
+     *
+     * @return \UPOND\OrthophonieBundle\Entity\Partie
+     */
+    public function getPartie()
+    {
+        return $this->partie;
+    }
+
+    /**
+     * Set niveau
+     *
+     * @param integer $niveau
+     *
+     * @return Exercice
+     */
+    public function setNiveau($niveau)
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    /**
+     * Get niveau
+     *
+     * @return integer
+     */
+    public function getNiveau()
+    {
+        return $this->niveau;
     }
 }

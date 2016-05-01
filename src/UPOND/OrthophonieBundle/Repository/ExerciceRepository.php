@@ -10,18 +10,17 @@ namespace UPOND\OrthophonieBundle\Repository;
  */
 class ExerciceRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getEtapesByStrategieAndExercice($strategie, $exercice)
+    public function getExerciceByStrategieAndPartie($strategie, $partie)
     {
         $em = $this
-            ->getDoctrine()
-            ->getManager();
+            ->getEntityManager();
         $queryExercice = $em->createQuery(
-            'SELECT et.idExercice
-            FROM UPONDOrthophonieBundle:Etape et
-            WHERE e.partie = :idPartie AND e.strategie = :strategie'
+            'SELECT e.idExercice
+            FROM UPONDOrthophonieBundle:Exercice e
+            WHERE e.partie = :partie AND e.strategie = :strategie'
         );
         $queryExercice->setParameters(array('strategie' => $strategie,
-            'idPartie' => $exercice));
+            'partie' => $partie));
 
         $idExercice = $queryExercice->getSingleResult();
 
@@ -33,4 +32,5 @@ class ExerciceRepository extends \Doctrine\ORM\EntityRepository
         $exercice = $repositoryExercice->findOneByIdExercice($idExercice);
         return $exercice;
     }
+
 }

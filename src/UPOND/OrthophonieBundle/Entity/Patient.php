@@ -40,14 +40,14 @@ class Patient
     private $medecins;
 
     /**
-     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Exercice", mappedBy="patient")
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Partie", mappedBy="patient")
      */
-    private $exercices;
+    private $parties;
 
     public function __construct()
     {
         $this->medecins = new ArrayCollection();
-        $this->exercices = new ArrayCollection();
+        $this->parties = new ArrayCollection();
     }
 
 
@@ -165,5 +165,39 @@ class Patient
     public function getExercices()
     {
         return $this->exercices;
+    }
+
+    /**
+     * Add party
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Partie $party
+     *
+     * @return Patient
+     */
+    public function addParty(\UPOND\OrthophonieBundle\Entity\Partie $party)
+    {
+        $this->parties[] = $party;
+
+        return $this;
+    }
+
+    /**
+     * Remove party
+     *
+     * @param \UPOND\OrthophonieBundle\Entity\Partie $party
+     */
+    public function removeParty(\UPOND\OrthophonieBundle\Entity\Partie $party)
+    {
+        $this->parties->removeElement($party);
+    }
+
+    /**
+     * Get parties
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParties()
+    {
+        return $this->parties;
     }
 }

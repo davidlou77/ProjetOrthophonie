@@ -10,21 +10,20 @@ namespace UPOND\OrthophonieBundle\Repository;
  */
 class MultimediaRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function get7MultmediaAleatoire($strategie)
+    public function get7MultimediaAleatoire($strategie)
     {
+
         $em = $this
-            ->getDoctrine()
-            ->getManager();
+            ->getEntityManager();
         $queryMultimedia = $em->createQuery(
             'SELECT m
             FROM UPONDOrthophonieBundle:Multimedia m
             JOIN m.strategie s
-            WHERE s.nom = :strategie'
+            WHERE s = :strategie'
         );
         $queryMultimedia->setParameter('strategie', $strategie);
 
         $multimedias = $queryMultimedia->getResult();
-
 
         // on prend un id aléatoire parmi les résultats
         $tabIdMultimedia = array_rand($multimedias, 7);
@@ -38,11 +37,63 @@ class MultimediaRepository extends \Doctrine\ORM\EntityRepository
         $queryMultimedia = $em->createQuery(
             'SELECT m
             FROM UPONDOrthophonieBundle:Multimedia m
-            WHERE m.idMultimedia IN (:$arrayMultimedia)'
+            WHERE m.idMultimedia IN (:arrayMultimedia)'
         );
-        $queryMultimedia->setParameter('arrayIdQuestions', $arrayMultimedia);
+        $queryMultimedia->setParameter('arrayMultimedia', $arrayMultimedia);
         $listRandomMultimedia = $queryMultimedia->getResult();
 
         return $listRandomMultimedia;
+    }
+
+    public function getIdMultimediaFromPartieAndPhase($partie, $phase)
+    {
+        $em = $this
+            ->getEntityManager();
+        $queryMultimedia = $em->createQuery(
+            'SELECT m.idMultimedia
+            FROM UPONDOrthophonieBundle:Exercice e
+            JOIN e.etapes et
+            JOIN et.multimedia m
+            WHERE e.partie = :partie AND e.phase = :phase
+            GROUP BY m.idMultimedia'
+        );
+        $queryMultimedia->setParameters(array('partie' => $partie,
+            'phase' => $phase));
+
+        $idMultimedia = $queryMultimedia->getResult();
+        
+        return $idMultimedia;
+    }
+
+    public function getMultimediaInArrayOfIdMultimedia($arrayMultimedia)
+    {
+
+        $em = $this
+            ->getEntityManager();
+        // on récupere l'entité de l'ID
+        $queryMultimedias = $em->createQuery(
+            'SELECT m
+                FROM UPONDOrthophonieBundle:Multimedia m
+                WHERE m.idMultimedia IN (:arrayIdMultimedias)'
+        );
+        $queryMultimedias->setParameter('arrayIdMultimedias', $arrayMultimedia);
+        $listMultimedias = $queryMultimedias->getResult();
+        return $listMultimedias;
+    }
+
+    public function getMultimediaNotInArrayOfIdMultimedia($arrayMultimedia)
+    {
+
+        $em = $this
+            ->getEntityManager();
+        // on récupere l'entité de l'ID
+        $queryMultimedias = $em->createQuery(
+            'SELECT m
+                FROM UPONDOrthophonieBundle:Multimedia m
+                WHERE m.idMultimedia NOT IN (:arrayIdMultimedias)'
+        );
+        $queryMultimedias->setParameter('arrayIdMultimedias', $arrayMultimedia);
+        $listMultimedias = $queryMultimedias->getResult();
+        return $listMultimedias;
     }
 }

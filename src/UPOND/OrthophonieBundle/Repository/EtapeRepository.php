@@ -10,5 +10,65 @@ namespace UPOND\OrthophonieBundle\Repository;
  */
 class EtapeRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+    public function getIdEtapesFromPhase($partie, $phase)
+    {
+        $em = $this
+            ->getEntityManager();
+        $queryEtape = $em->createQuery(
+            'SELECT et.idEtape
+            FROM UPONDOrthophonieBundle:Exercice e
+            JOIN e.etapes et
+            WHERE e.partie = :partie AND e.phase = :phase
+            GROUP BY et.idEtape'
+        );
+        $queryEtape->setParameters(array('partie' => $partie,
+            'phase' => $phase));
+
+        $idEtapes = $queryEtape->getResult();
+//foreach ($idQuestions as $value)
+//{
+//    echo $value['idQuestion'];
+//}
+        /* $repositoryQuestion = $em
+             ->getRepository('UPONDOrthophonieBundle:Question')
+         ;
+         // on prend un id aléatoire parmi les résultats
+         $idQuestion = array_rand($idQuestions, count($idQuestions));
+         // on récupere l'entité de l'ID
+         $listQuestions = $repositoryQuestion->findByIdQuestion($idQuestion);
+         return $listQuestions;
+        */
+        return $idEtapes;
+    }
+    public function getEtapesByArrayOfIdEtape($arrayEtape)
+    {
+
+        $em = $this
+            ->getEntityManager();
+        // on récupere l'entité de l'ID
+        $queryEtapes = $em->createQuery(
+            'SELECT e
+                FROM UPONDOrthophonieBundle:Etape e
+                WHERE e.idEtape IN (:arrayIdEtapes)'
+        );
+        $queryEtapes->setParameter('arrayIdEtapes', $arrayEtape);
+        $listEtapes = $queryEtapes->getResult();
+        return $listEtapes;
+    }
+
+    public function getEtapesNotInArrayOfIdEtape($arrayEtape)
+    {
+
+        $em = $this
+            ->getEntityManager();
+        // on récupere l'entité de l'ID
+        $queryEtapes = $em->createQuery(
+            'SELECT e
+                FROM UPONDOrthophonieBundle:Etape e
+                WHERE e.idEtape NOT IN (:arrayIdEtapes)'
+        );
+        $queryEtapes->setParameter('arrayIdEtapes', $arrayEtape);
+        $listEtapes = $queryEtapes->getResult();
+        return $listEtapes;
+    }
 }
