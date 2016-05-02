@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: davidlou
- * Date: 19/04/2016
- * Time: 23:23
+ * Date: 02/05/2016
+ * Time: 14:36
  */
 
 namespace UPOND\OrthophonieBundle\Controller;
@@ -17,82 +17,76 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use UPOND\OrthophonieBundle\Repository\PartieRepository;
+use UPOND\OrthophonieBundle\Repository\PatientRepository;
 
 
-class PhasesController extends Controller
+class ExerciceController extends Controller
 {
-
-    public function indexAction()
+    public function selectPartieAction(Request $request)
     {
-        return $this->render('UPONDOrthophonieBundle::index.html.twig');
+
+        // On crée le FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
+
+        // On ajoute les champs que l'on veut à notre formulaire
+        $formBuilder
+            ->add('Partie', 'entity', array(
+                'class'    => 'UPONDOrthophonieBundle:Partie',
+                'property' => 'idPartieAndDateCreation',
+                'multiple' => false,
+                'query_builder' => function(PartieRepository $er) {
+                    $em = $this
+                        ->getDoctrine()
+                        ->getManager();
+                    $repositoryPatient = $em
+                        ->getRepository('UPONDOrthophonieBundle:Patient')
+                    ;
+                    $utilisateur = $this->container->get('security.context')->getToken()->getUser();
+                    $patient = $repositoryPatient->findOneByUtilisateur($utilisateur);
+
+                    return $er->createQueryBuilder('partie')
+                        ->where('partie.patient = :patient')
+                        ->setParameter('patient', $patient);
+
+                    },
+            ))
+            ->add('Démarrer', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-success')));
+
+        // À partir du formBuilder, on génère le formulaire
+        $form = $formBuilder->getForm();
+
+
+        // si on valide le formulaire
+        if ($form->handleRequest($request)->isValid()) {
+
+
+            // on récupere tous les ID
+            $em = $this
+                ->getDoctrine()
+                ->getManager();
+
+            $repository = $em
+                ->getRepository('UPONDOrthophonieBundle:Strategie')
+            ;
+
+            $donneesForm = $form->getData();
+            $session = $request->getSession();
+            // stocker une variable de session pour la partie
+            $session->set('partie', $donneesForm['Partie']);
+            
+            // on stocke aussi la stratégie utilisée
+            $strategie = $repository->findOneByNom($request->attributes->get('strategie'));
+            $session->set('strategie', $strategie);
+        }
+
+        return $this->render('UPONDOrthophonieBundle:Partie:selectPartie.html.twig', array( 'form' => $form->createView()));
     }
 
-    public function phasesAction()
+    public function afficherExerciceAction(Request $request)
     {
-        return $this->render('UPONDOrthophonieBundle:Phases:phases.html.twig');
-    }
-
-    public function apprentissageAction()
-    {
-        return $this->render('UPONDOrthophonieBundle:Phases:apprentissage.html.twig');
-    }
-
-    public function entrainementAction()
-    {
-        return $this->render('UPONDOrthophonieBundle:Phases:entrainement.html.twig');
-    }
-
-    public function transfertAction(Request $request)
-    {
-        $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 0);
-        return $this->render('UPONDOrthophonieBundle:Phases:transfert.html.twig');
-    }
-
-    public function statsAction()
-    {
-        return $this->render('UPONDOrthophonieBundle:Stats:stats.html.twig');
-    }
-
-    public function apprentissage_niveau1Action(Request $request)
-    {
-        $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 1);
-        return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
-    }
-
-    public function apprentissage_niveau2Action(Request $request)
-    {
-        $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 2);
-        return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
-    }
-
-    public function entrainement_niveau1Action(Request $request)
-    {
-        $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 1);
-        return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
-    }
-
-    public function entrainement_niveau2Action(Request $request)
-    {
-        $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 2);
-        return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
-    }
-
-    /**
-     * @Route("/exercice", name="upond_orthophonie_exercice")
-     */
-    public function exerciceAction(Request $request)
-    {
-        // on récupere tous les ID de la table Question
+        // on récupere tous les ID
         $em = $this
             ->getDoctrine()
             ->getManager();
@@ -139,7 +133,7 @@ class PhasesController extends Controller
                 $request->getSession()->getFlashBag()->add('reponse', 'Mauvaise réponse.');
             }
         }
-        
+
         return $this->render('UPONDOrthophonieBundle:Phases:exercice.html.twig', array('question' => $question, 'multimedia' => $multimedia, 'form' => $form->createView()));
     }
 }

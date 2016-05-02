@@ -382,4 +382,28 @@ class Exercice
     {
         return $this->partie;
     }
+
+    /**
+     * Set niveau
+     *
+     * @param integer $niveau
+     *
+     * @return Exercice
+     */
+    public function setNiveau($niveau)
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    /**
+     * Get niveau
+     *
+     * @return integer
+     */
+    public function getNiveau()
+    {
+        return $this->niveau;
+    }
 }

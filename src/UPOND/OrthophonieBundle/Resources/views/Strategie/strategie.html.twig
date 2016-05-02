@@ -19,28 +19,38 @@
 
     <div class="row" style="display: flex">
         <div class="col-sm-3 text-center">
+            <a href="{{ path('upond_orthophonie_morphologie') }}">
             <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:40%;">
                 <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
                 <br/><br/><h4>Morphologie</h4>
             </div>
+            </a>
         </div>
         <div class="col-sm-3 text-center">
+            <a href="{{ path('upond_orthophonie_morphologie_inverse') }}">
             <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:40%;">
+
                 <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
                 <br/><br/><h4>Morphologie inverse</h4>
+
             </div>
+                </a>
         </div>
         <div class="col-sm-3 text-center">
+            <a href="{{ path('upond_orthophonie_metier') }}">
             <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:40%;">
                 <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
                 <br/><br/><h4>Métier</h4>
             </div>
+            </a>
         </div>
         <div class="col-sm-3 text-center">
+            <a href="{{ path('upond_orthophonie_association_idees') }}">
             <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:40%;">
                 <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
                 <br/><br/><h4>Association d'idées</h4>
             </div>
+            </a>
         </div>
         <div class="col-sm-3 text-center">
             <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:40%;">
@@ -61,14 +71,6 @@
 
 </div>
 
-
-
-
-{% block javascripts %}
-    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-{% endblock %}
 
 </body>
 </html>

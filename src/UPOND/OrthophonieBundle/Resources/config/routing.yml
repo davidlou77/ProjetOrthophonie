@@ -6,9 +6,37 @@ upond_orthophonie_invite:
     path:     /
     defaults: { _controller: UPONDOrthophonieBundle:Invite:accueil }
 
-upond_orthophonie_strategie:
-    path:     /st
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:st }
+upond_orthophonie_apprentissage_niveau1:
+    path:     /apprentissage_niveau1
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau1 }
+
+upond_orthophonie_apprentissage_niveau2:
+    path:     /apprentissage_niveau2
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau2 }
+
+upond_orthophonie_entrainement_niveau1:
+    path:     /entrainement_niveau1
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:entrainement_niveau1 }
+
+upond_orthophonie_entrainement_niveau2:
+    path:     /entrainement_niveau2
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:entrainement_niveau2 }
+
+upond_orthophonie_morphologie:
+    path:     /select_partie_metier
+    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , strategie: "Métier"}
+
+upond_orthophonie_morphologie_inverse:
+    path:     /select_partie_morphologie
+    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , strategie: "Morphologie inverse"}
+
+upond_orthophonie_metier:
+    path:     /select_partie_morphologie_inverse
+    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , strategie: "Métier"}
+
+upond_orthophonie_association_idees:
+    path:     /select_partie_association_idees
+    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , strategie: "Association d'idées"}
 
 upond_orthophonie_stats:
     path:     /stats

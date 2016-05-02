@@ -10,4 +10,6 @@ namespace UPOND\OrthophonieBundle\Repository;
  */
 class PartieRepository extends \Doctrine\ORM\EntityRepository
 {
+   
+
 }

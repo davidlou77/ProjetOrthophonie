@@ -82,7 +82,7 @@ class PartieController extends Controller
             $em = $this
                 ->getDoctrine()
                 ->getManager();
-            
+
             $repositoryPhase = $em
                 ->getRepository('UPONDOrthophonieBundle:Phase');
             $repositoryStrategie = $em
@@ -94,6 +94,7 @@ class PartieController extends Controller
             // on créé une nouvelle partie
             $partie = new Partie();
             $partie->setPatient($patient);
+            $partie->setDateCreation(new \DateTime());
 
             // on ajoute la partie dans la bdd
             $em = $this->getDoctrine()->getManager();

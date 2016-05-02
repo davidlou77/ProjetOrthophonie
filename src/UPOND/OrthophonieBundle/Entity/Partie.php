@@ -30,7 +30,7 @@ class Partie
     private $idPartie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Patient", inversedBy="exercices")
+     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Patient", inversedBy="parties")
      * @ORM\JoinColumn(name="id_patient", referencedColumnName="id_patient")
      */
     private $patient;
@@ -39,6 +39,13 @@ class Partie
      * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Exercice", mappedBy="partie")
      */
     private $exercices;
+
+    /**
+     * @var Date
+     *
+     * @ORM\Column(name="dateCreation", type="date", nullable=true)
+     */
+    private $dateCreation;
     /**
      * Constructor
      */
@@ -113,5 +120,34 @@ class Partie
     public function getExercices()
     {
         return $this->exercices;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return Partie
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    public function getIdPartieAndDateCreation()
+    {
+        return 'n°'.$this->idPartie.' datant du '.$this->dateCreation->format('d-m-Y');
     }
 }
