@@ -15,21 +15,32 @@ class ExerciceRepository extends \Doctrine\ORM\EntityRepository
         $em = $this
             ->getEntityManager();
         $queryExercice = $em->createQuery(
-            'SELECT e.idExercice
+            'SELECT e
             FROM UPONDOrthophonieBundle:Exercice e
             WHERE e.partie = :partie AND e.strategie = :strategie'
         );
         $queryExercice->setParameters(array('strategie' => $strategie,
             'partie' => $partie));
 
-        $idExercice = $queryExercice->getSingleResult();
+        $exercice = $queryExercice->getOneOrNullResult();
 
-        $repositoryExercice = $em
-            ->getRepository('UPONDOrthophonieBundle:Exercice')
-        ;
+        return $exercice;
+    }
 
-        // on récupere l'entité de l'ID
-        $exercice = $repositoryExercice->findOneByIdExercice($idExercice);
+    public function getExerciceByStrategieAndPartieAndNiveau($strategie, $partie, $niveau)
+    {
+        $em = $this
+            ->getEntityManager();
+        $queryExercice = $em->createQuery(
+            'SELECT e
+            FROM UPONDOrthophonieBundle:Exercice e
+            WHERE e.partie = :partie AND e.strategie = :strategie AND e.niveau = :niveau'
+        );
+        $queryExercice->setParameters(array('strategie' => $strategie,
+            'partie' => $partie, 'niveau' => $niveau));
+        
+        $exercice = $queryExercice->getOneOrNullResult();
+
         return $exercice;
     }
 

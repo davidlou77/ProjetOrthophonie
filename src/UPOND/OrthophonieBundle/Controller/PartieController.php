@@ -105,11 +105,13 @@ class PartieController extends Controller
 
             //phase d'apprentissage
             $phase = $repositoryPhase->findOneByNom("Apprentissage");
+            // niveau 1
+            $niveau = 1;
             //strategie: Metiers
             $strategie = $repositoryStrategie->findOneByNom("Métier");
 
             $exerciceApprentissage = new Exercice();
-            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, 1);
+            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
 
             $em->persist($exerciceApprentissage);
 
@@ -119,7 +121,7 @@ class PartieController extends Controller
             $strategie = $repositoryStrategie->findOneByNom("Morphologie");
 
             $exerciceApprentissage = new Exercice();
-            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, 1);
+            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
 
             $em->persist($exerciceApprentissage);
             $em->flush();
@@ -127,20 +129,54 @@ class PartieController extends Controller
             $strategie = $repositoryStrategie->findOneByNom("Morphologie inverse");
 
             $exerciceApprentissage = new Exercice();
-            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, 1);
+            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
 
             $em->persist($exerciceApprentissage);
             $em->flush();
 
             // autres stratégies ...
+            
+            // phase d'apprentissage niveau 2
+            // on reprend la fonction d'initalisation d'exercice d'entrainement
+            $niveau = 2;
+                
+            //strategie: Metiers
+            $strategie = $repositoryStrategie->findOneByNom("Métier");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissageNiveau2($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
+
+            $em->persist($exerciceApprentissage);
+
+            $em->flush();
+
+            //strategie: Morphologie
+            $strategie = $repositoryStrategie->findOneByNom("Morphologie");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissageNiveau2($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
+
+            $em->persist($exerciceApprentissage);
+            $em->flush();
+            //strategie: Morphologie inverse
+            $strategie = $repositoryStrategie->findOneByNom("Morphologie inverse");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissageNiveau2($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
+
+            $em->persist($exerciceApprentissage);
+            $em->flush();
+            
 
             //phase d'entrainement, on recupere les questions de la phase d'apprentissage
+            // niveau 1
+            $niveau = 1;
             $phase = $repositoryPhase->findOneByNom("Entrainement");
             //strategie: Metiers
             $strategie = $repositoryStrategie->findOneByNom("Métier");
 
             $exerciceEntrainement = new Exercice();
-            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, 1);
+            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, $niveau);
 
             $em->persist($exerciceEntrainement);
             $em->flush();
@@ -149,7 +185,7 @@ class PartieController extends Controller
             $strategie = $repositoryStrategie->findOneByNom("Morphologie");
 
             $exerciceEntrainement = new Exercice();
-            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, 1);
+            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, $niveau);
 
             $em->persist($exerciceEntrainement);
             $em->flush();
@@ -158,7 +194,7 @@ class PartieController extends Controller
             $strategie = $repositoryStrategie->findOneByNom("Morphologie inverse");
 
             $exerciceEntrainement = new Exercice();
-            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, 1);
+            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, $niveau);
 
             $em->persist($exerciceEntrainement);
             $em->flush();
@@ -169,9 +205,9 @@ class PartieController extends Controller
             // faire une phase d'entrainement en mélangeant les stratégies
 
             $strategie = $repositoryStrategie->findOneByNom("Aléatoire");
-
+            $niveau = 2;
             $exerciceEntrainement = new Exercice();
-            $exerciceEntrainement = $this->initializeExerciceEntrainementAleatoire($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, 2);
+            $exerciceEntrainement = $this->initializeExerciceEntrainementAleatoire($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, $niveau);
 
             $em->persist($exerciceEntrainement);
             $em->flush();
@@ -240,6 +276,47 @@ class PartieController extends Controller
         return $exercice;
     }
 
+
+    public function initializeExerciceApprentissageNiveau2($exercice, $phase, $strategie, $partie, $niveau)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
+
+        $exercice->setNbBonneReponse(0);
+        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setPartie($partie);
+        $exercice->setStrategie($strategie);
+        $exercice->setNiveau($niveau);
+        $exercice->setPhase($phase);
+        $exercice->setDateCreation(new \DateTime());
+        $i = 1;
+
+        $exerciceTemporaire = $ExerciceRepository->getExerciceByStrategieAndPartieAndNiveau($strategie, $partie, 1);
+
+        foreach($exerciceTemporaire->getEtapes() as $etapeTemporaire)
+        {
+            $multimedia = $etapeTemporaire->getMultimedia();
+
+            $etape = new Etape();
+            $etape->setExercice($exercice);
+            $etape->setMultimedia($multimedia);
+            $etape->setBonneReponse(false);
+            $etape->setNumEtape($i);
+
+            $em->persist($etape);
+
+            if ($i == 1 )
+            {
+                $exercice->setEtapeCourante($etape);
+            }
+
+            $exercice->addEtape($etape);
+            $i++;
+        }
+        return $exercice;
+    }
+    
     public function initializeExerciceEntrainement($exercice, $phase, $strategie, $partie, $temps, $niveau)
     {
 
@@ -256,7 +333,7 @@ class PartieController extends Controller
         $exercice->setTempsEcoule(0);
         $exercice->setDateCreation(new \DateTime());
         $i = 1;
-        $exerciceTemporaire = $ExerciceRepository->getExerciceByStrategieAndPartie($strategie, $partie->getIdPartie());
+        $exerciceTemporaire = $ExerciceRepository->getExerciceByStrategieAndPartieAndNiveau($strategie, $partie, 1);
 
         foreach($exerciceTemporaire->getEtapes() as $etapeTemporaire)
         {
