@@ -10,4 +10,20 @@ namespace UPOND\OrthophonieBundle\Repository;
  */
 class PatientRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findOneByNomEtPrenom($NomPrenom)
+    {
+        $em = $this
+            ->getEntityManager();
+        // on récupere l'entité de l'ID
+        $query = $em->createQuery(
+            "SELECT p
+                FROM UPONDOrthophonieBundle:Patient p
+                JOIN p.utilisateur u
+                WHERE CONCAT(u.nom, CONCAT(' ',u.prenom)) = :NomPrenom"
+        );
+        $query->setParameter('NomPrenom', $NomPrenom);
+        $patient = $query->getOneOrNullResult();
+        return $patient;
+    }
+    
 }

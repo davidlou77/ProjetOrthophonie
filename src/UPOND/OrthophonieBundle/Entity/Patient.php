@@ -200,4 +200,8 @@ class Patient
     {
         return $this->parties;
     }
+
+    public function getNomEtPrenom() {
+        return $this->utilisateur->getNom().' '.$this->utilisateur->getPrenom();
+    }
 }

@@ -22,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use UPOND\OrthophonieBundle\Repository\EtapeRepository;
 use UPOND\OrthophonieBundle\Repository\ExerciceRepository;
 use UPOND\OrthophonieBundle\Repository\MultimediaRepository;
+use UPOND\OrthophonieBundle\Repository\PatientRepository;
 use UPOND\OrthophonieBundle\Entity\Partie;
 
 class PartieController extends Controller
@@ -36,12 +37,16 @@ class PartieController extends Controller
     public function startAction(Request $request)
     {
 
-
         // On crée le FormBuilder grâce au service form factory
         $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
 
         // On ajoute les champs que l'on veut à notre formulaire
         $formBuilder
+            ->add('Patient', 'entity', array(
+                'class'    => 'UPONDOrthophonieBundle:Patient',
+                'property' => 'NomEtPrenom',
+                'multiple' => false
+            ))
             ->add('TempsEntrainement', TimeType::class, array(
                 'input' => 'datetime',
                 'widget' => 'choice',
@@ -58,6 +63,8 @@ class PartieController extends Controller
         // À partir du formBuilder, on génère le formulaire
         $form = $formBuilder->getForm();
 
+
+        // si on valide le formulaire
         if ($form->handleRequest($request)->isValid()) {
 
 
@@ -71,28 +78,18 @@ class PartieController extends Controller
 
             $time_seconds_transfert = isset($seconds) ? $hours * 3600 + $minutes * 60 + $seconds : $hours * 60 + $minutes;
 
-
-
-            // on récupere l'id de l'user
-            $user = $this->container->get('security.token_storage')->getToken()->getUser();
-            $idUser = $user->getId();
-
-            // on récupère l'entité du patient selon l'id utilisateur
+            // on initalise nos repositories
             $em = $this
                 ->getDoctrine()
                 ->getManager();
-
-            $repositoryPatient = $em
-                ->getRepository('UPONDOrthophonieBundle:Patient');
+            
             $repositoryPhase = $em
                 ->getRepository('UPONDOrthophonieBundle:Phase');
             $repositoryStrategie = $em
                 ->getRepository('UPONDOrthophonieBundle:Strategie');
 
-
-
-            // on récupere l'entité de l'ID
-            $patient = $repositoryPatient->findOneByUtilisateur($idUser);
+            // on récupere l'entité du patient
+            $patient = $donneesForm['Patient'];
 
             // on créé une nouvelle partie
             $partie = new Partie();
@@ -109,7 +106,6 @@ class PartieController extends Controller
             $phase = $repositoryPhase->findOneByNom("Apprentissage");
             //strategie: Metiers
             $strategie = $repositoryStrategie->findOneByNom("Métier");
-
 
             $exerciceApprentissage = new Exercice();
             $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, 1);
@@ -192,7 +188,7 @@ class PartieController extends Controller
             $em->flush();
 
 
-            return $this->redirect($this->generateUrl('upond_orthophonie_phases'));
+            return $this->redirect($this->generateUrl('upond_orthophonie_home'));
         }
 
         // À ce stade :

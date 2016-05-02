@@ -13,6 +13,8 @@
     {{ form_start(form) }}
     {{ form_errors(form) }}
 
+    {{ form_row(form.Patient, { 'label': "Choisir un patient:" }) }}
+    <p></p>
     {{ form_row(form.TempsEntrainement, { 'label': "Temps de pause pour la phase d'entrainement:" }) }}
     <p></p>
     {{ form_row(form.TempsTransfert, { 'label': "Temps de pause pour la phase de transfert:" }) }}
