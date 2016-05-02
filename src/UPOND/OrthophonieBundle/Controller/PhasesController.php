@@ -45,8 +45,17 @@ class PhasesController extends Controller
     public function transfertAction(Request $request)
     {
         $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 0);
+        // stocker une variable de session pour le niveau et la phase
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $repository = $em
+            ->getRepository('UPONDOrthophonieBundle:Phase')
+        ;
+        $phase = $repository->findOneByNom($request->attributes->get('phase'));
+        $session->set('phase', $phase);
+        $session->set('niveau', $request->attributes->get('niveau'));
         return $this->render('UPONDOrthophonieBundle:Phases:transfert.html.twig');
     }
 
@@ -58,32 +67,68 @@ class PhasesController extends Controller
     public function apprentissage_niveau1Action(Request $request)
     {
         $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 1);
+        // stocker une variable de session pour le niveau et la phase
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $repository = $em
+            ->getRepository('UPONDOrthophonieBundle:Phase')
+        ;
+        $phase = $repository->findOneByNom($request->attributes->get('phase'));
+        $session->set('phase', $phase);
+        $session->set('niveau', $request->attributes->get('niveau'));
         return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
     }
 
     public function apprentissage_niveau2Action(Request $request)
     {
         $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 2);
+        // stocker une variable de session pour le niveau et la phase
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $repository = $em
+            ->getRepository('UPONDOrthophonieBundle:Phase')
+        ;
+        $phase = $repository->findOneByNom($request->attributes->get('phase'));
+        $session->set('phase', $phase);
+        $session->set('niveau', $request->attributes->get('niveau'));
         return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
     }
 
     public function entrainement_niveau1Action(Request $request)
     {
         $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 1);
+        // stocker une variable de session pour le niveau et la phase
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $repository = $em
+            ->getRepository('UPONDOrthophonieBundle:Phase')
+        ;
+        $phase = $repository->findOneByNom($request->attributes->get('phase'));
+        $session->set('phase', $phase);
+        $session->set('niveau', $request->attributes->get('niveau'));
         return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
     }
 
     public function entrainement_niveau2Action(Request $request)
     {
         $session = $request->getSession();
-        // stocker une variable de session pour le niveau
-        $session->set('niveau', 2);
+        // stocker une variable de session pour le niveau et la phase
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $repository = $em
+            ->getRepository('UPONDOrthophonieBundle:Phase')
+        ;
+        $phase = $repository->findOneByNom($request->attributes->get('phase'));
+        $session->set('phase', $phase);
+        $session->set('niveau', $request->attributes->get('niveau'));
         return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
     }
 

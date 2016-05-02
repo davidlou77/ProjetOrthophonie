@@ -61,8 +61,6 @@ class ExerciceController extends Controller
         // si on valide le formulaire
         if ($form->handleRequest($request)->isValid()) {
 
-
-            // on récupere tous les ID
             $em = $this
                 ->getDoctrine()
                 ->getManager();
@@ -76,9 +74,12 @@ class ExerciceController extends Controller
             // stocker une variable de session pour la partie
             $session->set('partie', $donneesForm['Partie']);
             
-            // on stocke aussi la stratégie utilisée
+            // on stocke aussi la stratégie utilisée en récupérant l'entité stratégie en fonction du nom
             $strategie = $repository->findOneByNom($request->attributes->get('strategie'));
             $session->set('strategie', $strategie);
+
+            return $this->redirect($this->generateUrl('upond_orthophonie_exercice'));
+
         }
 
         return $this->render('UPONDOrthophonieBundle:Partie:selectPartie.html.twig', array( 'form' => $form->createView()));
@@ -86,27 +87,15 @@ class ExerciceController extends Controller
 
     public function afficherExerciceAction(Request $request)
     {
-        // on récupere tous les ID
-        $em = $this
-            ->getDoctrine()
-            ->getManager();
-        $query = $em->createQuery(
-            'SELECT q.idQuestion
-            FROM UPONDOrthophonieBundle:Question q'
-        );
+        // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
+        $em = $this->getDoctrine()->getManager();
+        $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
 
-        $questions = $query->getResult();
+        $session = $request->getSession();
+        $exercice = $ExerciceRepository->getExerciceByPartiePhaseStrategieNiveau($session->get('partie'), $session->get('phase'), $session->get('strategie'), $session->get('niveau'));
 
-        $repository = $em
-            ->getRepository('UPONDOrthophonieBundle:Question')
-        ;
-        // on prend un id aléatoire parmi les résultats
-        $idQuestion = array_rand($questions);
-        // on récupere l'entité de l'ID
-        $question = $repository->findOneByIdQuestion($idQuestion);
-        // on récupere le multimedia associé
-        $multimedia = $question->getMultimedia();
-
+        $etapeCourante = $exercice->getEtapeCourante();
+        $multimedia = $etapeCourante->getMultimedia();
         // On crée le FormBuilder grâce au service form factory
         $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
 
@@ -134,6 +123,6 @@ class ExerciceController extends Controller
             }
         }
 
-        return $this->render('UPONDOrthophonieBundle:Phases:exercice.html.twig', array('question' => $question, 'multimedia' => $multimedia, 'form' => $form->createView()));
+        return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedia' => $multimedia, 'form' => $form->createView()));
     }
 }

@@ -33,4 +33,23 @@ class ExerciceRepository extends \Doctrine\ORM\EntityRepository
         return $exercice;
     }
 
+    public function getExerciceByPartiePhaseStrategieNiveau($partie, $phase, $strategie, $niveau)
+    {
+        $em = $this
+            ->getEntityManager();
+        $queryExercice = $em->createQuery(
+            'SELECT e
+            FROM UPONDOrthophonieBundle:Exercice e
+            WHERE e.partie = :partie AND e.strategie = :strategie AND e.phase = :phase AND e.niveau = :niveau'
+        );
+        $queryExercice->setParameters(array('strategie' => $strategie,
+            'partie' => $partie,
+            'phase' => $phase,
+            'niveau' => $niveau));
+
+        $exercice = $queryExercice->getOneOrNullResult();
+
+        return $exercice;
+    }
+
 }

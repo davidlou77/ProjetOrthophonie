@@ -8,19 +8,19 @@ upond_orthophonie_invite:
 
 upond_orthophonie_apprentissage_niveau1:
     path:     /apprentissage_niveau1
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau1 }
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau1 , phase: "Apprentissage" , niveau: 1 }
 
 upond_orthophonie_apprentissage_niveau2:
     path:     /apprentissage_niveau2
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau2 }
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau2 , phase: "Apprentissage", niveau: 2}
 
 upond_orthophonie_entrainement_niveau1:
     path:     /entrainement_niveau1
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:entrainement_niveau1 }
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:entrainement_niveau1 , phase: "Entrainement", niveau: 1}
 
 upond_orthophonie_entrainement_niveau2:
     path:     /entrainement_niveau2
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:entrainement_niveau2 }
+    defaults: { _controller: UPONDOrthophonieBundle:Phases:entrainement_niveau2 , phase: "Entrainement", niveau: 2}
 
 upond_orthophonie_morphologie:
     path:     /select_partie_metier
@@ -48,7 +48,7 @@ upond_orthophonie_phases:
 
 upond_orthophonie_exercice:
     path:     /exercice
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:exercice }
+    defaults: { _controller: UPONDOrthophonieBundle:Exercice:afficherExercice }
 
 upond_orthophonie_start:
     path:     /start
@@ -64,7 +64,7 @@ upond_orthophonie_entrainement:
 
 upond_orthophonie_transfert:
     path:      /transfert
-    defaults:  { _controller: UPONDOrthophonieBundle:Phases:transfert }
+    defaults:  { _controller: UPONDOrthophonieBundle:Phases:transfert , phase: "Transfert" , niveau: 0}
 
 upond_orthophonie_stats:
     path:      /statistiques
