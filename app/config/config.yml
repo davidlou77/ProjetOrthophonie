@@ -84,3 +84,10 @@ fos_user:
     profile:
         form:
             type: UPOND\UserBundle\Form\Type\ProfileFormType
+
+# app/config/config.yml
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
