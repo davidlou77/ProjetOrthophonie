@@ -40,6 +40,8 @@ class EtapeRepository extends \Doctrine\ORM\EntityRepository
         */
         return $idEtapes;
     }
+    
+    
     public function getEtapesByArrayOfIdEtape($arrayEtape)
     {
 
@@ -70,5 +72,22 @@ class EtapeRepository extends \Doctrine\ORM\EntityRepository
         $queryEtapes->setParameter('arrayIdEtapes', $arrayEtape);
         $listEtapes = $queryEtapes->getResult();
         return $listEtapes;
+    }
+
+    public function getEtapeByExerciceAndNumEtape($exercice, $numEtape)
+    {
+        $em = $this
+            ->getEntityManager();
+        $queryEtape = $em->createQuery(
+            'SELECT e
+            FROM UPONDOrthophonieBundle:Etape e
+            WHERE e.exercice = :exercice AND e.numEtape = :numEtape'
+        );
+        $queryEtape->setParameters(array('exercice' => $exercice,
+            'numEtape' => $numEtape));
+
+        $etape = $queryEtape->getOneOrNullResult();
+        
+        return $etape;
     }
 }
