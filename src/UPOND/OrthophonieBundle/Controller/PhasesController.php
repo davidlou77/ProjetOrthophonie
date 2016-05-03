@@ -44,18 +44,7 @@ class PhasesController extends Controller
 
     public function transfertAction(Request $request)
     {
-        $session = $request->getSession();
-        // stocker une variable de session pour le niveau et la phase
-        $em = $this
-            ->getDoctrine()
-            ->getManager();
 
-        $repository = $em
-            ->getRepository('UPONDOrthophonieBundle:Phase')
-        ;
-        $phase = $repository->findOneByNom($request->attributes->get('phase'));
-        $session->set('phase', $phase);
-        $session->set('niveau', $request->attributes->get('niveau'));
         return $this->render('UPONDOrthophonieBundle:Phases:transfert.html.twig');
     }
 

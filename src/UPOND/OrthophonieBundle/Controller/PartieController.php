@@ -418,6 +418,7 @@ class PartieController extends Controller
         $exercice->setNbMauvaiseReponse(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
+        $exercice->setNiveau(0);
         $exercice->setPhase($phase);
         $exercice->setTempsExercice($temps);
         $exercice->setTempsEcoule(0);

@@ -7,17 +7,20 @@
 {% block orthophonie_body %}
 
     <h2>Exercice:</h2>
+    {% for multimedia in multimedias %}
 
-    <p><b>
-        Quel est le nom de cette personne ?
-        </b></p>
+        <p><b>
+            Quel est le nom de cette personne ?
+            </b></p>
+        <img src="{{ asset(multimedia.getImage) }}" width='400'alt="" />
+        <p></p>
+        <audio controls>
+            <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
+            Votre navigateur internet ne supporte pas l'élément audio.
+        </audio>
 
-    <img src="{{ asset(multimedia.getImage) }}" width='400'alt="" />
-    <p></p>
-    <audio controls>
-        <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
-        Votre navigateur internet ne supporte pas l'élément audio.
-    </audio>
+
+    {% endfor %}
 
     <br />
     <br />
@@ -30,10 +33,4 @@
     {{ form_row(form.BonneReponse, { 'label': 'Bonne réponse' }) }}
     {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
     {{ form_end(form) }}
-
-    {% for flashMessage in app.session.flashbag.get('reponse') %}
-
-        {{ flashMessage }}
-
-    {% endfor %}
 {% endblock %}

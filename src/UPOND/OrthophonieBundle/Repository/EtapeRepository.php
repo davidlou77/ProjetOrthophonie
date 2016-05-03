@@ -90,4 +90,37 @@ class EtapeRepository extends \Doctrine\ORM\EntityRepository
         
         return $etape;
     }
+
+    public function getEtapesByExerciceAndInfNumEtape($exercice, $numEtape)
+    {
+        $em = $this
+            ->getEntityManager();
+        $queryEtape = $em->createQuery(
+            'SELECT e
+            FROM UPONDOrthophonieBundle:Etape e
+            WHERE e.exercice = :exercice AND e.numEtape <= :numEtape'
+        );
+        $queryEtape->setParameters(array('exercice' => $exercice,
+            'numEtape' => $numEtape));
+
+        $etapes = $queryEtape->getResult();
+
+        return $etapes;
+    }
+    public function getlastEtapeByEtapes($etapes)
+    {
+        $em = $this
+            ->getEntityManager();
+        $queryEtape = $em->createQuery(
+            'SELECT e
+            FROM UPONDOrthophonieBundle:Etape e
+            WHERE e IN (:etapes)
+            ORDER BY e.idEtape DESC'
+        );
+        $queryEtape->setParameters(array('etapes' => $etapes));
+        $queryEtape->setMaxResults(1);
+        $etape = $queryEtape->getOneOrNullResult();
+
+        return $etape;
+    }
 }

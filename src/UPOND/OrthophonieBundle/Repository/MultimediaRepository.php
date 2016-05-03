@@ -96,4 +96,21 @@ class MultimediaRepository extends \Doctrine\ORM\EntityRepository
         $listMultimedias = $queryMultimedias->getResult();
         return $listMultimedias;
     }
+
+    public function getMultimediasInEtapes($etapes)
+    {
+        $em = $this
+            ->getEntityManager();
+        $queryMultimedia = $em->createQuery(
+            'SELECT m
+                FROM UPONDOrthophonieBundle:Multimedia m
+                JOIN m.etapes e
+                WHERE e IN (:etapes)'
+        );
+        $queryMultimedia->setParameters(array('etapes' => $etapes));
+
+        $multimedias = $queryMultimedia->getResult();
+
+        return $multimedias;
+    }
 }
