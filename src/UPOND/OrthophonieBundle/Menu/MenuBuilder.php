@@ -18,8 +18,8 @@ class MenuBuilder implements ContainerAwareInterface
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav');
-
-        $menu->addChild('Accueil', array('route' => 'upond_orthophonie_home'))
+        // gestion manuel du template dans layout principal -> app/resources/view
+        /* $menu->addChild('Accueil', array('route' => 'upond_orthophonie_home'))
             ->setAttribute('icon', 'icon-home');
 
         if($this->container->get('security.authorization_checker')->isGranted(array('ROLE_ADMIN', 'ROLE_USER'))) { // Check if the visitor has any authenticated roles
@@ -60,7 +60,7 @@ class MenuBuilder implements ContainerAwareInterface
 
             $menu->addChild('Inscription', array('route' => 'fos_user_registration_register'))
                 ->setAttribute('icon', 'icon-user');
-        }
+        }*/
 
 
         return $menu;

@@ -20,8 +20,8 @@ class RegistrationFormType extends AbstractType
         parent::buildForm($builder, $options);
 
         // add your custom field
-        $builder->add('Nom', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'width: 250px')));
-        $builder->add('Prenom', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'width: 250px')));
+        $builder->add('Nom', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'width: 250px', 'placeholder'=>'Nom')));
+        $builder->add('Prenom', TextType::class, array('attr' => array('class' => 'form-control', 'style' => 'width: 250px', 'placeholder'=>'Prénom')));
     }
 
 
