@@ -80,14 +80,16 @@ class ExerciceController extends Controller
             $strategie = $repository->findOneByNom($request->attributes->get('strategie'));
             $session->set('strategie', $strategie);
 
-            // on stocke la phase (pour la phase de transfert et entrainement niveau 2 uniquement puisque route directement ici)
-            $repositoryPhase = $em
-                ->getRepository('UPONDOrthophonieBundle:Phase')
-            ;
-            $phase = $repositoryPhase->findOneByNom($request->attributes->get('phase'));
-            $session->set('phase', $phase);
-            $session->set('niveau', $request->attributes->get('niveau'));
 
+            if($request->attributes->get('phase') != null && $request->attributes->get('niveau')) {
+                // on stocke la phase (pour la phase de transfert et entrainement niveau 2 uniquement puisque route directement ici)
+                $repositoryPhase = $em
+                    ->getRepository('UPONDOrthophonieBundle:Phase')
+                ;
+                $phase = $repositoryPhase->findOneByNom($request->attributes->get('phase'));
+                $session->set('phase', $phase);
+                $session->set('niveau', $request->attributes->get('niveau'));
+            }
             return $this->redirect($this->generateUrl('upond_orthophonie_exercice'));
 
         }
@@ -104,7 +106,7 @@ class ExerciceController extends Controller
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
         $session = $request->getSession();
         $exercice = $ExerciceRepository->getExerciceByPartiePhaseStrategieNiveau($session->get('partie'), $session->get('phase'), $session->get('strategie'), $session->get('niveau'));
-
+        
         // on recupere l'etape courante de l'exercice
         $etapeCourante = $exercice->getEtapeCourante();
         // on recupere le multimedia de l'etape courante
