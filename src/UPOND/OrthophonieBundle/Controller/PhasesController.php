@@ -67,6 +67,7 @@ class PhasesController extends Controller
         $phase = $repository->findOneByNom($request->attributes->get('phase'));
         $session->set('phase', $phase);
         $session->set('niveau', $request->attributes->get('niveau'));
+        $session->set('afficherSon', true);
         return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
     }
 
@@ -84,6 +85,7 @@ class PhasesController extends Controller
         $phase = $repository->findOneByNom($request->attributes->get('phase'));
         $session->set('phase', $phase);
         $session->set('niveau', $request->attributes->get('niveau'));
+        $session->set('afficherSon', false);
         return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
     }
 
@@ -101,6 +103,7 @@ class PhasesController extends Controller
         $phase = $repository->findOneByNom($request->attributes->get('phase'));
         $session->set('phase', $phase);
         $session->set('niveau', $request->attributes->get('niveau'));
+        $session->set('afficherSon', false);
         return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
     }
 
@@ -118,6 +121,7 @@ class PhasesController extends Controller
         $phase = $repository->findOneByNom($request->attributes->get('phase'));
         $session->set('phase', $phase);
         $session->set('niveau', $request->attributes->get('niveau'));
+        $session->set('afficherSon', false);
         return $this->render('UPONDOrthophonieBundle:Strategie:strategie.html.twig');
     }
 
