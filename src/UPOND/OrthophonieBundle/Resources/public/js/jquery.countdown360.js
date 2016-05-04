@@ -11,7 +11,7 @@
       fontWeight: 700,                 // the font weight
       autostart: true,                 // start the countdown automatically
       seconds: 10,                     // the number of seconds to count down
-      label: ["second", "seconds"],    // the label to use or false if none
+      label: ["seconde", "secondes"],    // the label to use or false if none
       startOverAfterAdding: true,      // Start the timer over after time is added with addSeconds
       smooth: false,                   // should the timer be smooth or stepping
       onComplete: function () {}

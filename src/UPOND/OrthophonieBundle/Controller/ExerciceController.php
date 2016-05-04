@@ -81,7 +81,7 @@ class ExerciceController extends Controller
             $session->set('strategie', $strategie);
 
 
-            if($request->attributes->get('phase') != null && $request->attributes->get('niveau')) {
+            if($request->attributes->get('phase') != null) {
                 // on stocke la phase (pour la phase de transfert et entrainement niveau 2 uniquement puisque route directement ici)
                 $repositoryPhase = $em
                     ->getRepository('UPONDOrthophonieBundle:Phase')
@@ -89,6 +89,12 @@ class ExerciceController extends Controller
                 $phase = $repositoryPhase->findOneByNom($request->attributes->get('phase'));
                 $session->set('phase', $phase);
                 $session->set('niveau', $request->attributes->get('niveau'));
+
+            }
+
+            if($session->get('phase')->getNom() != "Apprentissage" && $session->get('niveau') != "1")
+            {
+                $session->set('afficherSon', false);
             }
             return $this->redirect($this->generateUrl('upond_orthophonie_exercice'));
 
@@ -106,7 +112,8 @@ class ExerciceController extends Controller
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
         $session = $request->getSession();
         $exercice = $ExerciceRepository->getExerciceByPartiePhaseStrategieNiveau($session->get('partie'), $session->get('phase'), $session->get('strategie'), $session->get('niveau'));
-        
+
+
         // on recupere l'etape courante de l'exercice
         $etapeCourante = $exercice->getEtapeCourante();
         // on recupere le multimedia de l'etape courante
@@ -166,6 +173,10 @@ class ExerciceController extends Controller
                             // on recupere l'etape suivante
                             $etape_suivante = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape + 1);
                             $exercice->setEtapeCourante($etape_suivante);
+                            // on met a jour l'etape courante (bonne réponse)
+                            $etapeCourante->setBonneReponse(true);
+                            $em->persist($etapeCourante);
+                            $em->flush();
                             // on met a jour l'exercice en cours
                             $em->persist($exercice);
                             $em->flush();
@@ -180,6 +191,10 @@ class ExerciceController extends Controller
                             // on recupere l'etape suivante
                             $etape_suivante = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape);
                             $exercice->setEtapeCourante($etape_suivante);
+                            // on met a jour l'etape courante (bonne réponse)
+                            $etapeCourante->setBonneReponse(true);
+                            $em->persist($etapeCourante);
+                            $em->flush();
                             // on met a jour l'exercice en cours
                             $em->persist($exercice);
                             $em->flush();
@@ -189,7 +204,7 @@ class ExerciceController extends Controller
                         }
                     }
 
-                return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $arrayMultimedia, 'form' => $form->createView()));
+                return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $arrayMultimedia, 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
             }
 
             // si c'est le bouton "Mauvaise réponse", on passe a l'etape précédente
@@ -230,6 +245,10 @@ class ExerciceController extends Controller
                         // on recupere l'etape précédente
                         //$etape_precedente = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape - 1);
                         $exercice->setEtapeCourante($etapeCourante);
+                        // on met a jour l'etape courante (mauvaise réponse)
+                        $etapeCourante->setBonneReponse(false);
+                        $em->persist($etapeCourante);
+                        $em->flush();
                         // on met a jour l'exercice en cours
                         $em->persist($exercice);
                         $em->flush();
@@ -244,6 +263,10 @@ class ExerciceController extends Controller
                         // on recupere l'etape précédente
                         $etape_precedente = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape);
                         $exercice->setEtapeCourante($etape_precedente);
+                        // on met a jour l'etape courante (mauvaise réponse)
+                        $etapeCourante->setBonneReponse(false);
+                        $em->persist($etapeCourante);
+                        $em->flush();
                         // on met a jour l'exercice en cours
                         $em->persist($exercice);
                         $em->flush();
@@ -255,11 +278,11 @@ class ExerciceController extends Controller
                     }
                 }
                 
-                return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $arrayMultimedia, 'form' => $form->createView()));
+                return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $arrayMultimedia, 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
             }
         }
 
-        return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $arrayMultimedia, 'form' => $form->createView()));
+        return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $arrayMultimedia, 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
     }
 
 }
