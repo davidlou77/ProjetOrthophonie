@@ -5,62 +5,142 @@
 {% endblock %}
 
 {% block orthophonie_body %}
+    <div class="container">
 
-<html>
+        <hr style="margin: 50px 0 0 0;">
 
-    <body>
-
-        <div class="container">
-
-
-
-            <hr style="margin: 50px 0;">
+        <div class="block_phase"> <!-- Block Select Phases -->
+            <p style="height: 40px">&nbsp;</p>
 
             <div class="row" style="display: flex">
                 <div class="col-sm-4 text-center">
-                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:70%;">
-                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
+                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px;">
+                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
                         <h4>Apprentissage</h4>
                         <ul>
-                            <li><a href="{{ path('upond_orthophonie_apprentissage_niveau1') }}" class="btn btn-default" name="Niveau1">Niveau 1</a></li>
-                            <li><a href="{{ path('upond_orthophonie_apprentissage_niveau2') }}" class="btn btn-default" name="Niveau2">Niveau 2</a></li>
+                            <li><a href="#" data-phase="Apprentissage" data-level="1" class="btn btn-default">Niveau 1</a></li>
+                            <li><a href="#" data-phase="Apprentissage" data-level="2" class="btn btn-default">Niveau 2</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-4 text-center">
-                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:70%;">
-                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
+                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px;">
+                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
                         <h4>Entrainement</h4>
                         <ul>
-                            <li><a href="{{ path('upond_orthophonie_entrainement_niveau1') }}" class="btn btn-default">Niveau 1</a></li>
-                            <li><a href="{{ path('upond_orthophonie_entrainement_niveau2') }}" class="btn btn-default">Niveau 2</a></li>
+                            <li><a href="#" data-phase="Entrainement" data-level="1" class="btn btn-default">Niveau 1</a></li>
+                            <li><a href="#" data-phase="Entrainement" data-level="2" class="btn btn-default">Niveau 2</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-4 text-center">
-                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px; height:70%;">
-                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%" />
+                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px;">
+                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
                         <h4>Transfert</h4>
                         <ul>
-                            <li><a href="{{ path('upond_orthophonie_transfert') }}" class="btn btn-success">Démarrer</a></li>
+                            <li><a href="#" data-phase="Transfert" data-level="0" class="btn btn-success">Démarrer</a></li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            <p style="height: 40px">&nbsp;</p>
+        </div>
 
+        <div class="block_strategie" style="display:none"> <!-- Block Select Strategies -->
+            <div class="text-center" style="margin: 25px 0">
+                <h4>Choix de la stratégie</h4>
             </div>
 
-
-            <hr style="margin: 60px 0 15px 0">
-
-            <div class="text-right">
-                <img src="http://rrpb2.u-bordeaux4.fr/wp-content/uploads/2012/10/logo-Parisouest.jpg" width="100px">
+            <div class="row" style="display: flex">
+                <div class="col-sm-3 text-center">
+                    <a href="#" data-strategie="Morphologie">
+                        <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px;">
+                            <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
+                            <br/><br/><h4>Morphologie</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <a href="#" data-strategie="Morphologie inverse">
+                        <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px;">
+                            <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
+                            <br/><br/><h4>Morphologie inverse</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <a href="#" data-strategie="Métier">
+                        <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px;">
+                            <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
+                            <br/><br/><h4>Métier</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <a href="#" data-strategie="Association d'idées">
+                        <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px;">
+                            <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
+                            <br/><br/><h4>Association d'idées</h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <div class="item" style="border-radius: 5px; border: 1px solid lightgray; padding: 30px;">
+                        <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
+                        <br/><br/><h4>Phonème</h4>
+                    </div>
+                </div>
             </div>
-
+            <br/><br/>
+            <a href="#" data-action="back" class="btn btn-info">&lt;&lt; Retourner à l'accueil</a>
         </div>
 
 
+        <hr style="margin: 20px 0 15px 0">
 
-    </body>
-</html>
+        <div class="text-right">
+            <img src="http://rrpb2.u-bordeaux4.fr/wp-content/uploads/2012/10/logo-Parisouest.jpg" width="100px">
+        </div>
 
+    </div>
+{% endblock %}
+
+{% block javascripts_complement %}
+    <script>
+        $(function() {
+            function transition($src, $dst) {
+                $src.fadeOut( "fast" , function() {
+                    $dst.fadeIn();
+                });
+            }
+
+            var options;
+
+            function createExercice() {
+                window.location = Routing.generate('upond_orthophonie_createExercice', {phase: options['phase'], niveau: options['level'], strategie:options['strategie']});
+            }
+
+            $('.block_phase a[data-phase][data-level]').click(function() {
+                var $this = $(this);
+                options = {};
+                options['phase'] = $this.data("phase");
+                options['level'] = $this.data("level");
+
+                if(options['phase'] == 'Transfert' || (options['phase'] == 'Entrainement' && options['level'] == 2)) {
+                    createExercice();
+                } else {
+                    transition($('.block_phase'), $('.block_strategie'));
+                }
+            });
+
+            $('.block_strategie a[data-strategie]').click(function() {
+                options['strategie'] = $(this).data("strategie");
+                createExercice();
+            });
+
+            $('.block_strategie [data-action="back"]').click(function() {
+                transition($('.block_strategie'), $('.block_phase'));
+            });
+        });
+    </script>
 {% endblock %}

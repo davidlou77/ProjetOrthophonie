@@ -6,6 +6,10 @@ upond_orthophonie_invite:
     path:     /
     defaults: { _controller: UPONDOrthophonieBundle:Invite:accueil }
 
+upond_orthophonie_createExercice:
+    path:     /select_partie/{phase}/{niveau}/{strategie}
+    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie }
+
 upond_orthophonie_apprentissage_niveau1:
     path:     /apprentissage_niveau1
     defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau1 , phase: "Apprentissage" , niveau: 1 }
