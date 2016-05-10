@@ -38,7 +38,7 @@ class Phase
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Exercice", mappedBy="strategie")
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Exercice", mappedBy="phase")
      */
     private $exercices;
     /**

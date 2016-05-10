@@ -49,10 +49,6 @@ class Multimedia
      */
     private $strategie;
 
-    /**
-     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Etape", mappedBy="multimedia")
-     */
-    private $etapes;
 
     public function __construct()
     {

@@ -135,7 +135,7 @@ class PartieController extends Controller
             $em->flush();
 
             // autres stratégies ...
-            
+
             // phase d'apprentissage niveau 2
             // on reprend la fonction d'initalisation d'exercice d'entrainement
             $niveau = 2;
@@ -201,7 +201,7 @@ class PartieController extends Controller
 
             // autres stratégies ...
             
-            
+
             // faire une phase d'entrainement en mélangeant les stratégies
 
             $strategie = $repositoryStrategie->findOneByNom("Aléatoire");
@@ -257,21 +257,55 @@ class PartieController extends Controller
         $listMultimedia = $MultimediaRepository->get7MultimediaAleatoire($strategie);
         foreach($listMultimedia as $multimedia)
         {
-            $etape = new Etape();
-            $etape->setExercice($exercice);
-            $etape->setMultimedia($multimedia);
-            $etape->setBonneReponse(false);
-            $etape->setNumEtape($i);
-
-            $em->persist($etape);
-
-            if ($i == 1 )
+            if ($i%2 == 0)
             {
+                //on ajoute le multimedia seul
+                $etape = new Etape();
+                $etape->setExercice($exercice);
+                $etape->setBonneReponse(false);
+                $etape->addMultimedia($multimedia);
+
+                $etape->setNumEtape($i);
+                $em->persist($etape);
+                $exercice->addEtape($etape);
+                $i++;
+
+
+                //on ajoute une nouvelle etape avec les multimedias du début jusqu'au multimedia courant
+                $etape2 = new Etape();
+                $etape2->setExercice($exercice);
+                $etape2->setBonneReponse(false);
+                foreach($listMultimedia as $multimedia2) {
+                    $etape2->addMultimedia($multimedia2);
+                    if ($multimedia2 == $multimedia)
+                    {
+                        break;
+                    }
+                }
+
+                $etape2->setNumEtape($i);
+                $em->persist($etape2);
+                $exercice->addEtape($etape2);
+                $i++;
+            }
+            // on ajoute le multimedia
+            // si on est a la premiere etape, on ajoute que la premiere image
+            if ($i == 1)
+            {
+                $etape = new Etape();
+                $etape->setExercice($exercice);
+                $etape->setBonneReponse(false);
+
+                $etape->addMultimedia($multimedia);
                 $exercice->setEtapeCourante($etape);
+
+                $etape->setNumEtape($i);
+                $em->persist($etape);
+                $exercice->addEtape($etape);
+                $i++;
             }
 
-            $exercice->addEtape($etape);
-            $i++;
+
         }
         return $exercice;
     }
@@ -296,11 +330,14 @@ class PartieController extends Controller
 
         foreach($exerciceTemporaire->getEtapes() as $etapeTemporaire)
         {
-            $multimedia = $etapeTemporaire->getMultimedia();
+            $multimedias = $etapeTemporaire->getMultimedias();
 
             $etape = new Etape();
             $etape->setExercice($exercice);
-            $etape->setMultimedia($multimedia);
+            foreach($multimedias as $multimedia)
+            {
+                $etape->addMultimedia($multimedia);
+            }
             $etape->setBonneReponse(false);
             $etape->setNumEtape($i);
 
@@ -337,11 +374,14 @@ class PartieController extends Controller
 
         foreach($exerciceTemporaire->getEtapes() as $etapeTemporaire)
         {
-            $multimedia = $etapeTemporaire->getMultimedia();
+            $multimedias = $etapeTemporaire->getMultimedias();
 
             $etape = new Etape();
             $etape->setExercice($exercice);
-            $etape->setMultimedia($multimedia);
+            foreach($multimedias as $multimedia)
+            {
+                $etape->addMultimedia($multimedia);
+            }
             $etape->setBonneReponse(false);
             $etape->setNumEtape($i);
 
@@ -387,23 +427,51 @@ class PartieController extends Controller
 
         $listMultimedias = $MultimediaRepository->getMultimediaInArrayOfIdMultimedia($arrayMultimedia);
 
-        foreach($listMultimedias as $multimedia)
-        {
-            $etape = new Etape();
-            $etape->setExercice($exercice);
-            $etape->setMultimedia($multimedia);
-            $etape->setBonneReponse(false);
-            $etape->setNumEtape($i);
+        foreach($listMultimedias as $multimedia) {
+            if ($i % 2 == 0) {
+                //on ajoute le multimedia seul
+                $etape = new Etape();
+                $etape->setExercice($exercice);
+                $etape->setBonneReponse(false);
+                $etape->addMultimedia($multimedia);
 
-            $em->persist($etape);
+                $etape->setNumEtape($i);
+                $em->persist($etape);
+                $exercice->addEtape($etape);
+                $i++;
 
-            if ($i == 1 )
-            {
-                $exercice->setEtapeCourante($etape);
+
+                //on ajoute une nouvelle etape avec les multimedias du début jusqu'au multimedia courant
+                $etape2 = new Etape();
+                $etape2->setExercice($exercice);
+                $etape2->setBonneReponse(false);
+                foreach ($listMultimedias as $multimedia2) {
+                    $etape2->addMultimedia($multimedia2);
+                    if ($multimedia2 == $multimedia) {
+                        break;
+                    }
+                }
+
+                $etape2->setNumEtape($i);
+                $em->persist($etape2);
+                $exercice->addEtape($etape2);
+                $i++;
             }
+            // on ajoute le multimedia
+            // si on est a la premiere etape, on ajoute que la premiere image
+            if ($i == 1) {
+                $etape = new Etape();
+                $etape->setExercice($exercice);
+                $etape->setBonneReponse(false);
 
-            $exercice->addEtape($etape);
-            $i++;
+                $etape->addMultimedia($multimedia);
+                $exercice->setEtapeCourante($etape);
+
+                $etape->setNumEtape($i);
+                $em->persist($etape);
+                $exercice->addEtape($etape);
+                $i++;
+            }
         }
 
         return $exercice;
@@ -442,23 +510,51 @@ class PartieController extends Controller
         // on récupere l'entité de l'ID
         $listMultimediasRandom = $MultimediaRepository->getMultimediaInArrayOfIdMultimedia($arrayMultimedia);
 
-        foreach($listMultimediasRandom as $multimedia)
-        {
-            $etape = new Etape();
-            $etape->setExercice($exercice);
-            $etape->setMultimedia($multimedia);
-            $etape->setBonneReponse(false);
-            $etape->setNumEtape($i);
+        foreach($listMultimediasRandom as $multimedia) {
+            if ($i % 2 == 0) {
+                //on ajoute le multimedia seul
+                $etape = new Etape();
+                $etape->setExercice($exercice);
+                $etape->setBonneReponse(false);
+                $etape->addMultimedia($multimedia);
 
-            $em->persist($etape);
+                $etape->setNumEtape($i);
+                $em->persist($etape);
+                $exercice->addEtape($etape);
+                $i++;
 
-            if ($i == 1 )
-            {
-                $exercice->setEtapeCourante($etape);
+
+                //on ajoute une nouvelle etape avec les multimedias du début jusqu'au multimedia courant
+                $etape2 = new Etape();
+                $etape2->setExercice($exercice);
+                $etape2->setBonneReponse(false);
+                foreach ($listMultimediasRandom as $multimedia2) {
+                    $etape2->addMultimedia($multimedia2);
+                    if ($multimedia2 == $multimedia) {
+                        break;
+                    }
+                }
+
+                $etape2->setNumEtape($i);
+                $em->persist($etape2);
+                $exercice->addEtape($etape2);
+                $i++;
             }
+            // on ajoute le multimedia
+            // si on est a la premiere etape, on ajoute que la premiere image
+            if ($i == 1) {
+                $etape = new Etape();
+                $etape->setExercice($exercice);
+                $etape->setBonneReponse(false);
 
-            $exercice->addEtape($etape);
-            $i++;
+                $etape->addMultimedia($multimedia);
+                $exercice->setEtapeCourante($etape);
+
+                $etape->setNumEtape($i);
+                $em->persist($etape);
+                $exercice->addEtape($etape);
+                $i++;
+            }
         }
 
         return $exercice;

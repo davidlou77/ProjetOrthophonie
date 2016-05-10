@@ -53,7 +53,7 @@ class MultimediaRepository extends \Doctrine\ORM\EntityRepository
             'SELECT m.idMultimedia
             FROM UPONDOrthophonieBundle:Exercice e
             JOIN e.etapes et
-            JOIN et.multimedia m
+            JOIN et.multimedias m
             WHERE e.partie = :partie AND e.phase = :phase
             GROUP BY m.idMultimedia'
         );

@@ -145,4 +145,9 @@ class Partie
     {
         return $this->dateCreation;
     }
+
+    public function getIdPartieAndDateCreation()
+    {
+        return 'n°'.$this->idPartie.' datant du '.$this->dateCreation->format('d-m-Y');
+    }
 }

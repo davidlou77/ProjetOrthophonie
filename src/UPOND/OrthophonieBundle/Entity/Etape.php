@@ -9,6 +9,8 @@
 namespace UPOND\OrthophonieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * Etape
@@ -43,10 +45,13 @@ class Etape
     private $exercice;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Multimedia", inversedBy="etapes")
-     * @ORM\JoinColumn(name="id_multimedia", referencedColumnName="id_multimedia")
+     * @ORM\ManyToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Multimedia")
+     * @ORM\JoinTable(name="etape_multimedia",
+     *      joinColumns={@JoinColumn(name="id_etape", referencedColumnName="id_etape")},
+     *      inverseJoinColumns={@JoinColumn(name="id_multimedia", referencedColumnName="id_multimedia")}
+     *      )
      */
-    private $multimedia;
+    private $multimedias;
 
     /**
      * @var boolean
@@ -54,6 +59,12 @@ class Etape
      * @ORM\Column(name="bonne_reponse", type="boolean", nullable=false)
      */
     private $bonneReponse;
+
+
+    public function __construct()
+    {
+        $this->multimedias = new ArrayCollection();
+    }
 
 
     /**
@@ -138,27 +149,38 @@ class Etape
         return $this->exercice;
     }
 
+
     /**
-     * Set multimedia
+     * Add multimedia
      *
      * @param \UPOND\OrthophonieBundle\Entity\Multimedia $multimedia
      *
      * @return Etape
      */
-    public function setMultimedia(\UPOND\OrthophonieBundle\Entity\Multimedia $multimedia = null)
+    public function addMultimedia(\UPOND\OrthophonieBundle\Entity\Multimedia $multimedia)
     {
-        $this->multimedia = $multimedia;
+        $this->multimedias[] = $multimedia;
 
         return $this;
     }
 
     /**
-     * Get multimedia
+     * Remove multimedia
      *
-     * @return \UPOND\OrthophonieBundle\Entity\Multimedia
+     * @param \UPOND\OrthophonieBundle\Entity\Multimedia $multimedia
      */
-    public function getMultimedia()
+    public function removeMultimedia(\UPOND\OrthophonieBundle\Entity\Multimedia $multimedia)
     {
-        return $this->multimedia;
+        $this->multimedias->removeElement($multimedia);
+    }
+
+    /**
+     * Get multimedias
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMultimedias()
+    {
+        return $this->multimedias;
     }
 }

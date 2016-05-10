@@ -10,18 +10,22 @@
     {% for multimedia in multimedias %}
 
         <p><b>
-                multimedia.getNom
+                {{ multimedia.getNom }}
             </b></p>
         <img src="{{ asset(multimedia.getImage) }}" width='400'alt="" />
         <p></p>
+        {% if afficherSon == true %}
+            <audio controls>
+                <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
+                Votre navigateur internet ne supporte pas l'élément audio.
+            </audio>
+        {% endif %}
 
 
     {% endfor %}
 
     <br />
-    <br />
-    <p>La réponse du patient est-elle correcte?</p>
-    <br />
+
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
