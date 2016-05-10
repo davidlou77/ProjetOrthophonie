@@ -57,7 +57,21 @@ class PhasesController extends Controller
         $query = $em->getRepository(Exercice::class)->createQueryBuilder('n');
         $exos = $query->where($query->expr()->in('n.partie', ':parties'))->setParameter('parties', $parties)->getQuery()->getResult();
 
-        return $this->render('UPONDOrthophonieBundle:Stats:stats.html.twig', ['exercices' => $exos]);
+        // Generation du tableau pour le graphe //
+        $graph = [];
+        foreach ($exos as $exo) {
+            $time = $exo->getDateCreation()->getTimestamp();
+            if(!array_key_exists($time, $graph)) {
+                $graph[$time] = [$exo->getNbBonneReponse()];
+            } else {
+                array_push($graph[$time], $exo->getNbBonneReponse());
+            }
+        }
+        $graph = array_map(function($o) {return array_sum($o) / count($o);}, $graph);
+
+        return $this->render('UPONDOrthophonieBundle:Stats:stats.html.twig', 
+            ['exercices' => $exos,
+             'graph' => $graph]);
     }
 
     public function apprentissage_niveau1Action(Request $request)

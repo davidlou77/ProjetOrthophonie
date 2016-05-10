@@ -92,7 +92,7 @@
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [{% for e in exercices %}"{{ e.dateCreation|date('d/m/Y') }}",{% endfor %}],
+                labels: [{% for date in graph|keys %}"{{ date|date('d/m/Y') }}",{% endfor %}],
                 datasets: [
                     {
                         label: "Score",
@@ -113,7 +113,7 @@
                         pointHoverBorderWidth: 2,
                         pointRadius: 1,
                         pointHitRadius: 10,
-                        data: [8, 10, 7, 8, 9],
+                        data: [{% for score in graph %}{{ score|number_format(2) }},{% endfor %}],
                     }
                 ]
             },
