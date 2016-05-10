@@ -108,43 +108,51 @@ class ExerciceController extends Controller
     public function afficherExerciceAction(Request $request)
     {
         $session = $request->getSession();
-        // si on doit afficher le nom ou l'exercice
-        if ($session->get('TypeAffichage') != "PauseVideo") {
-            // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
-            $em = $this->getDoctrine()->getManager();
-            $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
-            $EtapeRepository = $em->getRepository('UPONDOrthophonieBundle:Etape');
-            $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
 
-            $exercice = $ExerciceRepository->getExerciceByPartiePhaseStrategieNiveau($session->get('partie'), $session->get('phase'), $session->get('strategie'), $session->get('niveau'));
+        // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
+        $em = $this->getDoctrine()->getManager();
+        $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
+        $EtapeRepository = $em->getRepository('UPONDOrthophonieBundle:Etape');
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
 
-            // on recupere l'etape courante de l'exercice
-            $etapeCourante = $exercice->getEtapeCourante();
-            // on recupere les multimedias de l'etape courante
-            $multimedias = $etapeCourante->getMultimedias();
+        $exercice = $ExerciceRepository->getExerciceByPartiePhaseStrategieNiveau($session->get('partie'), $session->get('phase'), $session->get('strategie'), $session->get('niveau'));
 
-            // on recupere le numero de l'etape de l'etape courante
-            $numeroEtape = $etapeCourante->getNumEtape();
+        // on recupere l'etape courante de l'exercice
+        $etapeCourante = $exercice->getEtapeCourante();
+        // on recupere les multimedias de l'etape courante
+        $multimedias = $etapeCourante->getMultimedias();
 
-            // On crée le FormBuilder grâce au service form factory
-            $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
+        // on recupere le numero de l'etape de l'etape courante
+        $numeroEtape = $etapeCourante->getNumEtape();
 
-            // On ajoute les champs que l'on veut à notre formulaire
-            $formBuilder
-                ->add('BonneReponse', SubmitType::class, array(
-                    'attr' => array('class' => 'btn btn-success')))
-                ->add('MauvaiseReponse', SubmitType::class, array(
-                    'attr' => array('class' => 'btn btn-danger')));
+        // On crée le FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
 
-            // À partir du formBuilder, on génère le formulaire
-            $form = $formBuilder->getForm();
+        // On ajoute les champs que l'on veut à notre formulaire
+        $formBuilder
+            ->add('BonneReponse', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-success')))
+            ->add('MauvaiseReponse', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-danger')));
 
-            // si on clique un des deux boutons de validation, on ajoute la bonne/mauvaise réponse dans la base
-            if ($form->handleRequest($request)->isValid()) {
+        // À partir du formBuilder, on génère le formulaire
+        $form = $formBuilder->getForm();
 
-                // si c'est le bouton "Bonne réponse", on passe a l'etape suivante
-                if ($form->get('BonneReponse')->isClicked()) {
+        // si on clique un des deux boutons de validation, on ajoute la bonne/mauvaise réponse dans la base
+        if ($form->handleRequest($request)->isValid()) {
 
+
+            // si c'est le bouton "Bonne réponse", on passe a l'etape suivante
+            if ($form->get('BonneReponse')->isClicked()) {
+                // on affiche la pause video
+                if ($session->get('TypeAffichage') == "PauseVideo")
+                {
+                    // si on doit afficher la pause video
+                    // on recupere une video aleatoire
+                    $session->set('TypeAffichage', "Exercice");
+                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+
+                }
                     // on a 13 etapes maximum
                     if ($numeroEtape < 13) {
 
@@ -167,13 +175,16 @@ class ExerciceController extends Controller
 
                             return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
 
-                        } if ($session->get('TypeAffichage') == "Nom") {
+                        }
+                        elseif ($session->get('TypeAffichage') == "Nom") {
                             // on recupere le multimedia de l'etape courante
                             $etape_suivante = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape + 1);
                             $multimedias = $etapeCourante->getMultimedias();
-                            $session->set('TypeAffichage', "Exercice");
+                            $session->set('TypeAffichage', "PauseVideo");
 
                         }
+                        return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+
                     }
                     // on a 13 etapes maximum, l'exercice est fini
                     if ($numeroEtape == 13) {
@@ -192,83 +203,92 @@ class ExerciceController extends Controller
                             $session->set('TypeAffichage', "Nom");
                             echo "Exercice terminé.";
                             return $this->redirect($this->generateUrl('upond_orthophonie_home'));
-                        } if ($session->get('TypeAffichage') == "Nom") {
-                            $session->set('TypeAffichage', "Exercice");
                         }
-                    }
-
-                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
-                }
-
-                // si c'est le bouton "Mauvaise réponse", on passe a l'etape précédente
-                if ($form->get('MauvaiseReponse')->isClicked()) {
-
-                    // si on est la premiere etape et que le patient donne une mauvaise réponse, on reste a la premiere etape
-
-                    // on a 13 etapes maximum
-                    if ($numeroEtape <= 13 && $numeroEtape > 1) {
-                        // on recupere l'etape précédente
-                        $etape_precedente = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape - 1);
-                        // on recupere le multimedia de l'etape suivante
-                        $multimedias = $etape_precedente->getMultimedias();
-
-                        if ($session->get('TypeAffichage') == "Exercice") {
-                            $exercice->setEtapeCourante($etapeCourante);
-                            $multimedias = $etapeCourante->getMultimedias();
-                            // on met a jour l'etape courante (mauvaise réponse)
-                            $etapeCourante->setBonneReponse(false);
-                            $em->persist($etapeCourante);
-                            $em->flush();
-                            // on met a jour l'exercice en cours
-                            $em->persist($exercice);
-                            $em->flush();
-
-                            $session->set('TypeAffichage', "Nom");
-                        } else {
-                            $exercice->setEtapeCourante($etape_precedente);
-                            // on met a jour l'exercice en cours
-                            $em->persist($exercice);
-                            $em->flush();
-                            $session->set('TypeAffichage', "Exercice");
+                        elseif ($session->get('TypeAffichage') == "Nom") {
+                            $session->set('TypeAffichage', "PauseVideo");
                         }
-                    }
+                        return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
 
-                    // si on est a l'etape 1, on reste a l'etape 1 (on peut pas aller plus bas)
-                    if ($numeroEtape == 1) {
-                        // on recupere l'etape courante (la premiere)
-                        $etape_precedente = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape);
-
-                        // on recupere le multimedia de l'etape
-                        $multimedias = $etape_precedente->getMultimedias();
-
-                        if ($session->get('TypeAffichage') == "Exercice") {
-                            $exercice->setEtapeCourante($etape_precedente);
-                            // on met a jour l'etape courante (mauvaise réponse)
-                            $etape_precedente->setBonneReponse(false);
-                            $em->persist($etape_precedente);
-                            $em->flush();
-                            // on met a jour l'exercice en cours
-                            $em->persist($exercice);
-                            $em->flush();
-
-                            $session->set('TypeAffichage', "Nom");
-                        } else {
-                            $session->set('TypeAffichage', "Exercice");
-                        }
                     }
 
 
-                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
-                }
             }
 
-            return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
-        }
-        // si on doit afficher la pause video
-        else
-        {
+            // si c'est le bouton "Mauvaise réponse", on passe a l'etape précédente
+            if ($form->get('MauvaiseReponse')->isClicked()) {
+                // on affiche la pause video
+                if ($session->get('TypeAffichage') == "PauseVideo")
+                {
+                    // si on doit afficher la pause video
+                    // on recupere une video aleatoire
+                    $session->set('TypeAffichage', "Nom");
+                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
 
+                }
+                // si on est la premiere etape et que le patient donne une mauvaise réponse, on reste a la premiere etape
+
+                // on a 13 etapes maximum
+                if ($numeroEtape <= 13 && $numeroEtape > 1) {
+                    // on recupere l'etape précédente
+                    $etape_precedente = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape - 1);
+                    // on recupere le multimedia de l'etape suivante
+                    $multimedias = $etape_precedente->getMultimedias();
+
+                    if ($session->get('TypeAffichage') == "Exercice") {
+                        $exercice->setEtapeCourante($etapeCourante);
+                        $multimedias = $etapeCourante->getMultimedias();
+                        // on met a jour l'etape courante (mauvaise réponse)
+                        $etapeCourante->setBonneReponse(false);
+                        $em->persist($etapeCourante);
+                        $em->flush();
+                        // on met a jour l'exercice en cours
+                        $em->persist($exercice);
+                        $em->flush();
+
+                        $session->set('TypeAffichage', "Nom");
+                    }
+                    elseif ($session->get('TypeAffichage') == "Nom") {
+                        $exercice->setEtapeCourante($etape_precedente);
+                        // on met a jour l'exercice en cours
+                        $em->persist($exercice);
+                        $em->flush();
+                        $session->set('TypeAffichage', "Exercice");
+                    }
+                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+
+                }
+
+                // si on est a l'etape 1, on reste a l'etape 1 (on peut pas aller plus bas)
+                if ($numeroEtape == 1) {
+                    // on recupere l'etape courante (la premiere)
+                    $etape_precedente = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape);
+
+                    // on recupere le multimedia de l'etape
+                    $multimedias = $etape_precedente->getMultimedias();
+
+                    if ($session->get('TypeAffichage') == "Exercice") {
+                        $exercice->setEtapeCourante($etape_precedente);
+                        // on met a jour l'etape courante (mauvaise réponse)
+                        $etape_precedente->setBonneReponse(false);
+                        $em->persist($etape_precedente);
+                        $em->flush();
+                        // on met a jour l'exercice en cours
+                        $em->persist($exercice);
+                        $em->flush();
+
+                        $session->set('TypeAffichage', "Nom");
+                    }
+                    elseif ($session->get('TypeAffichage') == "Nom") {
+                        $session->set('TypeAffichage', "Exercice");
+                    }
+                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+
+                }
+            }
         }
+
+        return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+
     }
 
 }

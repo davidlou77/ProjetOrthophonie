@@ -6,56 +6,69 @@
 
 {% block orthophonie_body %}
 
-    <h2>Exercice:</h2>
-    {% for multimedia in multimedias %}
+    {% if TypeAffichage == "Exercice" or TypeAffichage == "Nom" %}
+        <h2>Exercice:</h2>
+        {% for multimedia in multimedias %}
 
-        <p><b>
-                {% if TypeAffichage == "Nom" %}
-                    {{ multimedia.getNom }}
-                {% else %}
-                    Quel est le nom de cette personne ?
+            <p><b>
+                    {% if TypeAffichage == "Nom" %}
+                        {{ multimedia.getNom }}
+                    {% else %}
+                        Quel est le nom de cette personne ?
+                    {% endif %}
+
+                </b></p>
+            <img src="{{ asset(multimedia.getImage) }}" width='400'alt="" />
+            <p></p>
+            {% if TypeAffichage == "Nom" %}
+                {% if afficherSon == true %}
+                    <audio controls>
+                        <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
+                        Votre navigateur internet ne supporte pas l'élément audio.
+                    </audio>
                 {% endif %}
-
-            </b></p>
-        <img src="{{ asset(multimedia.getImage) }}" width='400'alt="" />
-        <p></p>
-        {% if TypeAffichage == "Nom" %}
-            {% if afficherSon == true %}
-                <audio controls>
-                    <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
-                    Votre navigateur internet ne supporte pas l'élément audio.
-                </audio>
             {% endif %}
+
+
+        {% endfor %}
+
+        <br />
+        <br />
+        {% if TypeAffichage == "Exercice" %}
+            <p>La réponse du patient est-elle correcte?</p>
+        {% endif %}
+        <br />
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {% if TypeAffichage == "Nom" %}
+            {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
+            {{ form_row(form.MauvaiseReponse, { 'label': 'Précédent' }) }}
+        {% else %}
+            {{ form_row(form.BonneReponse, { 'label': 'Bonne réponse' }) }}
+            {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
+        {% endif %}
+        {{ form_end(form) }}
+
+        {% if TypeAffichage == "Exercice" %}
+            {% if exercice.getTempsExercice is not null %}
+                <div id="countdown"></div>
+            {% endif %}
+
         {% endif %}
 
-
-    {% endfor %}
-
-    <br />
-    <br />
-    {% if TypeAffichage == "Exercice" %}
-        <p>La réponse du patient est-elle correcte?</p>
-    {% endif %}
-    <br />
-
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-    {% if TypeAffichage == "Nom" %}
-        {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
-        {{ form_row(form.MauvaiseReponse, { 'label': 'Précédent' }) }}
     {% else %}
-        {{ form_row(form.BonneReponse, { 'label': 'Bonne réponse' }) }}
+        <p>Pause</p>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/lfqWWQYb6Uc" frameborder="0" allowfullscreen></iframe>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
         {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
-    {% endif %}
-    {{ form_end(form) }}
+        {{ form_end(form) }}
 
-    {% if TypeAffichage == "Exercice" %}
-        {% if exercice.getTempsExercice is not null %}
-            <div id="countdown"></div>
-        {% endif %}
 
     {% endif %}
-
 
 
 {% endblock %}
