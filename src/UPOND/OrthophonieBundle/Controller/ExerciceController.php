@@ -160,6 +160,7 @@ class ExerciceController extends Controller
                             // on recupere l'etape suivante
                             $etape_suivante = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape + 1);
                             $exercice->setEtapeCourante($etape_suivante);
+                            $exercice->setNbBonneReponse($exercice->getNbBonneReponse()+1);
 
                             // on recupere le multimedia de l'etape suivante
                             $multimedias = $etape_suivante->getMultimedias();
@@ -193,8 +194,10 @@ class ExerciceController extends Controller
                             // on recupere l'etape suivante
                             $etape_suivante = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape);
                             $exercice->setEtapeCourante($etape_suivante);
+                            $exercice->setNbBonneReponse($exercice->getNbBonneReponse()+1);
                             // on met a jour l'etape courante (bonne réponse)
                             $etape_suivante->setBonneReponse(true);
+
                             $em->persist($etape_suivante);
                             $em->flush();
                             // on met a jour l'exercice en cours
@@ -236,6 +239,7 @@ class ExerciceController extends Controller
 
                     if ($session->get('TypeAffichage') == "Exercice") {
                         $exercice->setEtapeCourante($etapeCourante);
+                        $exercice->setNbBonneReponse($exercice->getNbBonneReponse()-1);
                         $multimedias = $etapeCourante->getMultimedias();
                         // on met a jour l'etape courante (mauvaise réponse)
                         $etapeCourante->setBonneReponse(false);
