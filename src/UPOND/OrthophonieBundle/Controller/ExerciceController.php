@@ -165,7 +165,7 @@ class ExerciceController extends Controller
 
                             $session->set('TypeAffichage', "Nom");
 
-                            return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+                            return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
 
                         } if ($session->get('TypeAffichage') == "Nom") {
                             // on recupere le multimedia de l'etape courante
@@ -197,7 +197,7 @@ class ExerciceController extends Controller
                         }
                     }
 
-                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
                 }
 
                 // si c'est le bouton "Mauvaise réponse", on passe a l'etape précédente
@@ -258,11 +258,11 @@ class ExerciceController extends Controller
                     }
 
 
-                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
                 }
             }
 
-            return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+            return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
         }
         // si on doit afficher la pause video
         else
