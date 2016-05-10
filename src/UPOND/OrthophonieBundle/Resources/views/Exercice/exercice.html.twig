@@ -19,11 +19,13 @@
             </b></p>
         <img src="{{ asset(multimedia.getImage) }}" width='400'alt="" />
         <p></p>
-        {% if afficherSon == true %}
-            <audio controls>
-                <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
-                Votre navigateur internet ne supporte pas l'élément audio.
-            </audio>
+        {% if TypeAffichage == "Nom" %}
+            {% if afficherSon == true %}
+                <audio controls>
+                    <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
+                    Votre navigateur internet ne supporte pas l'élément audio.
+                </audio>
+            {% endif %}
         {% endif %}
 
 
@@ -38,8 +40,12 @@
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
-
-    {{ form_row(form.BonneReponse, { 'label': 'Bonne réponse' }) }}
-    {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
+    {% if TypeAffichage == "Nom" %}
+        {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
+        {{ form_row(form.MauvaiseReponse, { 'label': 'Précédent' }) }}
+    {% else %}
+        {{ form_row(form.BonneReponse, { 'label': 'Bonne réponse' }) }}
+        {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
+    {% endif %}
     {{ form_end(form) }}
 {% endblock %}
