@@ -9,14 +9,12 @@
 namespace UPOND\OrthophonieBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use UPOND\OrthophonieBundle\Entity\Multimedia;
-use Symfony\Component\Form\FormBuilder;
+use UPOND\OrthophonieBundle\Entity\Exercice;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use UPOND\OrthophonieBundle\Entity\Partie;
+use UPOND\OrthophonieBundle\Entity\Patient;
 
 
 class PhasesController extends Controller
@@ -50,7 +48,30 @@ class PhasesController extends Controller
 
     public function statsAction()
     {
-        return $this->render('UPONDOrthophonieBundle:Stats:stats.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $utilisateur = $this->container->get('security.context')->getToken()->getUser();
+        $patient = $em->getRepository(Patient::class)->findOneBy(['utilisateur' => $utilisateur]);
+        $parties = $em->getRepository(Partie::class)->findBy(['patient' => $patient]);
+
+        $query = $em->getRepository(Exercice::class)->createQueryBuilder('n');
+        $exos = $query->where($query->expr()->in('n.partie', ':parties'))->setParameter('parties', $parties)->getQuery()->getResult();
+
+        // Generation du tableau pour le graphe //
+        $graph = [];
+        foreach ($exos as $exo) {
+            $time = $exo->getDateCreation()->getTimestamp();
+            if(!array_key_exists($time, $graph)) {
+                $graph[$time] = [$exo->getNbBonneReponse()];
+            } else {
+                array_push($graph[$time], $exo->getNbBonneReponse());
+            }
+        }
+        $graph = array_map(function($o) {return array_sum($o) / count($o);}, $graph);
+
+        return $this->render('UPONDOrthophonieBundle:Stats:stats.html.twig', 
+            ['exercices' => $exos,
+             'graph' => $graph]);
     }
 
     public function apprentissage_niveau1Action(Request $request)
