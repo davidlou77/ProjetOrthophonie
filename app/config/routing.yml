@@ -1,3 +1,8 @@
+upond_root:
+    resource: "@UPONDOrthophonieBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# Deprecated
 upond_orthophonie:
     resource: "@UPONDOrthophonieBundle/Resources/config/routing.yml"
     prefix:   /orthophonie
