@@ -65,13 +65,14 @@
                 <div id="countdown">
 
                 </div>
-            
+
         {% endif %}
         {{ form_start(form) }}
         {{ form_errors(form) }}
-        {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
+
         <div class="hidden">
             {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
+            {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
         </div>
         {{ form_end(form) }}
 

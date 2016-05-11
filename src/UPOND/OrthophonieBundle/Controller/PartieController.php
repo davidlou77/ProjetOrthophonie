@@ -134,7 +134,23 @@ class PartieController extends Controller
             $em->persist($exerciceApprentissage);
             $em->flush();
 
-            // autres stratégies ...
+            //strategie: Association d'idées
+            $strategie = $repositoryStrategie->findOneByNom("Association d'idées");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
+
+            $em->persist($exerciceApprentissage);
+            $em->flush();
+
+            //strategie: Phoneme
+            $strategie = $repositoryStrategie->findOneByNom("Phoneme");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissage($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
+
+            $em->persist($exerciceApprentissage);
+            $em->flush();
 
             // phase d'apprentissage niveau 2
             // on reprend la fonction d'initalisation d'exercice d'entrainement
@@ -158,8 +174,27 @@ class PartieController extends Controller
 
             $em->persist($exerciceApprentissage);
             $em->flush();
+
             //strategie: Morphologie inverse
             $strategie = $repositoryStrategie->findOneByNom("Morphologie inverse");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissageNiveau2($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
+
+            $em->persist($exerciceApprentissage);
+            $em->flush();
+
+            //strategie: Association d'idées
+            $strategie = $repositoryStrategie->findOneByNom("Association d'idées");
+
+            $exerciceApprentissage = new Exercice();
+            $exerciceApprentissage = $this->initializeExerciceApprentissageNiveau2($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
+
+            $em->persist($exerciceApprentissage);
+            $em->flush();
+
+            //strategie: Phoneme
+            $strategie = $repositoryStrategie->findOneByNom("Phoneme");
 
             $exerciceApprentissage = new Exercice();
             $exerciceApprentissage = $this->initializeExerciceApprentissageNiveau2($exerciceApprentissage, $phase, $strategie, $partie, $niveau);
@@ -190,7 +225,7 @@ class PartieController extends Controller
             $em->persist($exerciceEntrainement);
             $em->flush();
 
-            //strategie: Morphologie_inverse
+            //strategie: Morphologie inverse
             $strategie = $repositoryStrategie->findOneByNom("Morphologie inverse");
 
             $exerciceEntrainement = new Exercice();
@@ -199,7 +234,23 @@ class PartieController extends Controller
             $em->persist($exerciceEntrainement);
             $em->flush();
 
-            // autres stratégies ...
+            //strategie: Association d'idées
+            $strategie = $repositoryStrategie->findOneByNom("Association d'idées");
+
+            $exerciceEntrainement = new Exercice();
+            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, $niveau);
+
+            $em->persist($exerciceEntrainement);
+            $em->flush();
+
+            //strategie: Phoneme
+            $strategie = $repositoryStrategie->findOneByNom("Phoneme");
+
+            $exerciceEntrainement = new Exercice();
+            $exerciceEntrainement = $this->initializeExerciceEntrainement($exerciceEntrainement, $phase, $strategie, $partie, $time_seconds_entrainement, $niveau);
+
+            $em->persist($exerciceEntrainement);
+            $em->flush();
             
 
             // faire une phase d'entrainement en mélangeant les stratégies
@@ -246,7 +297,7 @@ class PartieController extends Controller
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau($niveau);
@@ -318,7 +369,7 @@ class PartieController extends Controller
         $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau($niveau);
@@ -361,7 +412,7 @@ class PartieController extends Controller
         $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau($niveau);
@@ -404,7 +455,7 @@ class PartieController extends Controller
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau($niveau);
@@ -483,7 +534,7 @@ class PartieController extends Controller
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau(0);

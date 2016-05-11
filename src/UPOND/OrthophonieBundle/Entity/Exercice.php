@@ -47,9 +47,9 @@ class Exercice
     /**
      * @var integer
      *
-     * @ORM\Column(name="nb_mauvaise_reponse", type="integer", nullable=true)
+     * @ORM\Column(name="nb_question_validee", type="integer", nullable=true)
      */
-    private $nbMauvaiseReponse;
+    private $nbQuestionValidee;
     /**
      * @var integer
      *
@@ -181,29 +181,6 @@ class Exercice
         return $this->nbBonneReponse;
     }
 
-    /**
-     * Set nbMauvaiseReponse
-     *
-     * @param integer $nbMauvaiseReponse
-     *
-     * @return Exercice
-     */
-    public function setNbMauvaiseReponse($nbMauvaiseReponse)
-    {
-        $this->nbMauvaiseReponse = $nbMauvaiseReponse;
-
-        return $this;
-    }
-
-    /**
-     * Get nbMauvaiseReponse
-     *
-     * @return integer
-     */
-    public function getNbMauvaiseReponse()
-    {
-        return $this->nbMauvaiseReponse;
-    }
 
     /**
      * Set phase
@@ -405,5 +382,29 @@ class Exercice
     public function getNiveau()
     {
         return $this->niveau;
+    }
+
+    /**
+     * Set nbQuestionValidee
+     *
+     * @param integer $nbQuestionValidee
+     *
+     * @return Exercice
+     */
+    public function setNbQuestionValidee($nbQuestionValidee)
+    {
+        $this->nbQuestionValidee = $nbQuestionValidee;
+
+        return $this;
+    }
+
+    /**
+     * Get nbQuestionValidee
+     *
+     * @return integer
+     */
+    public function getNbQuestionValidee()
+    {
+        return $this->nbQuestionValidee;
     }
 }

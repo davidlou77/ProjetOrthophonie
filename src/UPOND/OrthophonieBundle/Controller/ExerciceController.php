@@ -25,7 +25,6 @@ class ExerciceController extends Controller
 {
     public function selectPartieAction(Request $request)
     {
-
         // On crée le FormBuilder grâce au service form factory
         $formBuilder = $this->get('form.factory')->createBuilder(FormType::class);
 
@@ -96,6 +95,10 @@ class ExerciceController extends Controller
             {
                 $session->set('afficherSon', false);
             }
+            else
+            {
+                $session->set('afficherSon', true);
+            }
 
             $session->set('TypeAffichage', "Nom");
             return $this->redirect($this->generateUrl('upond_orthophonie_exercice'));
@@ -161,6 +164,7 @@ class ExerciceController extends Controller
                         $etape_suivante = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape + 1);
                         $exercice->setEtapeCourante($etape_suivante);
                         $exercice->setNbBonneReponse($exercice->getNbBonneReponse()+1);
+                        $exercice->setNbQuestionValidee($exercice->getNbQuestionValidee()+1);
 
                         // on recupere le multimedia de l'etape suivante
                         $multimedias = $etape_suivante->getMultimedias();
@@ -211,6 +215,7 @@ class ExerciceController extends Controller
                         $etape_suivante = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape);
                         $exercice->setEtapeCourante($etape_suivante);
                         $exercice->setNbBonneReponse($exercice->getNbBonneReponse()+1);
+                        $exercice->setNbQuestionValidee($exercice->getNbQuestionValidee()+1);
                         // on met a jour l'etape courante (bonne réponse)
                         $etape_suivante->setBonneReponse(true);
 
@@ -255,7 +260,7 @@ class ExerciceController extends Controller
 
                     if ($session->get('TypeAffichage') == "Exercice") {
                         $exercice->setEtapeCourante($etapeCourante);
-                        $exercice->setNbBonneReponse($exercice->getNbBonneReponse()-1);
+                        $exercice->setNbQuestionValidee($exercice->getNbQuestionValidee()+1);
                         $multimedias = $etapeCourante->getMultimedias();
                         // on met a jour l'etape courante (mauvaise réponse)
                         $etapeCourante->setBonneReponse(false);
@@ -288,6 +293,7 @@ class ExerciceController extends Controller
 
                     if ($session->get('TypeAffichage') == "Exercice") {
                         $exercice->setEtapeCourante($etape_precedente);
+                        $exercice->setNbQuestionValidee($exercice->getNbQuestionValidee()+1);
                         // on met a jour l'etape courante (mauvaise réponse)
                         $etape_precedente->setBonneReponse(false);
                         $em->persist($etape_precedente);

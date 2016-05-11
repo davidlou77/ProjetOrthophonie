@@ -64,7 +64,7 @@ upond_orthophonie_start:
 
 upond_orthophonie_apprentissage:
     path:      /apprentissage
-    defaults:  { _controller: UPONDOrthophonieBundle:Phases:apprentissage }
+    defaults:  { _controller: UPONDOrthophonieBundle:Exercice:afficherExercice }
 
 upond_orthophonie_entrainement:
     path:      /entrainement
