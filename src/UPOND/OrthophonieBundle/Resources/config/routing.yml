@@ -10,18 +10,6 @@ upond_orthophonie_createExercice:
     path:     /select_partie/{phase}/{niveau}/{strategie}
     defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie }
 
-upond_orthophonie_apprentissage_niveau1:
-    path:     /apprentissage_niveau1
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau1 , phase: "Apprentissage" , niveau: 1 }
-
-upond_orthophonie_apprentissage_niveau2:
-    path:     /apprentissage_niveau2
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:apprentissage_niveau2 , phase: "Apprentissage", niveau: 2}
-
-upond_orthophonie_entrainement_niveau1:
-    path:     /entrainement_niveau1
-    defaults: { _controller: UPONDOrthophonieBundle:Phases:entrainement_niveau1 , phase: "Entrainement", niveau: 1}
-
 upond_orthophonie_entrainement_niveau2:
     path:     /select_partie_entrainement_niveau2
     defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , phase: "Entrainement", niveau: 2, strategie: "Aléatoire"}
@@ -61,14 +49,6 @@ upond_orthophonie_exercice:
 upond_orthophonie_start:
     path:     /start
     defaults: { _controller: UPONDOrthophonieBundle:Partie:start }
-
-upond_orthophonie_apprentissage:
-    path:      /apprentissage
-    defaults:  { _controller: UPONDOrthophonieBundle:Phases:apprentissage }
-
-upond_orthophonie_entrainement:
-    path:      /entrainement
-    defaults:  { _controller: UPONDOrthophonieBundle:Phases:entrainement }
 
 upond_orthophonie_stats:
     path:      /statistiques
