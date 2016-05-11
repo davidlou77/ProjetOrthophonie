@@ -10,4 +10,33 @@ namespace UPOND\OrthophonieBundle\Repository;
  */
 class PauseVideoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getVideoAleatoire($dureeMin, $dureeMax)
+    {
+
+        $em = $this
+            ->getEntityManager();
+        $queryPauseVideo = $em->createQuery(
+            'SELECT pv
+            FROM UPONDOrthophonieBundle:PauseVideo pv
+            WHERE pv.duree >= :dureeMin and pv.duree < :dureeMax'
+        );
+        $queryPauseVideo->setParameters(array('dureeMin' => $dureeMin,
+            'dureeMax' => $dureeMax));
+
+        $pauseVideos = $queryPauseVideo->getResult();
+
+        // on prend un id aléatoire parmi les résultats
+        $tabIdPauseVideo = array_rand($pauseVideos, 1);
+
+        // on récupere l'entité de l'ID
+        $queryPauseVideo = $em->createQuery(
+            'SELECT pv
+            FROM UPONDOrthophonieBundle:PauseVideo pv
+            WHERE pv.idPauseVideo IN (:arrayPauseVideo)'
+        );
+        $queryPauseVideo->setParameter('arrayPauseVideo', $tabIdPauseVideo);
+        $listRandomPauseVideo = $queryPauseVideo->getOneOrNullResult();
+
+        return $listRandomPauseVideo;
+    }
 }

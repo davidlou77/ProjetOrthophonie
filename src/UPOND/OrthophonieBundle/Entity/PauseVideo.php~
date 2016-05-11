@@ -37,9 +37,9 @@ class PauseVideo
     private $URL;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="duree", type="string", nullable=true)
+     * @ORM\Column(name="duree", type="integer", nullable=true)
      */
     private $duree;
 
@@ -78,27 +78,5 @@ class PauseVideo
         return $this->URL;
     }
 
-    /**
-     * Set duree
-     *
-     * @param string $duree
-     *
-     * @return PauseVideo
-     */
-    public function setDuree($duree)
-    {
-        $this->duree = $duree;
 
-        return $this;
-    }
-
-    /**
-     * Get duree
-     *
-     * @return string
-     */
-    public function getDuree()
-    {
-        return $this->duree;
-    }
 }

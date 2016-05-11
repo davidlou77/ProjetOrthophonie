@@ -58,13 +58,21 @@
         {% endif %}
 
     {% else %}
-        <p>Pause</p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/lfqWWQYb6Uc" frameborder="0" allowfullscreen></iframe>
+        <p><b>Pause vidéo </b></p>
+        {% if PauseVideo is defined %}
+            <iframe width="560" height="315" src="{{ PauseVideo.getURL }}"  frameborder="0" allowfullscreen></iframe>
 
+                <div id="countdown">
+
+                </div>
+            
+        {% endif %}
         {{ form_start(form) }}
         {{ form_errors(form) }}
         {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
-        {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
+        <div class="hidden">
+            {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
+        </div>
         {{ form_end(form) }}
 
 
@@ -78,12 +86,14 @@
     <script type="text/javascript" charset="utf-8">
         var countdown =  $("#countdown").countdown360({
             radius      : 60,
-            seconds     : {{ exercice.getTempsExercice }},
+            seconds     : {% if TypeAffichage == "Exercice" %} {{ exercice.getTempsExercice }} {% endif %} {% if TypeAffichage == "PauseVideo" %} {{ PauseVideo.getDuree + 10 }} {% endif %},
             fontColor   : '#FFFFFF',
             autostart   : false,
-            onComplete  : function () { $('#form_MauvaiseReponse').click(); }
+            onComplete  : function () { {% if TypeAffichage == "Exercice" %} $('#form_MauvaiseReponse').click(); {% endif %} {% if TypeAffichage == "PauseVideo" %} $('#form_BonneReponse').click(); {% endif %} }
         });
         countdown.start();
         console.log('countdown360 ',countdown);
     </script>
+
+
 {% endblock %}
