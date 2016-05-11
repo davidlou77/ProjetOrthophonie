@@ -6,31 +6,36 @@
 
 {% block orthophonie_body %}
 
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ (exercice.getEtapeCourante().numEtape / 13 * 100)|number_format(0) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (exercice.getEtapeCourante().numEtape / 13 * 100)|number_format(0) }}%"></div>
+        <div class="text-right" style="margin-right: 15px;">Question {{ exercice.getEtapeCourante().numEtape }} / 13</div>
+    </div>
+
     {% if TypeAffichage == "Exercice" or TypeAffichage == "Nom" %}
         <h2>Exercice:</h2>
-        {% for multimedia in multimedias %}
+        <div class="row">
+            {% for multimedia in multimedias %}
+                <div class="col-md-4" style="margin-bottom: 15px">
+                    <label>
+                        {% if TypeAffichage == "Nom" %}
+                            {{ multimedia.getNom }}
+                        {% else %}
+                            Quel est le nom de cette personne ?
+                        {% endif %}
+                    </label>
+                    <img src="{{ asset(multimedia.getImage) }}" style="max-height: 400px; max-width: 266px" class="img-responsive" alt="" />
 
-            <p><b>
                     {% if TypeAffichage == "Nom" %}
-                        {{ multimedia.getNom }}
-                    {% else %}
-                        Quel est le nom de cette personne ?
+                        {% if afficherSon == true %}
+                            <audio controls>
+                                <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
+                                Votre navigateur internet ne supporte pas l'élément audio.
+                            </audio>
+                        {% endif %}
                     {% endif %}
-
-                </b></p>
-            <img src="{{ asset(multimedia.getImage) }}" width='400'alt="" />
-            <p></p>
-            {% if TypeAffichage == "Nom" %}
-                {% if afficherSon == true %}
-                    <audio controls>
-                        <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
-                        Votre navigateur internet ne supporte pas l'élément audio.
-                    </audio>
-                {% endif %}
-            {% endif %}
-
-
-        {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
 
         <br />
         <br />
