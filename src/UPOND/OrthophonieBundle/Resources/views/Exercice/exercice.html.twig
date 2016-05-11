@@ -27,7 +27,7 @@
 
                     {% if TypeAffichage == "Nom" %}
                         {% if afficherSon == true %}
-                            <audio controls>
+                            <audio controls style="width: 100%">
                                 <source src="{{ asset(multimedia.getSon) }}" type="audio/mpeg">
                                 Votre navigateur internet ne supporte pas l'élément audio.
                             </audio>
