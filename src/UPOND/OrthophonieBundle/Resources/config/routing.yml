@@ -10,30 +10,6 @@ upond_orthophonie_createExercice:
     path:     /select_partie/{phase}/{niveau}/{strategie}
     defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie }
 
-upond_orthophonie_entrainement_niveau2:
-    path:     /select_partie_entrainement_niveau2
-    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , phase: "Entrainement", niveau: 2, strategie: "Aléatoire"}
-
-upond_orthophonie_transfert:
-    path:      /select_partie_transfert
-    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , phase: "Transfert" , niveau: 0, strategie: "Aléatoire"}
-
-upond_orthophonie_morphologie:
-    path:     /select_partie_metier
-    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , strategie: "Métier"}
-
-upond_orthophonie_morphologie_inverse:
-    path:     /select_partie_morphologie
-    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , strategie: "Morphologie inverse"}
-
-upond_orthophonie_metier:
-    path:     /select_partie_morphologie_inverse
-    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , strategie: "Métier"}
-
-upond_orthophonie_association_idees:
-    path:     /select_partie_association_idees
-    defaults: { _controller: UPONDOrthophonieBundle:Exercice:selectPartie , strategie: "Association d'idées"}
-
 upond_orthophonie_stats:
     path:     /stats
     defaults: { _controller: UPONDOrthophonieBundle:Phases:stats }
