@@ -47,9 +47,9 @@ class Exercice
     /**
      * @var integer
      *
-     * @ORM\Column(name="nb_mauvaise_reponse", type="integer", nullable=true)
+     * @ORM\Column(name="nb_question_validee", type="integer", nullable=true)
      */
-    private $nbMauvaiseReponse;
+    private $nbQuestionValidee;
     /**
      * @var integer
      *
@@ -182,27 +182,27 @@ class Exercice
     }
 
     /**
-     * Set nbMauvaiseReponse
+     * Set nbQuestionValidee
      *
-     * @param integer $nbMauvaiseReponse
+     * @param integer $nbQuestionValidee
      *
      * @return Exercice
      */
-    public function setNbMauvaiseReponse($nbMauvaiseReponse)
+    public function setNbQuestionValidee($nbQuestionValidee)
     {
-        $this->nbMauvaiseReponse = $nbMauvaiseReponse;
+        $this->nbQuestionValidee = $nbQuestionValidee;
 
         return $this;
     }
 
     /**
-     * Get nbMauvaiseReponse
+     * Get nbQuestionValidee
      *
      * @return integer
      */
-    public function getNbMauvaiseReponse()
+    public function getNbQuestionValidee()
     {
-        return $this->nbMauvaiseReponse;
+        return $this->nbQuestionValidee;
     }
 
     /**

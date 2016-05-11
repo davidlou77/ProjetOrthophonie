@@ -246,7 +246,7 @@ class PartieController extends Controller
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau($niveau);
@@ -318,7 +318,7 @@ class PartieController extends Controller
         $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau($niveau);
@@ -361,7 +361,7 @@ class PartieController extends Controller
         $ExerciceRepository = $em->getRepository('UPONDOrthophonieBundle:Exercice');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau($niveau);
@@ -404,7 +404,7 @@ class PartieController extends Controller
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau($niveau);
@@ -483,7 +483,7 @@ class PartieController extends Controller
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
 
         $exercice->setNbBonneReponse(0);
-        $exercice->setNbMauvaiseReponse(0);
+        $exercice->setNbQuestionValidee(0);
         $exercice->setPartie($partie);
         $exercice->setStrategie($strategie);
         $exercice->setNiveau(0);
