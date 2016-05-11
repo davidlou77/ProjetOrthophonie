@@ -6,6 +6,11 @@
 
 {% block orthophonie_body %}
 
+    <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ (exercice.getEtapeCourante().numEtape / 13 * 100)|number_format(0) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (exercice.getEtapeCourante().numEtape / 13 * 100)|number_format(0) }}%"></div>
+        <div class="text-right" style="margin-right: 15px;">Question {{ exercice.getEtapeCourante().numEtape }} / 13</div>
+    </div>
+
     {% if TypeAffichage == "Exercice" or TypeAffichage == "Nom" %}
         <h2>Exercice:</h2>
         <div class="row">
