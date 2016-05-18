@@ -50,7 +50,7 @@ class ExerciceController extends Controller
 
                     },
             ))
-            ->add('Démarrer', SubmitType::class, array(
+            ->add('Demarrer', SubmitType::class, array(
                 'attr' => array('class' => 'btn btn-success')));
 
         // À partir du formBuilder, on génère le formulaire
@@ -132,10 +132,11 @@ class ExerciceController extends Controller
 
         // On ajoute les champs que l'on veut à notre formulaire
         $formBuilder
-            ->add('BonneReponse', SubmitType::class, array(
-                'attr' => array('class' => 'btn btn-success')))
             ->add('MauvaiseReponse', SubmitType::class, array(
-                'attr' => array('class' => 'btn btn-danger')));
+                'attr' => array('class' => 'btn btn-danger')))
+            ->add('BonneReponse', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-success')));
+
 
         // À partir du formBuilder, on génère le formulaire
         $form = $formBuilder->getForm();

@@ -43,25 +43,27 @@
             <p>La réponse du patient est-elle correcte?</p>
         {% endif %}
         <br />
+        <div class="container-fluid">
+            <div class="row">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {% if TypeAffichage == "Nom" %}
+                    <div class="col-sm-2"style="float: left;padding-bottom: 20px">{{ form_row(form.MauvaiseReponse, { 'label': 'Précédent' }) }}</div>
+                    <div class="col-sm-2"style="float: right;padding-bottom: 20px"> {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }} </div>
+                {% else %}
+                    <div class="col-sm-2"style="float: left;padding-bottom: 20px">{{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}</div>
+                    <div class="col-sm-2" style="float: right;padding-bottom: 20px">{{ form_row(form.BonneReponse, { 'label': 'Bonne réponse' }) }}</div>
+                {% endif %}
+                {{ form_end(form) }}
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-        {% if TypeAffichage == "Nom" %}
-            {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
-            {{ form_row(form.MauvaiseReponse, { 'label': 'Précédent' }) }}
-        {% else %}
-            {{ form_row(form.BonneReponse, { 'label': 'Bonne réponse' }) }}
-            {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
-        {% endif %}
-        {{ form_end(form) }}
+                {% if TypeAffichage == "Exercice" %}
+                    {% if exercice.getTempsExercice is not null %}
+                        <div id="countdown"></div>
+                    {% endif %}
 
-        {% if TypeAffichage == "Exercice" %}
-            {% if exercice.getTempsExercice is not null %}
-                <div id="countdown"></div>
-            {% endif %}
-
-        {% endif %}
-
+                {% endif %}
+            </div>
+        </div>
     {% else %}
         <p><b>Pause vidéo </b></p>
         {% if PauseVideo is defined %}
@@ -74,10 +76,11 @@
         {% endif %}
         {{ form_start(form) }}
         {{ form_errors(form) }}
-
-        <div class="hidden">
-            {{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}
-            {{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}
+        <div class="container-fluid hidden">
+            <div class="row">
+                    <div class="col-sm-2"style="float: left;padding-bottom: 20px">{{ form_row(form.MauvaiseReponse, { 'label': 'Mauvaise réponse' }) }}</div>
+                    <div class="col-sm-2"style="float: right;padding-bottom: 20px">{{ form_row(form.BonneReponse, { 'label': 'Suivant' }) }}</div>
+            </div>
         </div>
         {{ form_end(form) }}
 
