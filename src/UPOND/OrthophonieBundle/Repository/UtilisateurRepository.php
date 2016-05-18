@@ -10,4 +10,19 @@ namespace UPOND\OrthophonieBundle\Repository;
  */
 class UtilisateurRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findIdByNomEtPrenom($nom, $prenom)
+    {
+        $em = $this
+            ->getEntityManager();
+        // on récupere l'entité de l'ID
+        $query = $em->createQuery(
+            "SELECT u.id
+                FROM UPONDOrthophonieBundle:Utilisateur u
+                WHERE u.nom = :nom AND u.prenom = :prenom"
+        );
+        $query->setParameter('nomPrenom', $nom);
+        $query->setParameter('Prenom',$prenom);
+        $utilisateur = $query->getOneOrNullResult();
+        return $utilisateur;
+    }
 }
