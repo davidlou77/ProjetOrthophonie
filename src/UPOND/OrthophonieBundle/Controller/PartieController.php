@@ -45,19 +45,24 @@ class PartieController extends Controller
             ->add('Patient', 'entity', array(
                 'class'    => 'UPONDOrthophonieBundle:Patient',
                 'property' => 'NomEtPrenom',
-                'multiple' => false
+                'multiple' => false,
+                'attr' => array('class' => 'form-control')
             ))
             ->add('TempsEntrainement', TimeType::class, array(
                 'input' => 'datetime',
                 'widget' => 'choice',
                 'with_minutes' => 'true',
-                'with_seconds' => 'true'))
+                'with_seconds' => 'true',
+                'attr' => array('class' => 'form-control')
+            ))
             ->add('TempsTransfert', TimeType::class, array(
                 'input' => 'datetime',
                 'widget' => 'choice',
                 'with_minutes' => 'true',
-                'with_seconds' => 'true'))
-            ->add('Créer une partie', SubmitType::class, array(
+                'with_seconds' => 'true',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('Creer une partie', SubmitType::class, array(
                 'attr' => array('class' => 'btn btn-success')));
 
         // À partir du formBuilder, on génère le formulaire
