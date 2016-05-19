@@ -98,6 +98,7 @@ class ExerciceController extends Controller
                 $session->set('afficherSon', true);
             }
 
+
             $session->set('TypeAffichage', "Nom");
             return $this->redirect($this->generateUrl('upond_orthophonie_exercice'));
 

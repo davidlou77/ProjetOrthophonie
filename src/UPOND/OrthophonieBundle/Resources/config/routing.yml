@@ -41,3 +41,11 @@ upond_orthophonie_administration_medecin:
 upond_orthophonie_administration_exercice:
     path:      /exercices
     defaults:  { _controller: UPONDOrthophonieBundle:Administration:exercices }
+
+upond_orthophonie_administration_medecin_ajout:
+    path:      /ajout_medecin
+    defaults:  { _controller: UPONDOrthophonieBundle:Administration:medecinsAjout }
+
+upond_orthophonie_administration_medecin_retirer:
+    path:      /retirer_medecin
+    defaults:  { _controller: UPONDOrthophonieBundle:Administration:medecinsRetirer }

@@ -11,24 +11,75 @@
     <div name="intitule">
         <h1>Gestion des médecins</h1>
     </div>
+Liste des patients
+    <table class='table table-striped'>
+        <th>Identifiant</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Nom d'utilisateur</th>
+        <th>Action</th>
+    {% for patient in listPatients %}
+        <tr>
+            <td>
+                {{ patient.utilisateur.getId }}
+            </td>
+            <td>
+                {{ patient.utilisateur.getNom }}
+                </td>
+            <td>
+                {{ patient.utilisateur.getPrenom }}
+                </td>
+            <td>
+                {{ patient.utilisateur.getEmail }}
+            </td>
+            <td>
+                {{ patient.utilisateur.getUsername }}
+            </td>
+            <td>
+                <form method="post" action="{{ path('upond_orthophonie_administration_medecin_ajout') }}">
+                    <input type="text" name='idUtilisateur' style="display:none" value="{{ patient.utilisateur.getId }}"/>
+                    <input type="submit" class="btn btn-success" value="Ajouter"/>
+                </form>
 
-    <div class="seekForDoctor">
-        <form method="post">
-            {{ form(form) }}
-        </form>
-    </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
 
-    <div class="resultat">
-        <ul>
-            {% if liste_utilisateur is defined %}
-                {% for utilisateur in liste_utilisateur %}
-                    <li> {{ utilisateur.id }}  {{ utilisateur.nom }}  {{ utilisateur.prenom }}<a href="upond_root" method="GET">Modifier</a></li>
-                {% else %}
-                    <p>Désolé il n'y a, pour le moment, aucune annonce correspondant à votre recherche.</p>
-                {% endfor %}
-            {% endif %}
+Liste des médecins
 
-        </ul>
-    </div>
-
+    <table class='table table-striped'>
+        <th>Identifiant</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Nom d'utilisateur</th>
+        <th>Action</th>
+        {% for medecin in listMedecins %}
+            <tr>
+                <td>
+                    {{ medecin.utilisateur.getId }}
+                </td>
+                <td>
+                    {{ medecin.utilisateur.getNom }}
+                </td>
+                <td>
+                    {{ medecin.utilisateur.getPrenom }}
+                </td>
+                <td>
+                    {{ medecin.utilisateur.getEmail }}
+                </td>
+                <td>
+                    {{ medecin.utilisateur.getUsername }}
+                </td>
+                <td>
+                    <form method="post" action="{{ path('upond_orthophonie_administration_medecin_retirer') }}">
+                        <input type="text" name='idUtilisateur' style="display:none" value="{{ medecin.utilisateur.getId }}"/>
+                        <input type="submit" class="btn btn-danger" value="Retirer"/>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
