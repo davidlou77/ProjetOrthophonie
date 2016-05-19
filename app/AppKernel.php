@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new UPOND\OrthophonieBundle\UPONDOrthophonieBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         ];
 
 

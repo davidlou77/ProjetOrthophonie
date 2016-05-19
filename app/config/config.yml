@@ -78,3 +78,19 @@ fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    UPOND\OrthophonieBundle\Entity\Utilisateur # La classe de l'entité User que nous utilisons
+    registration:
+        form:
+            type: UPOND\UserBundle\Form\Type\RegistrationFormType
+    profile:
+        form:
+            type: UPOND\UserBundle\Form\Type\ProfileFormType
+
+# app/config/config.yml
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+
+fos_js_routing:
+     routes_to_expose: [ (.*) ]

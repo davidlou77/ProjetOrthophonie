@@ -18,8 +18,8 @@ class MenuBuilder implements ContainerAwareInterface
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav');
-
-        $menu->addChild('Accueil', array('route' => 'upond_orthophonie_home'))
+        // gestion manuel du template dans layout principal -> app/resources/view
+        /* $menu->addChild('Accueil', array('route' => 'upond_orthophonie_home'))
             ->setAttribute('icon', 'icon-home');
 
         if($this->container->get('security.authorization_checker')->isGranted(array('ROLE_ADMIN', 'ROLE_USER'))) { // Check if the visitor has any authenticated roles
@@ -31,6 +31,9 @@ class MenuBuilder implements ContainerAwareInterface
                 ->setAttribute('icon', 'icon-user');
 
             $menu['User']->addChild('Modifier votre profil', array('route' => 'fos_user_profile_edit'))
+                ->setAttribute('icon', 'icon-edit');
+
+            $menu['User']->addChild('Modifier votre mot de passe', array('route' => 'fos_user_change_password'))
                 ->setAttribute('icon', 'icon-edit');
 
             $menu['User']->addChild('Se déconnecter', array('route' => 'fos_user_security_logout'))
@@ -46,7 +49,7 @@ class MenuBuilder implements ContainerAwareInterface
             $menu->addChild('Démarrer une partie', array('route' => 'upond_orthophonie_start'))
                 ->setAttribute('icon', 'icon-group');
 
-            $menu->addChild('Statistiques', array('route' => 'upond_orthophonie_phases'))
+            $menu->addChild('Statistiques', array('route' => 'upond_orthophonie_stats'))
                 ->setAttribute('icon', 'glyphicon glyphicon-stats');
 
         }
@@ -57,7 +60,7 @@ class MenuBuilder implements ContainerAwareInterface
 
             $menu->addChild('Inscription', array('route' => 'fos_user_registration_register'))
                 ->setAttribute('icon', 'icon-user');
-        }
+        }*/
 
 
         return $menu;
