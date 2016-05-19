@@ -29,7 +29,7 @@
                         <h4>Entrainement</h4>
                         <ul>
                             <li style="display: inline;"><a href="#" data-phase="Entrainement" data-level="1" class="btn btn-default">Niveau 1</a></li>
-                            <li style="display: inline;"><a href="#" data-phase="Entrainement" data-level="2" class="btn btn-default">Niveau 2</a></li>
+                            <li style="display: inline;"><a href="#" data-phase="Entrainement" data-level="2" data-strategie="Aléatoire" class="btn btn-default">Niveau 2</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <img style="border-radius: 2em" src="http://www.cercle-franco-allemand-alsace.fr/wp-content/uploads/2016/01/unknown.png" width="100%"/>
                         <h4>Transfert</h4>
                         <ul>
-                            <li style="display: inline;"><a href="#" data-phase="Transfert" data-level="0" class="btn btn-success">Démarrer</a></li>
+                            <li style="display: inline;"><a href="#" data-phase="Transfert" data-strategie="Aléatoire" data-level="0" class="btn btn-success">Démarrer</a></li>
                         </ul>
                     </div>
                 </div>
@@ -130,6 +130,7 @@
                 options['level'] = $this.data("level");
 
                 if(options['phase'] == 'Transfert' || (options['phase'] == 'Entrainement' && options['level'] == 2)) {
+                    options['strategie'] = $this.data("strategie");
                     createExercice();
                 } else {
                     transition($('.block_phase'), $('.block_strategie'));
