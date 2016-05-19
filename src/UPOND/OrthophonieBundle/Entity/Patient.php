@@ -40,7 +40,7 @@ class Patient
     private $medecins;
 
     /**
-     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Partie", mappedBy="patient")
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Partie", mappedBy="patient", cascade={"persist"}, orphanRemoval=true)
      */
     private $parties;
 

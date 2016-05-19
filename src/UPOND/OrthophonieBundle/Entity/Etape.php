@@ -40,15 +40,15 @@ class Etape
 
     /**
      * @ORM\ManyToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Exercice", inversedBy="etapes")
-     * @ORM\JoinColumn(name="id_exercice", referencedColumnName="id_exercice")
+     * @ORM\JoinColumn(name="id_exercice", referencedColumnName="id_exercice", onDelete="CASCADE")
      */
     private $exercice;
 
     /**
      * @ORM\ManyToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Multimedia")
      * @ORM\JoinTable(name="etape_multimedia",
-     *      joinColumns={@JoinColumn(name="id_etape", referencedColumnName="id_etape")},
-     *      inverseJoinColumns={@JoinColumn(name="id_multimedia", referencedColumnName="id_multimedia")}
+     *      joinColumns={@JoinColumn(name="id_etape", referencedColumnName="id_etape", onDelete="CASCADE")},
+     *      inverseJoinColumns={@JoinColumn(name="id_multimedia", referencedColumnName="id_multimedia", onDelete="CASCADE")}
      *      )
      */
     private $multimedias;

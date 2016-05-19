@@ -83,12 +83,12 @@ class Exercice
 
     /**
      * @ORM\OneToOne(targetEntity="UPOND\OrthophonieBundle\Entity\Etape")
-     * @ORM\JoinColumn(name="id_etape", referencedColumnName="id_etape")
+     * @ORM\JoinColumn(name="id_etape", referencedColumnName="id_etape", onDelete="CASCADE")
      */
     private $etapeCourante;
 
     /**
-     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Etape", mappedBy="exercice")
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Etape", mappedBy="exercice", cascade={"remove"}, orphanRemoval=true)
      */
     private $etapes;
 
