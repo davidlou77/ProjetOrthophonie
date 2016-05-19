@@ -24,7 +24,17 @@ use UPOND\OrthophonieBundle\Form\UserSearchType;
 class AdministrationController extends Controller
 {
     public function patientsAction(){
-        return $this->render('UPONDOrthophonieBundle:Administration:patients.html.twig');
+        // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
+        $em = $this->getDoctrine()->getManager();
+        $UtilisateurRepository = $em->getRepository('UPONDOrthophonieBundle:Utilisateur');
+        $Patient_MedecinRepository = $em->getRepository('UPONDOrthophonieBundle:Patient');
+        $MedecinRepository = $em->getRepository('UPONDOrthophonieBundle:Medecin');
+
+        $listUtilisateurs = $UtilisateurRepository->findAll();
+        $listPatients = $Patient_MedecinRepository->findUnaffectedPatient();
+        $listMedecins = $MedecinRepository->findAll();
+
+        return $this->render('UPONDOrthophonieBundle:Administration:patients.html.twig', array('listPatients' => $listPatients, 'listUtilisateurs' => $listUtilisateurs, 'ListMedecins' => $listMedecins));
     }
 
     public function medecinsAction(Request $request)
