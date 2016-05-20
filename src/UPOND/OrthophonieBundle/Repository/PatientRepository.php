@@ -47,15 +47,15 @@ class PatientRepository extends \Doctrine\ORM\EntityRepository
         //$listMedecin=$em->getRepository('UPONDOrthophonieBundle:Medecin')->findAll();
         $query = $em->createQuery(
         //bonne requete
-        /*"SELECT p
+        "SELECT p
              FROM UPONDOrthophonieBundle:Patient p
              LEFT JOIN p.medecins m
-             "*/
-            "SELECT p
+             "
+            /*"SELECT p
              FROM UPONDOrthophonieBundle:Patient p
              INNER JOIN UPONDOrthophonieBundle:Medecin m WITH (p.medecins=m.idMedecin)
              
-             "
+             "*/
         );
         $patient=$query->getResult();
        // $query->setParameter('list',$listMedecin);
