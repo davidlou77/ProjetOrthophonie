@@ -23,18 +23,67 @@ use UPOND\OrthophonieBundle\Form\UserSearchType;
 
 class AdministrationController extends Controller
 {
-    public function patientsAction(){
+    public function patientsAction(Request $request){
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $UtilisateurRepository = $em->getRepository('UPONDOrthophonieBundle:Utilisateur');
-        $Patient_MedecinRepository = $em->getRepository('UPONDOrthophonieBundle:Patient');
+        $PatientRepository = $em->getRepository('UPONDOrthophonieBundle:Patient');
         $MedecinRepository = $em->getRepository('UPONDOrthophonieBundle:Medecin');
 
         $listUtilisateurs = $UtilisateurRepository->findAll();
-        $listPatients = $Patient_MedecinRepository->findUnaffectedPatient();
+        $listPatients = $PatientRepository->findUnaffectedPatient();
         $listMedecins = $MedecinRepository->findAll();
+        //id de l'utilisateur en session
+        $idUser=$this->container->get('security.context')->getToken()->getUser()->getId();
+        $idMedecinUser=$MedecinRepository->findBy(array('utilisateur'=> $idUser));
 
-        return $this->render('UPONDOrthophonieBundle:Administration:patients.html.twig', array('listPatients' => $listPatients, 'listUtilisateurs' => $listUtilisateurs, 'ListMedecins' => $listMedecins));
+        //$docteur=$UtilisateurRepository->find($idUser);
+        
+
+
+        if($request->getMethod() == 'POST') {
+            // on recupere l'id utilisateur via le formulaire POST précédent
+            $idPatient = $_POST['idPatient'];
+            //recuperation du patient
+            $patient=$PatientRepository->find($idPatient);
+            foreach ($listMedecins as $medecin){
+                $patient->addMedecin($medecin);
+            }
+            //$em->persist($patient);
+            $em->flush();
+        }
+        $myPatient=$MedecinRepository->findPatientByMedecin($idMedecinUser);
+        return $this->render('UPONDOrthophonieBundle:Administration:patients.html.twig', array('listPatients' => $listPatients, 'listUtilisateurs' => $listUtilisateurs, 'ListMedecins' => $listMedecins,'ListMyPatient'=>$myPatient));
+    }
+    public function patientsRetireAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $UtilisateurRepository = $em->getRepository('UPONDOrthophonieBundle:Utilisateur');
+        $PatientRepository = $em->getRepository('UPONDOrthophonieBundle:Patient');
+        $MedecinRepository = $em->getRepository('UPONDOrthophonieBundle:Medecin');
+
+        $listUtilisateurs = $UtilisateurRepository->findAll();
+        $listPatients = $PatientRepository->findUnaffectedPatient();
+        $listMedecins = $MedecinRepository->findAll();
+        //id de l'utilisateur en session
+        $idUser=$this->container->get('security.context')->getToken()->getUser()->getId();
+        $idMedecinUser=$MedecinRepository->findBy(array('utilisateur'=> $idUser));
+
+
+        if($request->getMethod() == 'POST') {
+            // on recupere l'id utilisateur via le formulaire POST précédent
+            $idPatient = $_POST['idPatient'];
+            // on récupère le patient
+            $patient = $PatientRepository->find($idPatient);
+
+            foreach ($patient->getMedecins() as $medecin) {
+                $patient->removeMedecin($medecin);
+            }
+
+            $em->flush();
+        }
+        $myPatient=$MedecinRepository->findPatientByMedecin($idMedecinUser);
+        return $this->render('UPONDOrthophonieBundle:Administration:patients.html.twig', array('listPatients' => $listPatients, 'listUtilisateurs' => $listUtilisateurs, 'ListMedecins' => $listMedecins,'ListMyPatient'=>$myPatient));
     }
 
     public function medecinsAction(Request $request)
