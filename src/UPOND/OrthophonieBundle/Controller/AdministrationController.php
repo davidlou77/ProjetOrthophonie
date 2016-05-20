@@ -49,7 +49,6 @@ class AdministrationController extends Controller
             foreach ($listMedecins as $medecin){
                 $patient->addMedecin($medecin);
             }
-            //$em->persist($patient);
             $em->flush();
         }
         $myPatient=$MedecinRepository->findPatientByMedecin($idMedecinUser);

@@ -3,7 +3,7 @@
 {% extends "UPONDOrthophonieBundle::layout.html.twig" %}
 
 {% block title %}
-    Statistique - {{ parent() }}
+    Gestion des patients
 {% endblock %}
 
 {% block orthophonie_body %}
@@ -60,7 +60,7 @@
 </div>
 <div class="PatientAffectedByMedecin">
 
-        <h4>Liste des patients de Dr.</h4>
+        <h3>Vos patients: </h3>
 
     <table class='table table-striped'>
         <th>Identifiant</th>
@@ -90,7 +90,7 @@
             <td>
                 <form method="post" action="{{ path('upond_orthophonie_administration_patient_retire') }}">
                     <input type="text" name='idPatient' style="display:none" value="{{ patient.getIdPatient }}"/>
-                    <input type="submit" class="btn btn-success" value="Retirer"/>
+                    <input type="submit" class="btn btn-danger" value="Retirer"/>
                 </form>
             </td>
         </tr>
