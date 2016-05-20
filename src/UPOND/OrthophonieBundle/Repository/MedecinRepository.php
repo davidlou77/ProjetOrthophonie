@@ -64,7 +64,40 @@ class MedecinRepository extends \Doctrine\ORM\EntityRepository
                 WHERE m.utilisateur= :id"
         );
         $query->setParameter('id', $id);
-        $medecin = $query->geResult();
+        $medecin = $query->getResult();
         return $medecin;
+    }
+
+    public function findPatientByMedecin($id){
+            $em = $this
+                ->getEntityManager();
+
+            $query = $em->createQuery(
+                "SELECT p
+             FROM UPONDOrthophonieBundle:Patient p
+             LEFT JOIN p.medecins m
+             WHERE m=:idMedecin
+             "
+            );
+            $query->setParameter('idMedecin',$id);
+            $patient=$query->getResult();
+            return $patient;
+    }
+
+    public function findOnePatientOfMedecin($idMed,$idPat){
+        $em = $this
+            ->getEntityManager();
+
+        $query = $em->createQuery(
+            "SELECT p
+             FROM UPONDOrthophonieBundle:Patient p
+             LEFT JOIN p.medecins m
+             WHERE m=:idMedecin AND p.idPatient=:idPatient
+             "
+        );
+        $query->setParameter('idMedecin',$idMed);
+        $query->setParameter('idMedecin',$idPat);
+        $patient=$query->getResult();
+        return $patient;
     }
 }
