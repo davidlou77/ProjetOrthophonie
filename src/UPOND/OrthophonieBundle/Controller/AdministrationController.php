@@ -36,18 +36,21 @@ class AdministrationController extends Controller
         //id de l'utilisateur en session
         $idUser=$this->container->get('security.context')->getToken()->getUser()->getId();
         $idMedecinUser=$MedecinRepository->findBy(array('utilisateur'=> $idUser));
-
-        //$docteur=$UtilisateurRepository->find($idUser);
         
-
 
         if($request->getMethod() == 'POST') {
             // on recupere l'id utilisateur via le formulaire POST précédent
             $idPatient = $_POST['idPatient'];
             //recuperation du patient
             $patient=$PatientRepository->find($idPatient);
+            
+            $idMed=$_POST['idMedecin'];
+            
             foreach ($listMedecins as $medecin){
-                $patient->addMedecin($medecin);
+                if ($medecin->getIdMedecin()== $idMed){
+                    $patient->addMedecin($medecin);
+                }
+
             }
             $em->flush();
         }
@@ -67,16 +70,23 @@ class AdministrationController extends Controller
         //id de l'utilisateur en session
         $idUser=$this->container->get('security.context')->getToken()->getUser()->getId();
         $idMedecinUser=$MedecinRepository->findBy(array('utilisateur'=> $idUser));
+        
 
 
         if($request->getMethod() == 'POST') {
+            
             // on recupere l'id utilisateur via le formulaire POST précédent
             $idPatient = $_POST['idPatient'];
             // on récupère le patient
             $patient = $PatientRepository->find($idPatient);
+            $utilisateur=$UtilisateurRepository->find($idUser);
+            $idMedecin=$MedecinRepository->findIdMedecinByRef($utilisateur);
 
             foreach ($patient->getMedecins() as $medecin) {
-                $patient->removeMedecin($medecin);
+                //if ($medecin->getIdMedecin()== (int)$idMedecin){
+                if ($medecin->getIdMedecin()== $idMedecin->getIdMedecin()){
+                    $patient->removeMedecin($medecin);
+                }
             }
 
             $em->flush();
