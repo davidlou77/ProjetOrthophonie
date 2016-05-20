@@ -20,7 +20,7 @@ class UtilisateurRepository extends \Doctrine\ORM\EntityRepository
                 FROM UPONDOrthophonieBundle:Utilisateur u
                 WHERE u.nom = :nom AND u.prenom = :prenom"
         );
-        $query->setParameter('nomPrenom', $nom);
+        $query->setParameter('nom', $nom);
         $query->setParameter('Prenom',$prenom);
         $utilisateur = $query->getOneOrNullResult();
         return $utilisateur;
