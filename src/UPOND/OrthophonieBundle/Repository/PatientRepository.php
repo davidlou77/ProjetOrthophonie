@@ -44,13 +44,21 @@ class PatientRepository extends \Doctrine\ORM\EntityRepository
     public function findUnaffectedPatient(){
         $em = $this
             ->getEntityManager();
-
+        //$listMedecin=$em->getRepository('UPONDOrthophonieBundle:Medecin')->findAll();
         $query = $em->createQuery(
-            "SELECT p
+        //bonne requete
+        "SELECT p
              FROM UPONDOrthophonieBundle:Patient p
-             LEFT JOIN p.medecins m"
+             LEFT JOIN p.medecins m
+             "
+            /*"SELECT p
+             FROM UPONDOrthophonieBundle:Patient p
+             INNER JOIN UPONDOrthophonieBundle:Medecin m WITH (p.medecins=m.idMedecin)
+             
+             "*/
         );
         $patient=$query->getResult();
+       // $query->setParameter('list',$listMedecin);
         return $patient;
     }
 
