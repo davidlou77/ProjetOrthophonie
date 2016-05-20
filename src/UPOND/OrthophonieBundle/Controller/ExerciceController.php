@@ -91,11 +91,11 @@ class ExerciceController extends Controller
 
             }
 
-            if($session->get('phase')->getNom() != "Apprentissage" && $session->get('niveau') != "1")
+            if($session->get('phase')->getNom() == "Apprentissage" && $session->get('niveau') == "1")
             {
-                $session->set('afficherSon', false);
-            } else {
                 $session->set('afficherSon', true);
+            } else {
+                $session->set('afficherSon', false);
             }
 
 
