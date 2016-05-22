@@ -4,6 +4,7 @@ namespace UPOND\OrthophonieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Multimedia
@@ -195,4 +196,6 @@ class Multimedia
     {
         return $this->etapes;
     }
+
+   
 }

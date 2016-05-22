@@ -3,48 +3,53 @@
 {% extends "UPONDOrthophonieBundle::layout.html.twig" %}
 
 {% block title %}
-    Statistique - {{ parent() }}
+    Gestion des exercices
 {% endblock %}
 
 {% block orthophonie_body %}
+    <h3>Ajouter un nouvel exercice:</h3>
+    <form method="post" action="{{ path('upond_orthophonie_administration_exercice_ajouter') }}">
+        <input type="submit" class="btn btn-success" value="Ajouter"/>
+    </form>
+    <h3>Liste des exercices:</h3>
+    <table class='table table-striped'>
+        <th>Identifiant</th>
+        <th>Nom</th>
+        <th>Stratégie</th>
+        <th>Image</th>
+        <th>Son</th>
+        <th>Action</th>
+        {% for multimedia in listMultimedias %}
+            <tr>
+                <td>
+                    {{ multimedia.getIdMultimedia }}
+                </td>
+                <td>
+                    {{ multimedia.getNom }}
+                </td>
+                <td>
+                    {{ multimedia.strategie.getNom }}
+                </td>
+                <td>
+                    {{ multimedia.getImage }}
+                </td>
+                <td>
+                    {{ multimedia.getSon }}
+                </td>
+                <td>
+                    <form method="post" action="{{ path('upond_orthophonie_administration_exercice_modifier') }}">
+                        <input type="text" name='idMultimedia' style="display:none" value="{{ multimedia.getIdMultimedia }}"/>
+                        <input type="submit" class="btn btn-primary" value="Modifier"/>
+                    </form>
 
-    <h1>Gestion des exercices</h1>
+                    <form method="post" action="{{ path('upond_orthophonie_administration_exercice_supprimer') }}">
+                        <input type="text" name='idMultimedia' style="display:none" value="{{ multimedia.getIdMultimedia }}"/>
+                        <input type="submit" class="btn btn-danger" value="Supprimer"/>
+                    </form>
 
-    <div id="countdown"></div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 
-    <div id="container">
-        <div id="countdown"></div>
-        <button data-type="time-remaining">Time Remaining</button>
-        <button data-type="time-elapsed">Time Elapsed</button>
-    </div>
-
-{% endblock %}
-
-{% block javascripts_complement %}
-
-    <script type="text/javascript" charset="utf-8">
-        var countdown =  $("#countdown").countdown360({
-            radius      : 60,
-            seconds     : 30,
-            fontColor   : '#FFFFFF',
-            autostart   : false,
-            onComplete  : function () { console.log('done') }
-        });
-        countdown.start();
-        console.log('countdown360 ',countdown);
-        $(document).on("click","button",function(e){
-            e.preventDefault();
-            var type = $(this).attr("data-type");
-            if(type === "time-remaining")
-            {
-                var timeRemaining = countdown.getTimeRemaining();
-                alert(timeRemaining);
-            }
-            else
-            {
-                var timeElapsed = countdown.getElapsedTime();
-                alert(timeElapsed);
-            }
-        });
-    </script>
 {% endblock %}
