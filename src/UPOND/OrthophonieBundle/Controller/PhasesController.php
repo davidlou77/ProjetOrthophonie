@@ -51,10 +51,12 @@ class PhasesController extends Controller
         $graph = [];
         foreach ($exos as $exo) {
             $time = $exo->getDateCreation()->getTimestamp();
+            if($exo->getNbQuestionValidee() == 0)
+                continue;
             if(!array_key_exists($time, $graph)) {
-                $graph[$time] = [$exo->getNbBonneReponse()];
+                $graph[$time] = [$exo->getNbBonneReponse() / $exo->getNbQuestionValidee()];
             } else {
-                array_push($graph[$time], $exo->getNbBonneReponse());
+                array_push($graph[$time], $exo->getNbBonneReponse() / $exo->getNbQuestionValidee());
             }
         }
         $graph = array_map(function($o) {return array_sum($o) / count($o);}, $graph);
