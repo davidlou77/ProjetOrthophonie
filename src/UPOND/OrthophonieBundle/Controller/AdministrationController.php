@@ -37,7 +37,7 @@ class AdministrationController extends Controller
         $MedecinRepository = $em->getRepository('UPONDOrthophonieBundle:Medecin');
 
         $listUtilisateurs = $UtilisateurRepository->findAll();
-        $listPatients = $PatientRepository->findUnaffectedPatient();
+
         $listMedecins = $MedecinRepository->findAll();
         //id de l'utilisateur en session
         $idUser=$this->container->get('security.context')->getToken()->getUser()->getId();
@@ -60,6 +60,9 @@ class AdministrationController extends Controller
             }
             $em->flush();
         }
+        //listes des patients non affectés
+        $listPatients = $PatientRepository->findUnaffectedPatient();
+        //listes des patients du medecin en qui se connecte
         $myPatient=$MedecinRepository->findPatientByMedecin($idMedecinUser);
         return $this->render('UPONDOrthophonieBundle:Administration:patients.html.twig', array('listPatients' => $listPatients, 'listUtilisateurs' => $listUtilisateurs, 'ListMedecins' => $listMedecins,'ListMyPatient'=>$myPatient));
     }
@@ -71,10 +74,11 @@ class AdministrationController extends Controller
         $MedecinRepository = $em->getRepository('UPONDOrthophonieBundle:Medecin');
 
         $listUtilisateurs = $UtilisateurRepository->findAll();
-        $listPatients = $PatientRepository->findUnaffectedPatient();
+
         $listMedecins = $MedecinRepository->findAll();
         //id de l'utilisateur en session
         $idUser=$this->container->get('security.context')->getToken()->getUser()->getId();
+
         $idMedecinUser=$MedecinRepository->findBy(array('utilisateur'=> $idUser));
 
 
@@ -97,6 +101,9 @@ class AdministrationController extends Controller
 
             $em->flush();
         }
+        //listes des patients non affectés
+        $listPatients = $PatientRepository->findUnaffectedPatient();
+        //liste des patients du medecin qui se connecte
         $myPatient=$MedecinRepository->findPatientByMedecin($idMedecinUser);
         return $this->render('UPONDOrthophonieBundle:Administration:patients.html.twig', array('listPatients' => $listPatients, 'listUtilisateurs' => $listUtilisateurs, 'ListMedecins' => $listMedecins,'ListMyPatient'=>$myPatient));
     }
