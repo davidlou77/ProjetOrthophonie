@@ -14,12 +14,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\SubmitButton;
 use UPOND\OrthophonieBundle\Entity\Medecin;
+use UPOND\OrthophonieBundle\Entity\Multimedia;
 use UPOND\OrthophonieBundle\Entity\Patient;
 use UPOND\OrthophonieBundle\Entity\Utilisateur;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use UPOND\OrthophonieBundle\Form\UserSearchType;
+use UPOND\OrthophonieBundle\Repository\StrategieRepository;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class AdministrationController extends Controller
 {
@@ -36,16 +42,16 @@ class AdministrationController extends Controller
         //id de l'utilisateur en session
         $idUser=$this->container->get('security.context')->getToken()->getUser()->getId();
         $idMedecinUser=$MedecinRepository->findBy(array('utilisateur'=> $idUser));
-        
+
 
         if($request->getMethod() == 'POST') {
             // on recupere l'id utilisateur via le formulaire POST précédent
             $idPatient = $_POST['idPatient'];
             //recuperation du patient
             $patient=$PatientRepository->find($idPatient);
-            
+
             $idMed=$_POST['idMedecin'];
-            
+
             foreach ($listMedecins as $medecin){
                 if ($medecin->getIdMedecin()== $idMed){
                     $patient->addMedecin($medecin);
@@ -70,11 +76,11 @@ class AdministrationController extends Controller
         //id de l'utilisateur en session
         $idUser=$this->container->get('security.context')->getToken()->getUser()->getId();
         $idMedecinUser=$MedecinRepository->findBy(array('utilisateur'=> $idUser));
-        
+
 
 
         if($request->getMethod() == 'POST') {
-            
+
             // on recupere l'id utilisateur via le formulaire POST précédent
             $idPatient = $_POST['idPatient'];
             // on récupère le patient
@@ -181,6 +187,161 @@ class AdministrationController extends Controller
     }
 
     public function exercicesAction(){
-        return $this->render('UPONDOrthophonieBundle:Administration:exercices.html.twig');
+        // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
+        $em = $this->getDoctrine()->getManager();
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+
+        $listMultimedias = $MultimediaRepository->findAll();
+        return $this->render('UPONDOrthophonieBundle:Administration:exercices.html.twig', array('listMultimedias' => $listMultimedias));
+    }
+
+    public function exercicesAjouterAction(Request $request){
+        // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
+        $em = $this->getDoctrine()->getManager();
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+        if($request->getMethod() == 'POST') {
+            // on redirige vers un autre controller
+            $response = $this->forward('UPONDOrthophonieBundle:Administration:exerciceForm');
+
+            return $response;
+        }
+        $listMultimedias = $MultimediaRepository->findAll();
+        return $this->render('UPONDOrthophonieBundle:Administration:exercices.html.twig', array('listMultimedias' => $listMultimedias));
+    }
+
+    public function exercicesModifierAction(Request $request){
+        // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
+        $em = $this->getDoctrine()->getManager();
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+
+        if($request->getMethod() == 'POST') {
+            // on recupere l'id multimedia via le formulaire POST précédent
+            $idMultimedia = $_POST['idMultimedia'];
+            $session = $request->getSession();
+            $session->set('idMultimedia', $idMultimedia);
+            $response = $this->forward('UPONDOrthophonieBundle:Administration:exerciceUpdateForm');
+
+            return $response;
+            //return $this->render('UPONDOrthophonieBundle:Administration:exercice_form.html.twig', array('form' => $form->createView(),'multimedia' => $multimedia));
+        }
+
+        $listMultimedias = $MultimediaRepository->findAll();
+        return $this->render('UPONDOrthophonieBundle:Administration:exercices.html.twig', array('listMultimedias' => $listMultimedias));
+    }
+
+    public function exercicesSupprimerAction(Request $request){
+        // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
+        $em = $this->getDoctrine()->getManager();
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+
+        if($request->getMethod() == 'POST') {
+            // on recupere l'id multimedia via le formulaire POST précédent
+            $idMultimedia = $_POST['idMultimedia'];
+            // on recupere l'entité du multimedia
+            $multimedia = $MultimediaRepository->findOneByIdMultimedia($idMultimedia);
+            // on supprime le multimedia
+            $em->remove($multimedia);
+            $em->flush();
+        }
+
+        $listMultimedias = $MultimediaRepository->findAll();
+        return $this->render('UPONDOrthophonieBundle:Administration:exercices.html.twig', array('listMultimedias' => $listMultimedias));
+    }
+
+    public function exerciceFormAction(Request $request){
+        $multimedia = new Multimedia();
+        // On crée le FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $multimedia);
+        // On ajoute les champs que l'on veut à notre formulaire
+        $formBuilder
+
+            ->add('Strategie', 'entity', array(
+                'class'    => 'UPONDOrthophonieBundle:Strategie',
+                'property' => 'Nom',
+                'multiple' => false,
+                'query_builder' => function(StrategieRepository $er) {
+
+                    return $er->createQueryBuilder('strategie')
+                        ->where("strategie.nom != 'Aléatoire'");
+
+                },
+            ))
+            ->add('Nom', TextType::class)
+            ->add('Image', FileType::class)
+            ->add('Son', FileType::class)
+            ->add('Ajouter', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-success')));
+
+        // À partir du formBuilder, on génère le formulaire
+        $form = $formBuilder->getForm();
+
+        // si on valide le formulaire
+        if ($form->handleRequest($request)->isValid()) {
+
+            $em = $this
+                    ->getDoctrine()
+                    ->getManager();
+            $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+            // on upload les fichiers dans le site
+            /*$multimedia = new Multimedia();
+            $multimedia->setNom($nomMultimedia);
+            $multimedia->setStrategie($strategie);
+            $multimedia->setImage($image);
+            $multimedia->setSon($son);*/
+            // on ajoute le nouveau multimedia dans la base
+            $em->persist($multimedia);
+            $em->flush();
+
+            $listMultimedias = $MultimediaRepository->findAll();
+            return $this->render('UPONDOrthophonieBundle:Administration:exercices.html.twig', array('listMultimedias' => $listMultimedias));
+        }
+        return $this->render('UPONDOrthophonieBundle:Administration:exercice_ajouter_form.html.twig', array('form' => $form->createView()));
+    }
+
+    public function exerciceUpdateFormAction(Request $request){
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
+        $session = $request->getSession();
+        $idMultimedia = $session->get('idMultimedia');
+        $multimedia = $MultimediaRepository->findOneByIdMultimedia($idMultimedia);
+        // On crée le FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $multimedia);
+        // On ajoute les champs que l'on veut à notre formulaire
+        $formBuilder
+
+            ->add('Strategie', 'entity', array(
+                'class'    => 'UPONDOrthophonieBundle:Strategie',
+                'property' => 'Nom',
+                'multiple' => false,
+                'query_builder' => function(StrategieRepository $er) {
+
+                    return $er->createQueryBuilder('strategie')
+                        ->where("strategie.nom != 'Aléatoire'");
+
+                },
+            ))
+            ->add('Nom', TextType::class)
+            ->add('Image', TextType::class)
+            ->add('Son', TextType::class)
+            ->add('Modifier', SubmitType::class, array(
+                'attr' => array('class' => 'btn btn-success')))
+            ->setAction($this->generateUrl('upond_orthophonie_administration_exercice_update_form'));
+
+        // À partir du formBuilder, on génère le formulaire
+        $form = $formBuilder->getForm();
+
+        // si on valide le formulaire
+        if ($form->handleRequest($request)->isValid()) {
+
+            $em->persist($multimedia);
+            $em->flush();
+
+            $listMultimedias = $MultimediaRepository->findAll();
+            return $this->render('UPONDOrthophonieBundle:Administration:exercices.html.twig', array('listMultimedias' => $listMultimedias));
+        }
+        return $this->render('UPONDOrthophonieBundle:Administration:exercice_modifier_form.html.twig', array('form' => $form->createView()));
     }
 }
