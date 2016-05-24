@@ -246,6 +246,24 @@ class AdministrationController extends Controller
             $idMultimedia = $_POST['idMultimedia'];
             // on recupere l'entité du multimedia
             $multimedia = $MultimediaRepository->findOneByIdMultimedia($idMultimedia);
+
+            // on supprime l'image et le son du multimedia du site
+            if (!unlink(__DIR__.'/../../../../web/'.$multimedia->getImage()))
+            {
+                echo ("Erreur lors de la suppression du fichier ".$multimedia->getImage());
+            }
+            else
+            {
+                // fichier supprimé
+            }
+            if (!unlink(__DIR__.'/../../../../web/'.$multimedia->getSon()))
+            {
+                echo ("Erreur lors de la suppression du fichier ".$multimedia->getSon());
+            }
+            else
+            {
+                // fichier supprimé
+            }
             // on supprime le multimedia
             $em->remove($multimedia);
             $em->flush();
@@ -289,12 +307,42 @@ class AdministrationController extends Controller
                     ->getDoctrine()
                     ->getManager();
             $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
-            // on upload les fichiers dans le site
-            /*$multimedia = new Multimedia();
-            $multimedia->setNom($nomMultimedia);
-            $multimedia->setStrategie($strategie);
-            $multimedia->setImage($image);
-            $multimedia->setSon($son);*/
+            // on upload l'image dans le site
+            // on recupere le chemin du repertoire web/Banques images et sons
+            $dir = __DIR__.'/../../../../web/'."Banque images et sons/Images/";
+            // on recupere le nom original du fichier
+            $file = $form['Image']->getData();
+            $nomOldFichier = $file->getClientOriginalName();
+            // on crée un nom random pour plus de sécurité
+            $extension = $file->guessExtension();
+
+            if (!$extension) {
+                // l'extension n'est pas reconnu
+                $extension = 'bin';
+            }
+            $nomFichier = $nomOldFichier.rand(1, 999).'.'.$extension;
+            $file->move($dir, $nomFichier);
+            $cheminImage = "/Banque images et sons/Images/".$nomFichier;
+
+            // on upload le son dans le site
+            // on recupere le chemin du repertoire web/Banques images et sons
+            $dir = __DIR__.'/../../../../web/'."Banque images et sons/Sons/";
+            // on recupere le nom original du fichier
+            $file = $form['Son']->getData();
+            $nomOldFichier = $file->getClientOriginalName();
+            // on crée un nom random pour plus de sécurité
+            $extension = $file->guessExtension();
+
+            if (!$extension) {
+                // l'extension n'est pas reconnu
+                $extension = 'bin';
+            }
+            $nomFichier = $nomOldFichier.rand(1, 999).'.'.$extension;
+            $file->move($dir, $nomFichier);
+            $cheminSon = "/Banque images et sons/Sons/".$nomFichier;
+
+            $multimedia->setImage($cheminImage);
+            $multimedia->setSon($cheminSon);
             // on ajoute le nouveau multimedia dans la base
             $em->persist($multimedia);
             $em->flush();
