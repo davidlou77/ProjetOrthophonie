@@ -22,6 +22,20 @@ class PhasesController extends Controller
 
     public function indexAction()
     {
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $em = $this->getDoctrine()->getManager();
+            $request = $this->container->get('request');
+            $idUser = $this->container->get('security.context')->getToken()->getUser()->getId();
+            $MedecinRepository = $em->getRepository('UPONDOrthophonieBundle:Medecin');
+            $idMedecinUser = $MedecinRepository->findBy(array('utilisateur' => $idUser));
+            $session = $request->getSession();
+            if (isset($idMedecinUser) && !empty($idMedecinUser)) {
+                var_dump($idMedecinUser);
+                $session->set('role', 'medecin');
+            } else {
+                $session->set('role', 'patient');
+            }
+        }
         return $this->render('UPONDOrthophonieBundle::index.html.twig');
     }
 

@@ -30,6 +30,10 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 class AdministrationController extends Controller
 {
     public function patientsAction(Request $request){
+        $request = $this->container->get('request');
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $UtilisateurRepository = $em->getRepository('UPONDOrthophonieBundle:Utilisateur');
@@ -68,6 +72,9 @@ class AdministrationController extends Controller
     }
     public function patientsRetireAction(Request $request)
     {
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         $em = $this->getDoctrine()->getManager();
         $UtilisateurRepository = $em->getRepository('UPONDOrthophonieBundle:Utilisateur');
         $PatientRepository = $em->getRepository('UPONDOrthophonieBundle:Patient');
@@ -110,6 +117,9 @@ class AdministrationController extends Controller
 
     public function medecinsAction(Request $request)
     {
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $UtilisateurRepository = $em->getRepository('UPONDOrthophonieBundle:Utilisateur');
@@ -125,7 +135,9 @@ class AdministrationController extends Controller
 
     public function medecinsAjoutAction(Request $request)
     {
-
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $UtilisateurRepository = $em->getRepository('UPONDOrthophonieBundle:Utilisateur');
@@ -160,7 +172,9 @@ class AdministrationController extends Controller
 
     public function medecinsRetirerAction(Request $request)
     {
-
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $UtilisateurRepository = $em->getRepository('UPONDOrthophonieBundle:Utilisateur');
@@ -194,6 +208,10 @@ class AdministrationController extends Controller
     }
 
     public function exercicesAction(){
+        $request = $this->container->get('request');
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
@@ -203,6 +221,9 @@ class AdministrationController extends Controller
     }
 
     public function exercicesAjouterAction(Request $request){
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
@@ -217,6 +238,9 @@ class AdministrationController extends Controller
     }
 
     public function exercicesModifierAction(Request $request){
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
@@ -237,6 +261,9 @@ class AdministrationController extends Controller
     }
 
     public function exercicesSupprimerAction(Request $request){
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         // on recupere l'exercice associée a la strategie, la phase, le niveau et la partie
         $em = $this->getDoctrine()->getManager();
         $MultimediaRepository = $em->getRepository('UPONDOrthophonieBundle:Multimedia');
@@ -274,6 +301,9 @@ class AdministrationController extends Controller
     }
 
     public function exerciceFormAction(Request $request){
+        if ($request->getSession()->get('role') != 'medecin') {
+            return $this->redirectToRoute('upond_orthophonie_home');
+        }
         $multimedia = new Multimedia();
         // On crée le FormBuilder grâce au service form factory
         $formBuilder = $this->get('form.factory')->createBuilder('form', $multimedia);
@@ -354,6 +384,7 @@ class AdministrationController extends Controller
     }
 
     public function exerciceUpdateFormAction(Request $request){
+
         $em = $this
             ->getDoctrine()
             ->getManager();
