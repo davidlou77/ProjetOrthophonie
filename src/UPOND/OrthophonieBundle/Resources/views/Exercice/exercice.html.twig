@@ -108,7 +108,7 @@
             }, false);
         }(window, location));</script>
 
-    <script type="text/javascript" charset="utf-8">
+    <script src="../../public/js/jquery.countdown360.js" type="text/javascript" charset="utf-8">
         var countdown =  $("#countdown").countdown360({
             radius      : 60,
             seconds     : {% if TypeAffichage == "Exercice" %} {{ exercice.getTempsExercice }} {% endif %} {% if TypeAffichage == "PauseVideo" %} {{ PauseVideo.getDuree + 10 }} {% endif %},
