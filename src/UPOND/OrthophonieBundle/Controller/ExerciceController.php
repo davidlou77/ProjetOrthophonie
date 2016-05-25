@@ -183,7 +183,6 @@ class ExerciceController extends Controller
                     }
                     elseif ($session->get('TypeAffichage') == "Nom") {
                         // on recupere le multimedia de l'etape courante
-                        $etape_suivante = $EtapeRepository->getEtapeByExerciceAndNumEtape($exercice, $numeroEtape + 1);
                         $multimedias = $etapeCourante->getMultimedias();
                         $session->set('TypeAffichage', "PauseVideo");
 
@@ -192,7 +191,7 @@ class ExerciceController extends Controller
                         if($session->get('phase')->getNom() == "Entrainement" || $session->get('phase')->getNom() == "Apprentissage")
                         {
                             // on recupere une video aleatoire entre 0 et 7 min
-                            $pauseVideo = $PauseVideoRepository->getVideoAleatoire(0, 420);
+                            $pauseVideo = $PauseVideoRepository->getVideoAleatoire(1, 420);
                         }
                         // en phase de transfert => durée 10 à 20 min
                         if($session->get('phase')->getNom() == "Transfert")
@@ -229,9 +228,25 @@ class ExerciceController extends Controller
                         return $this->redirect($this->generateUrl('upond_orthophonie_home'));
                     }
                     elseif ($session->get('TypeAffichage') == "Nom") {
+                        // on recupere le multimedia de l'etape courante
+                        $multimedias = $etapeCourante->getMultimedias();
                         $session->set('TypeAffichage', "PauseVideo");
+
+                        // si on doit afficher la pause video
+                        // en phase d'entrainement => durée 0 à 5 min
+                        if($session->get('phase')->getNom() == "Entrainement" || $session->get('phase')->getNom() == "Apprentissage")
+                        {
+                            // on recupere une video aleatoire entre 0 et 7 min
+                            $pauseVideo = $PauseVideoRepository->getVideoAleatoire(1, 420);
+                        }
+                        // en phase de transfert => durée 10 à 20 min
+                        if($session->get('phase')->getNom() == "Transfert")
+                        {
+                            // on recupere une video aleatoire entre 7 et 30 min
+                            $pauseVideo = $PauseVideoRepository->getVideoAleatoire(420, 1800);
+                        }
                     }
-                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
+                    return $this->render('UPONDOrthophonieBundle:Exercice:exercice.html.twig', array('multimedias' => $multimedias, 'exercice' => $exercice, 'PauseVideo'=> $pauseVideo, 'TypeAffichage' => $session->get('TypeAffichage'), 'afficherSon' => $session->get('afficherSon'), 'form' => $form->createView()));
 
                 }
 
