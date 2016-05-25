@@ -187,7 +187,9 @@ class ExerciceController extends Controller
                         $session->set('TypeAffichage', "PauseVideo");
 
                         // si on doit afficher la pause video
-                        // en phase d'entrainement => durée 0 à 5 min
+                        // en phase d'entrainement ou apprentissage => durée 0 à 5 min
+                        // on définit une vidéo aléatoire de base si on passe dans aucun if ...
+                        $pauseVideo = $PauseVideoRepository->getVideoAleatoire(1, 420);
                         if($session->get('phase')->getNom() == "Entrainement" || $session->get('phase')->getNom() == "Apprentissage")
                         {
                             // on recupere une video aleatoire entre 0 et 7 min
