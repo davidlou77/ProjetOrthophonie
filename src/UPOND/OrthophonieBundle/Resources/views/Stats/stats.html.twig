@@ -63,13 +63,15 @@
             </thead>
             <tbody>
                 {% for exercice in exercices %}
-                    <tr>
-                        <td>{{ exercice.dateCreation|date('d/m/Y') }}</td>
-                        <td>{{ exercice.phase.nom }}</td>
-                        <td>{{ exercice.strategie.nom }}</td>
-                        <td>{{ exercice.niveau }}</td>
-                        <td> ??? </td>
-                    </tr>
+                    {% if exercice.nbQuestionValidee > 0 %}
+                        <tr>
+                            <td>{{ exercice.dateCreation|date('d/m/Y') }}</td>
+                            <td>{{ exercice.phase.nom }}</td>
+                            <td>{{ exercice.strategie.nom }}</td>
+                            <td>{{ exercice.niveau }}</td>
+                            <td>{{ (exercice.nbBonneReponse / exercice.nbQuestionValidee)|number_format(2) }}</td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             </tbody>
         </table>

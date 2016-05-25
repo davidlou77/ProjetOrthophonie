@@ -127,9 +127,7 @@
                 {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
                 <script src="//code.jquery.com/jquery-2.2.3.js"></script>
                 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-                {% javascripts '@UPONDOrthophonieBundle/Resources/public/js/jquery.countdown360.js' %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-                {% endjavascripts %}
+                <script src="{{ asset('bundles/upondorthophonie/js/jquery.countdown360.js') }}"></script>
                 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
                 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
