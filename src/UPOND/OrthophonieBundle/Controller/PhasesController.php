@@ -30,7 +30,6 @@ class PhasesController extends Controller
             $idMedecinUser = $MedecinRepository->findBy(array('utilisateur' => $idUser));
             $session = $request->getSession();
             if (isset($idMedecinUser) && !empty($idMedecinUser)) {
-                var_dump($idMedecinUser);
                 $session->set('role', 'medecin');
             } else {
                 $session->set('role', 'patient');
