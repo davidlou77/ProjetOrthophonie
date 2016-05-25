@@ -72,7 +72,7 @@ class PhasesController extends Controller
                 array_push($graph[$time], $exo->getNbBonneReponse() / $exo->getNbQuestionValidee());
             }
         }
-        $graph = array_map(function($o) {return array_sum($o) / count($o);}, $graph);
+        $graph = array_map(function($o) {return array_sum($o) / count($o) * 10;}, $graph);
 
         return $this->render('UPONDOrthophonieBundle:Stats:stats.html.twig', 
             ['exercices' => $exos,
