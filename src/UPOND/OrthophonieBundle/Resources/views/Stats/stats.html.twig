@@ -69,7 +69,7 @@
                             <td>{{ exercice.phase.nom }}</td>
                             <td>{{ exercice.strategie.nom }}</td>
                             <td>{{ exercice.niveau }}</td>
-                            <td>{{ (exercice.nbBonneReponse / exercice.nbQuestionValidee)|number_format(2) }}</td>
+                            <td>{{ (exercice.nbBonneReponse / exercice.nbQuestionValidee * 10)|number_format(2) }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
