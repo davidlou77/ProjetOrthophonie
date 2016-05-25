@@ -27,7 +27,7 @@ class PauseVideoRepository extends \Doctrine\ORM\EntityRepository
 
         // on prend un id aléatoire parmi les résultats
         $tabIdPauseVideo = array_rand($pauseVideos, 1);
-
+        
         // on récupere l'entité de l'ID
         $queryPauseVideo = $em->createQuery(
             'SELECT pv
