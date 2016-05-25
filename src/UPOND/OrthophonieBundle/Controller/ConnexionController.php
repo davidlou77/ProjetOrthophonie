@@ -26,9 +26,10 @@ class ConnexionController extends Controller
             {
                 $l = $this->getDoctrine()->getRepository(Utilisateur::class)->findBy(array("login" => $user->getLogin()))[0];
                 $message = 'Connexion réussie : ' . $l->getIdUtilisateur();
+
             }
         }
-
+ 
         return $this->container->get('templating')->renderResponse(
             'UPONDOrthophonieBundle:Connexion:connexion.html.twig',
             array(
@@ -40,5 +41,6 @@ class ConnexionController extends Controller
     {
         //renvoie les boutons d'inscription et de connexion
         return $this->render('UPONDOrthophonieBundle:Invite:accueil.html.twig');
+
     }
 }

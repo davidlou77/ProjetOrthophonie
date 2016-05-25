@@ -64,7 +64,53 @@ class MedecinRepository extends \Doctrine\ORM\EntityRepository
                 WHERE m.utilisateur= :id"
         );
         $query->setParameter('id', $id);
-        $medecin = $query->geResult();
+        $medecin = $query->getResult();
         return $medecin;
+    }
+
+    public function findPatientByMedecin($id){
+            $em = $this
+                ->getEntityManager();
+
+            $query = $em->createQuery(
+                "SELECT p
+             FROM UPONDOrthophonieBundle:Patient p
+             LEFT JOIN p.medecins m
+             WHERE m=:idMedecin
+             "
+            );
+            $query->setParameter('idMedecin',$id);
+            $patient=$query->getResult();
+            return $patient;
+    }
+
+    public function findOnePatientOfMedecin($idMed,$idPat){
+        $em = $this
+            ->getEntityManager();
+
+        $query = $em->createQuery(
+            "SELECT p
+             FROM UPONDOrthophonieBundle:Patient p
+             LEFT JOIN p.medecins m
+             WHERE m=:idMedecin AND p.idPatient=:idPatient
+             "
+        );
+        $query->setParameter('idMedecin',$idMed);
+        $query->setParameter('idPatient',$idPat);
+        $patient=$query->getResult();
+        return $patient;
+    }
+    public function findIdMedecinByRef($utilisateur){
+        $em=$this
+            ->getEntityManager();
+        $query = $em->createQuery(
+            "SELECT m
+                FROM UPONDOrthophonieBundle:Medecin m
+                JOIN m.utilisateur u
+                WHERE u = :user1"
+        );
+        $query->setParameter('user1', $utilisateur);
+        $idMedecin = $query->getSingleResult();
+        return $idMedecin;
     }
 }

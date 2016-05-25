@@ -41,6 +41,7 @@ class Utilisateur extends BaseUser
      *
      * @return Utilisateur
      */
+    
     public function setNom($nom)
     {
         $this->nom = $nom;

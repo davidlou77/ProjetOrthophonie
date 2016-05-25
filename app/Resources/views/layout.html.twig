@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}Orthophonie{% endblock %}</title>
+        <title>{% block title %}EMNP{% endblock %}</title>
 
         {% block stylesheets %}
             {# On charge le CSS de bootstrap depuis le site directement #}
@@ -44,7 +44,7 @@
             {% if app.user %}
                 <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
                     <div class="container-fluid">
-                        <div class="navbar-header"><a class="navbar-brand" href="#">Orthophonie</a>
+                        <div class="navbar-header"><a class="navbar-brand" href="#">EMNP</a>
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                             </button>
                         </div>
@@ -55,6 +55,8 @@
 
                                 <li><a href="{{ path('upond_orthophonie_stats')}}">Statistiques</a>
                                 </li>
+
+                                {% if app.session.get('role') == 'medecin' %}
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
@@ -62,8 +64,11 @@
                                         <li><a href="{{ path('upond_orthophonie_administration_patient')}}">Gestion des patients</a></li>
                                         <li><a href="{{ path('upond_orthophonie_administration_exercice')}}">Gestion des exercices</a></li>
                                         <li><a href="{{ path('upond_orthophonie_start')}}">Créer une partie</a></li>
+                                        <!-- <li>{{ app.session.get('role') }}</li> -->
                                     </ul>
                                 </li>
+                                {% endif %}
+
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
@@ -103,6 +108,9 @@
         {% endblock %}
 
         {% block user %}
+
+
+
             <div class="container">
                 <div class="row">
                     {% if app.user is null %}
@@ -124,9 +132,11 @@
                 {% endjavascripts %}
                 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
                 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
             {% endblock %}
             {% block javascripts_complement %}
             {% endblock %}
         {% endblock %}
+
     </body>
 </html>

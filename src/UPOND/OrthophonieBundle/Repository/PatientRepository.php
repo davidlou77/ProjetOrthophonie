@@ -25,5 +25,46 @@ class PatientRepository extends \Doctrine\ORM\EntityRepository
         $patient = $query->getOneOrNullResult();
         return $patient;
     }
+    public function findByPatientListByNomPrenom (){
+        $em=$this
+            ->getEntityManager();
+
+        $em = $this
+            ->getEntityManager();
+        // on récupere l'entité de l'ID
+        $query = $em->createQuery(
+            "SELECT p.idPatient, u.nom, u.prenom  
+                FROM UPONDOrthophonieBundle:Patient p
+                JOIN p.utilisateur u"
+        );
+        
+        $patient = $query->getResult();
+        return $patient;
+    }
+    public function findUnaffectedPatient(){
+        $em = $this
+            ->getEntityManager();
+        $listMedecin=$em->getRepository('UPONDOrthophonieBundle:Medecin')->findAll();
+        $query = $em->createQuery(
+        //bonne requete
+            "SELECT p
+             FROM UPONDOrthophonieBundle:Patient p
+             WHERE p not in(SELECT patient
+             FROM UPONDOrthophonieBundle:Patient patient
+             LEFT JOIN patient.medecins medecin
+             WHERE medecin IN (:list))
+             "
+            /*"SELECT p
+             FROM UPONDOrthophonieBundle:Patient p
+             INNER JOIN UPONDOrthophonieBundle:Medecin m WITH (p.medecins=m.idMedecin)
+             
+             "*/
+        );
+        $query->setParameter('list',$listMedecin);
+        $patient=$query->getResult();
+
+        return $patient;
+    }
+
     
 }

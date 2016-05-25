@@ -33,14 +33,14 @@ class Patient
     /**
      * @ORM\ManyToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Medecin")
      * @ORM\JoinTable(name="patient_medecin",
-     *      joinColumns={@JoinColumn(name="id_patient", referencedColumnName="id_patient")},
-     *      inverseJoinColumns={@JoinColumn(name="id_medecin", referencedColumnName="id_medecin")}
+     *      joinColumns={@JoinColumn(name="id_patient", referencedColumnName="id_patient", onDelete="CASCADE")},
+     *      inverseJoinColumns={@JoinColumn(name="id_medecin", referencedColumnName="id_medecin", onDelete="CASCADE")}
      *      )
      */
     private $medecins;
 
     /**
-     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Partie", mappedBy="patient")
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Partie", mappedBy="patient", cascade={"persist"}, orphanRemoval=true)
      */
     private $parties;
 

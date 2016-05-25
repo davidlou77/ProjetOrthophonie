@@ -91,15 +91,16 @@ class ExerciceController extends Controller
 
             }
 
-            if($session->get('phase')->getNom() != "Apprentissage" && $session->get('niveau') != "1")
+            if($session->get('phase')->getNom() == "Apprentissage" && $session->get('niveau') == "1")
             {
-                $session->set('afficherSon', false);
-            } else {
                 $session->set('afficherSon', true);
+            } else {
+                $session->set('afficherSon', false);
             }
 
 
             $session->set('TypeAffichage', "Nom");
+
             return $this->redirect($this->generateUrl('upond_orthophonie_exercice'));
 
         }
@@ -141,7 +142,6 @@ class ExerciceController extends Controller
 
         // À partir du formBuilder, on génère le formulaire
         $form = $formBuilder->getForm();
-
         // si on clique un des deux boutons de validation, on ajoute la bonne/mauvaise réponse dans la base
         if ($form->handleRequest($request)->isValid()) {
 

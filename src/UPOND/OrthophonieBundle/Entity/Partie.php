@@ -36,7 +36,7 @@ class Partie
     private $patient;
 
     /**
-     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Exercice", mappedBy="partie")
+     * @ORM\OneToMany(targetEntity="UPOND\OrthophonieBundle\Entity\Exercice", mappedBy="partie", cascade={"remove"}, orphanRemoval=true)
      */
     private $exercices;
 
