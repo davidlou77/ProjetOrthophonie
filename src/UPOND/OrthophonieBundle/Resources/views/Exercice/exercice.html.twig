@@ -111,7 +111,7 @@
     <script>
         var countdown =  $("#countdown").countdown360({
             radius      : 60,
-            seconds     : {% if TypeAffichage == "Exercice" %} {{ exercice.getTempsExercice }} {% endif %} {% if TypeAffichage == "PauseVideo" %} {{ PauseVideo.getDuree + 10 }} {% endif %},
+            seconds     : {% if TypeAffichage == "Exercice" %} {{ exercice.getTempsExercice }} {% endif %} {% if TypeAffichage == "PauseVideo" %} {{ 10 }} {% endif %},
             fontColor   : '#FFFFFF',
             autostart   : false,
             onComplete  : function () { {% if TypeAffichage == "Exercice" %} $('#form_MauvaiseReponse').click(); {% endif %} {% if TypeAffichage == "PauseVideo" %} $('#form_BonneReponse').click(); {% endif %} }
